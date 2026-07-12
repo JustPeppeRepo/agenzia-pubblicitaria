@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500" fill="none">
+  <rect width="800" height="500" fill="#F0E8EC"/>
+  <rect x="100" y="100" width="250" height="300" rx="4" fill="#C9A8B8"/>
+  <rect x="380" y="140" width="320" height="220" rx="4" fill="#A87E94"/>
+  <text x="400" y="460" text-anchor="middle" fill="#6E4A5A" font-family="system-ui,sans-serif" font-size="18">Linea Moda</text>
+</svg>

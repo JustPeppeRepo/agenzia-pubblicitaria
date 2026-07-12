@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500" fill="none">
+  <rect width="800" height="500" fill="#E0E8EF"/>
+  <circle cx="400" cy="220" r="100" fill="#9BB4CC"/>
+  <rect x="120" y="360" width="560" height="12" rx="6" fill="#6E8FA8"/>
+  <rect x="200" y="390" width="400" height="8" rx="4" fill="#A8BFD4"/>
+  <text x="400" y="460" text-anchor="middle" fill="#4A6278" font-family="system-ui,sans-serif" font-size="18">Nova Tech</text>
+</svg>

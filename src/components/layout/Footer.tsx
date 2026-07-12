@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { navLinks, siteConfig } from "@/data/site";
-import { formatEmailLink, formatPhoneLink } from "@/lib/utils";
+import { formatEmailLink } from "@/lib/utils";
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -10,6 +10,7 @@ export function Footer() {
       <div className="mx-auto grid max-w-6xl gap-10 px-6 py-12 md:grid-cols-3">
         <div>
           <p className="text-lg font-semibold">{siteConfig.name}</p>
+          <p className="mt-1 text-sm text-foreground/50">{siteConfig.role}</p>
           <p className="mt-3 text-sm leading-6 text-foreground/65">
             {siteConfig.description}
           </p>
@@ -30,6 +31,14 @@ export function Footer() {
                 </Link>
               </li>
             ))}
+            <li>
+              <Link
+                href="/#projects"
+                className="text-sm text-foreground/70 transition-colors hover:text-foreground"
+              >
+                Progetti
+              </Link>
+            </li>
           </ul>
         </div>
 
@@ -46,15 +55,19 @@ export function Footer() {
                 {siteConfig.email}
               </a>
             </li>
-            <li>
-              <a
-                href={formatPhoneLink(siteConfig.phone)}
-                className="transition-colors hover:text-foreground"
-              >
-                {siteConfig.phone}
-              </a>
-            </li>
-            <li>{siteConfig.address}</li>
+            <li>{siteConfig.location}</li>
+            {siteConfig.social.map((s) => (
+              <li key={s.platform}>
+                <a
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-colors hover:text-foreground"
+                >
+                  {s.label}
+                </a>
+              </li>
+            ))}
           </ul>
         </div>
       </div>

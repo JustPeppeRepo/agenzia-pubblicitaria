@@ -19,13 +19,19 @@ export function Header() {
               {link.label}
             </Link>
           ))}
+          <Link
+            href="/#projects"
+            className="text-sm text-foreground/70 transition-colors hover:text-foreground"
+          >
+            Progetti
+          </Link>
         </nav>
 
         <Link
-          href="/contatti"
+          href="/contact"
           className="rounded-full bg-foreground px-4 py-2 text-sm font-medium text-background transition-colors hover:bg-foreground/90"
         >
-          Parliamone
+          Contattami
         </Link>
       </div>
     </header>

@@ -3,33 +3,73 @@ export type NavLink = {
   href: string;
 };
 
-export type Service = {
-  id: string;
-  title: string;
-  description: string;
-  icon: string;
-};
-
-export type Project = {
-  id: string;
-  title: string;
-  description: string;
-  category: string;
-  image: string;
-  href?: string;
-  tags: string[];
+export type SocialLink = {
+  platform: string;
+  href: string;
+  label: string;
 };
 
 export type SiteConfig = {
   name: string;
+  role: string;
   tagline: string;
   description: string;
   email: string;
   phone: string;
-  address: string;
-  social: {
-    instagram?: string;
-    linkedin?: string;
-    behance?: string;
-  };
+  location: string;
+  social: SocialLink[];
+};
+
+export type Technology = {
+  id: string;
+  name: string;
+  icon: string;
+  category: "frontend" | "backend" | "tooling" | "design";
+  shortDescription: string;
+  whyChosen: string;
+  proficiency: number;
+};
+
+export type ValueProposition = {
+  id: string;
+  title: string;
+  description: string;
+  metric?: string;
+  icon: string;
+};
+
+export type ProjectMetric = {
+  id: string;
+  label: string;
+  before: string;
+  after: string;
+  improvement: string;
+};
+
+export type ProjectChartPoint = {
+  month: string;
+  visitors: number;
+  conversions: number;
+  loadTime: number;
+};
+
+export type Project = {
+  id: string;
+  slug: string;
+  title: string;
+  excerpt: string;
+  description: string;
+  category: string;
+  tags: string[];
+  image: string;
+  previewVideo?: string;
+  liveUrl?: string;
+  repoUrl?: string;
+  featured: boolean;
+  problem: string;
+  solution: string;
+  architecture: string[];
+  stack: string[];
+  metrics: ProjectMetric[];
+  chartData: ProjectChartPoint[];
 };

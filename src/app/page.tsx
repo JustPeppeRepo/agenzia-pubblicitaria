@@ -10,12 +10,14 @@ export default function HomePage() {
   const featuredProjects = getFeaturedProjects();
 
   return (
-    <TeamScrollBridge>
-      <Hero />
-      <AboutBrief />
+    <>
+      <TeamScrollBridge>
+        <Hero />
+        <AboutBrief />
+      </TeamScrollBridge>
       <ValueProposition />
       <ProjectsGrid projects={featuredProjects} />
       <ContactCTA />
-    </TeamScrollBridge>
+    </>
   );
 }

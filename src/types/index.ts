@@ -35,7 +35,6 @@ export type ValueProposition = {
   title: string;
   description: string;
   metric?: string;
-  icon: string;
 };
 
 export type ProjectMetric = {

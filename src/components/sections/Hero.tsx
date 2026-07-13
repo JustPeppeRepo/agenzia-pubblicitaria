@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { motion } from "framer-motion";
 import { siteConfig } from "@/data/site";
 import { Button } from "@/components/ui/Button";
@@ -11,59 +11,6 @@ export function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
   const { mounted, prefersReducedMotion } = useMotionSafe();
   const shouldAnimate = mounted && !prefersReducedMotion;
-  const heroInitial = shouldAnimate ? { opacity: 0, y: 40 } : false;
-
-  // #region agent log
-  fetch("http://127.0.0.1:7629/ingest/fce1f9bb-7552-4c72-bb27-bee1e2496594", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "X-Debug-Session-Id": "42293a",
-    },
-    body: JSON.stringify({
-      sessionId: "42293a",
-      location: "Hero.tsx:render",
-      message: "Hero render",
-      data: {
-        mounted,
-        prefersReducedMotion,
-        shouldAnimate,
-        heroInitial,
-        isServer: typeof window === "undefined",
-      },
-      timestamp: Date.now(),
-      hypothesisId: "B",
-      runId: "post-fix",
-    }),
-  }).catch(() => {});
-  // #endregion
-
-  useEffect(() => {
-    // #region agent log
-    fetch("http://127.0.0.1:7629/ingest/fce1f9bb-7552-4c72-bb27-bee1e2496594", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Debug-Session-Id": "42293a",
-      },
-      body: JSON.stringify({
-        sessionId: "42293a",
-        location: "Hero.tsx:useEffect",
-        message: "Hero post-hydration",
-        data: {
-          mounted,
-          prefersReducedMotion,
-          shouldAnimate,
-          matchMedia: window.matchMedia("(prefers-reduced-motion: reduce)")
-            .matches,
-        },
-        timestamp: Date.now(),
-        hypothesisId: "B",
-        runId: "post-fix",
-      }),
-    }).catch(() => {});
-    // #endregion
-  }, [mounted, prefersReducedMotion, shouldAnimate]);
 
   return (
     <section

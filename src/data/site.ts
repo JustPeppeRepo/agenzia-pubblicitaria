@@ -37,7 +37,6 @@ export const valuePropositions: ValueProposition[] = [
     description:
       "Quando una pagina è lenta, le persone se ne vanno prima ancora di leggere la tua offerta. Usiamo tecnologie leggere e ottimizzate: il tuo sito si apre in un attimo anche da telefono, e più visitatori arrivano fino al contatto o all'acquisto.",
     metric: "Meno abbandoni",
-    icon: "⚡",
   },
   {
     id: "seo",
@@ -45,7 +44,6 @@ export const valuePropositions: ValueProposition[] = [
     description:
       "Costruiamo il sito in modo che Google capisca subito chi sei, cosa offri e dove operi. Risultato: compari nelle ricerche di chi sta già cercando i tuoi servizi — clienti nuovi senza dipendere solo dalla pubblicità.",
     metric: "Più visibilità",
-    icon: "🔍",
   },
   {
     id: "animations",
@@ -53,7 +51,6 @@ export const valuePropositions: ValueProposition[] = [
     description:
       "Un sito curato nei dettagli trasmette professionalità e fiducia. Animazioni leggere e piacevoli guidano lo sguardo verso ciò che conta — il tuo servizio, la tua storia, il pulsante per contattarti.",
     metric: "Più fiducia",
-    icon: "✨",
   },
   {
     id: "code",
@@ -61,7 +58,6 @@ export const valuePropositions: ValueProposition[] = [
     description:
       "Non costruiamo siti fragili da rifare ogni anno. La base tecnica è solida, sicura e facile da aggiornare quando il tuo business cresce: nuove pagine, nuovi servizi, più traffico — senza ripartire da zero.",
     metric: "Crescita senza stress",
-    icon: "🛠",
   },
 ];
 
@@ -92,21 +88,4 @@ export const aboutDetailed = {
     "Ho iniziato a programmare oltre 8 anni fa, spinto dalla curiosità di capire come funzionassero le interfacce che usavo ogni giorno. Oggi lavoro con brand e freelance che vogliono distinguersi online con siti che non solo bello da vedere, ma tecnicamente impeccabili.",
   philosophy:
     "Credo che la migliore UX sia quella che non si nota: caricamenti istantanei, animazioni naturali, zero attrito. Ogni scelta tecnica serve un obiettivo business — conversioni, SEO, fiducia del brand.",
-  journey: [
-    {
-      year: "2018",
-      title: "Primi progetti freelance",
-      description: "Landing page e siti WordPress custom per PMI locali.",
-    },
-    {
-      year: "2021",
-      title: "Specializzazione React/Next.js",
-      description: "Migrazione verso stack moderni JAMstack e SSG.",
-    },
-    {
-      year: "2024",
-      title: "Focus performance & motion",
-      description: "Portfolio ad alte prestazioni con animazioni creative.",
-    },
-  ],
 };

@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect } from "react";
 import { motion } from "framer-motion";
 import type { ReactNode } from "react";
 import { useMotionSafe } from "@/hooks/use-motion-safe";
@@ -26,60 +25,8 @@ export function FadeIn({
   delay = 0,
   direction = "up",
 }: FadeInProps) {
-  const { mounted, prefersReducedMotion } = useMotionSafe();
+  const { prefersReducedMotion } = useMotionSafe();
   const offset = directionOffset[direction];
-  const branch = prefersReducedMotion ? "plain-div" : "motion-div";
-
-  // #region agent log
-  fetch("http://127.0.0.1:7629/ingest/fce1f9bb-7552-4c72-bb27-bee1e2496594", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "X-Debug-Session-Id": "42293a",
-    },
-    body: JSON.stringify({
-      sessionId: "42293a",
-      location: "FadeIn.tsx:render",
-      message: "FadeIn render",
-      data: {
-        mounted,
-        prefersReducedMotion,
-        branch,
-        isServer: typeof window === "undefined",
-      },
-      timestamp: Date.now(),
-      hypothesisId: "B-C",
-      runId: "post-fix",
-    }),
-  }).catch(() => {});
-  // #endregion
-
-  useEffect(() => {
-    // #region agent log
-    fetch("http://127.0.0.1:7629/ingest/fce1f9bb-7552-4c72-bb27-bee1e2496594", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Debug-Session-Id": "42293a",
-      },
-      body: JSON.stringify({
-        sessionId: "42293a",
-        location: "FadeIn.tsx:useEffect",
-        message: "FadeIn post-hydration",
-        data: {
-          mounted,
-          prefersReducedMotion,
-          branch,
-          matchMedia: window.matchMedia("(prefers-reduced-motion: reduce)")
-            .matches,
-        },
-        timestamp: Date.now(),
-        hypothesisId: "B",
-        runId: "post-fix",
-      }),
-    }).catch(() => {});
-    // #endregion
-  }, [mounted, prefersReducedMotion, branch]);
 
   if (prefersReducedMotion) {
     return <div className={className}>{children}</div>;

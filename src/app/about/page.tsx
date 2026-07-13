@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { aboutDetailed } from "@/data/site";
 import { technologies } from "@/data/technologies";
+import { WebArchitectureDiagram } from "@/components/sections/WebArchitectureDiagram";
 import { FadeIn, StaggerContainer, StaggerItem } from "@/components/motion/FadeIn";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { TechIcon } from "@/components/ui/TechIcon";
@@ -28,37 +29,12 @@ export default function AboutPage() {
         </p>
       </FadeIn>
 
-      {/* Timeline */}
-      <section className="mt-20">
-        <FadeIn>
-          <h2 className="text-2xl font-semibold tracking-tight">Il percorso</h2>
-        </FadeIn>
-        <div className="relative mt-8 space-y-0">
-          <div
-            aria-hidden
-            className="absolute left-4 top-0 hidden h-full w-px bg-foreground/10 md:block"
-          />
-          {aboutDetailed.journey.map((step, index) => (
-            <FadeIn key={step.year} delay={index * 0.08}>
-              <div className="relative flex gap-6 pb-10 md:pl-12">
-                <span className="absolute left-2.5 hidden h-3 w-3 rounded-full border-2 border-foreground bg-background md:block" />
-                <div className="flex-shrink-0 font-mono text-sm font-semibold text-foreground/40">
-                  {step.year}
-                </div>
-                <div>
-                  <h3 className="font-semibold">{step.title}</h3>
-                  <p className="mt-1 text-sm leading-6 text-foreground/65">
-                    {step.description}
-                  </p>
-                </div>
-              </div>
-            </FadeIn>
-          ))}
-        </div>
-      </section>
+      <FadeIn delay={0.15} className="mt-12">
+        <WebArchitectureDiagram />
+      </FadeIn>
 
       {/* Tech stack deep dive */}
-      <section id="tecnologie" className="mt-12 border-t border-foreground/10 pt-20 scroll-mt-24">
+      <section id="tecnologie" className="mt-20 border-t border-foreground/10 pt-20 scroll-mt-24">
         <FadeIn>
           <SectionHeading
             eyebrow="Stack tecnologico"

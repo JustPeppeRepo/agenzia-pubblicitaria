@@ -8,9 +8,9 @@ export function ValueProposition() {
       <div className="mx-auto max-w-6xl px-6">
         <FadeIn>
           <SectionHeading
-            eyebrow="Perché scegliere me"
-            title="Risultati concreti, zero promesse vuote"
-            description="Non vendo 'siti bellissimi'. Vendo prodotti digitali misurabili, veloci e pronti per la produzione."
+            eyebrow="Perché sceglierci"
+            title="Più clienti, partendo dal tuo sito"
+            description="Non devi capire di tecnologia per ottenere risultati. Ogni scelta che facciamo — dalla velocità alla visibilità su Google — serve un solo obiettivo: portarti più contatti, più richieste e più vendite."
           />
         </FadeIn>
 

@@ -19,12 +19,6 @@ export function Header() {
               {link.label}
             </Link>
           ))}
-          <Link
-            href="/#projects"
-            className="text-sm text-foreground/70 transition-colors hover:text-foreground"
-          >
-            Progetti
-          </Link>
         </nav>
 
         <Link

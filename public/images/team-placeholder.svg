@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="520" viewBox="0 0 400 520" fill="none">
+  <rect width="400" height="520" rx="24" fill="#E8E4DF"/>
+  <!-- Person left — faces left, back to center -->
+  <circle cx="155" cy="128" r="38" fill="#A89F94"/>
+  <ellipse cx="155" cy="128" rx="28" ry="32" fill="#C4BDB4"/>
+  <path d="M118 178 C118 162 134 152 155 152 C176 152 192 162 192 178 L192 330 C192 352 176 366 155 366 C134 366 118 352 118 330 Z" fill="#C4BDB4"/>
+  <path d="M128 230 L108 410 L132 410 L140 300 Z" fill="#B8AFA6"/>
+  <path d="M182 230 L202 410 L178 410 L170 300 Z" fill="#B8AFA6"/>
+  <!-- Person right — faces right, back to center -->
+  <circle cx="245" cy="128" r="38" fill="#8A8078"/>
+  <ellipse cx="245" cy="128" rx="28" ry="32" fill="#A89F94"/>
+  <path d="M208 178 C208 162 224 152 245 152 C266 152 282 162 282 178 L282 330 C282 352 266 366 245 366 C224 366 208 352 208 330 Z" fill="#A89F94"/>
+  <path d="M218 230 L198 410 L222 410 L230 300 Z" fill="#9A9188"/>
+  <path d="M272 230 L292 410 L268 410 L260 300 Z" fill="#9A9188"/>
+  <!-- Shared back contact line -->
+  <rect x="192" y="168" width="16" height="200" rx="4" fill="#B5ACA3"/>
+  <ellipse cx="200" cy="420" rx="110" ry="10" fill="#D4CEC6"/>
+  <text x="200" y="490" text-anchor="middle" fill="#6B6560" font-family="system-ui,sans-serif" font-size="14" letter-spacing="0.08em">TEAM PLACEHOLDER</text>
+</svg>

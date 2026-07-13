@@ -26,46 +26,66 @@ export const siteConfig: SiteConfig = {
 export const navLinks: NavLink[] = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
+  { label: "Progetti", href: "/#projects" },
   { label: "Contatti", href: "/contact" },
 ];
 
 export const valuePropositions: ValueProposition[] = [
   {
     id: "performance",
-    title: "Performance misurabili",
+    title: "Siti che caricano subito",
     description:
-      "Ogni sito punta a Lighthouse 95+. Ottimizzo immagini AVIF/WebP, font self-hosted e code splitting per FCP sotto i 1.2s.",
-    metric: "LCP < 1.5s",
+      "Quando una pagina è lenta, le persone se ne vanno prima ancora di leggere la tua offerta. Usiamo tecnologie leggere e ottimizzate: il tuo sito si apre in un attimo anche da telefono, e più visitatori arrivano fino al contatto o all'acquisto.",
+    metric: "Meno abbandoni",
     icon: "⚡",
   },
   {
     id: "seo",
-    title: "SEO nativa con Next.js",
+    title: "Ti trovano su Google",
     description:
-      "Metadata dinamici, SSG e structured data integrati. I tuoi contenuti sono indicizzabili dal giorno zero.",
-    metric: "100 SEO score",
+      "Costruiamo il sito in modo che Google capisca subito chi sei, cosa offri e dove operi. Risultato: compari nelle ricerche di chi sta già cercando i tuoi servizi — clienti nuovi senza dipendere solo dalla pubblicità.",
+    metric: "Più visibilità",
     icon: "🔍",
   },
   {
     id: "animations",
-    title: "Animazioni che vendono",
+    title: "Un'esperienza che convince",
     description:
-      "Micro-interazioni e scroll animations con Framer Motion — fluide, accessibili e rispettose di prefers-reduced-motion.",
-    metric: "60fps costanti",
+      "Un sito curato nei dettagli trasmette professionalità e fiducia. Animazioni leggere e piacevoli guidano lo sguardo verso ciò che conta — il tuo servizio, la tua storia, il pulsante per contattarti.",
+    metric: "Più fiducia",
     icon: "✨",
   },
   {
     id: "code",
-    title: "Codice production-ready",
+    title: "Un investimento che dura",
     description:
-      "TypeScript strict, zero dipendenze sperimentali, architettura modulare. Manutenibile da chiunque nel tuo team.",
-    metric: "0 tech debt",
+      "Non costruiamo siti fragili da rifare ogni anno. La base tecnica è solida, sicura e facile da aggiornare quando il tuo business cresce: nuove pagine, nuovi servizi, più traffico — senza ripartire da zero.",
+    metric: "Crescita senza stress",
     icon: "🛠",
   },
 ];
 
-export const aboutBrief =
-  "Sono uno sviluppatore frontend specializzato in esperienze web ad alte prestazioni. Trasformo brief creativi in prodotti digitali veloci, accessibili e memorabili — dal concept al deploy.";
+export const aboutTeam = {
+  eyebrow: "Chi siamo",
+  title: "Siamo in due, lavoriamo come uno solo",
+  description:
+    "Un team affiatato con due ruoli complementari: uno trasforma le idee in software solido e veloce, l'altro fa arrivare il tuo messaggio alle persone giuste. Insieme costruiamo la presenza digitale del tuo business — dal codice alla visibilità online.",
+  left: {
+    title: "Software Engineering",
+    description:
+      "Progettiamo e sviluppiamo siti e applicazioni web su misura: veloci, affidabili e pronti a crescere con te. Ogni riga di codice serve a offrire un'esperienza fluida a chi visita il tuo sito.",
+  },
+  right: {
+    title: "Fatti trovare, fatti scegliere",
+    description:
+      "Curiamo SEO, contenuti e strategia di comunicazione digitale perché il tuo brand emerga su Google e sui canali giusti. Non basta esistere online: serve essere visibili, credibili e convincenti.",
+  },
+  image: "/images/team-placeholder.svg",
+  imageAlt: "Il team — due persone appoggiate schiena a schiena",
+};
+
+/** @deprecated Use aboutTeam — kept for content helpers */
+export const aboutBrief = aboutTeam.description;
 
 export const aboutDetailed = {
   intro:

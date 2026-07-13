@@ -1,6 +1,3 @@
-"use client";
-
-import { useId, useState } from "react";
 import type { ReactNode } from "react";
 import { TechIcon } from "@/components/ui/TechIcon";
 import { cn } from "@/lib/utils";
@@ -384,85 +381,56 @@ function VerticalDiagram() {
 }
 
 export function WebArchitectureDiagram() {
-  const [isOpen, setIsOpen] = useState(true);
-  const detailsId = useId();
-
   return (
     <section aria-labelledby="web-architecture-title">
       <div className="max-w-2xl">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <p className="text-sm font-medium uppercase tracking-[0.2em] text-foreground/50">
-            Come funziona
-          </p>
-          <button
-            type="button"
-            className="inline-flex items-center gap-1.5 rounded-full border border-foreground/20 px-4 py-1.5 text-xs font-medium text-foreground/70 transition-colors hover:bg-foreground/5 hover:text-foreground"
-            aria-expanded={isOpen}
-            aria-controls={detailsId}
-            onClick={() => setIsOpen((open) => !open)}
-          >
-            <svg
-              viewBox="0 0 16 16"
-              className={cn("size-3.5 transition-transform", isOpen && "rotate-180")}
-              aria-hidden
-            >
-              <path
-                d="M4 6l4 4 4-4"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-            {isOpen ? "Nascondi schema" : "Mostra schema"}
-          </button>
-        </div>
-      </div>
-
-      <div id={detailsId} hidden={!isOpen}>
-        <div className="max-w-2xl">
-          <h2
-            id="web-architecture-title"
-            className="mt-3 text-2xl font-semibold tracking-tight sm:text-3xl"
-          >
-            Dal click alla risposta: come comunicano le tecnologie
-          </h2>
-          <p className="mt-3 text-sm leading-6 text-foreground/65 sm:text-base">
-            Schema del flusso dati — ogni colonna è un livello del sistema, ogni
-            freccia un protocollo reale.
-          </p>
-        </div>
-
-        <figure
-          className="mt-10 rounded-2xl border border-foreground/10 bg-foreground/[0.02] p-4 sm:p-6 lg:p-8"
-          role="img"
-          aria-label="Schema orizzontale: Client, Frontend, Server, Database collegati da HTTPS, JSON e SQL"
+        <p className="text-sm font-medium uppercase tracking-[0.2em] text-foreground/50">
+          Come funziona
+        </p>
+        <h2
+          id="web-architecture-title"
+          className="mt-3 text-2xl font-semibold tracking-tight sm:text-3xl"
         >
-          <HorizontalDiagram />
-          <VerticalDiagram />
-
-          <div className="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-2 border-t border-foreground/10 pt-4">
-            <span className="inline-flex items-center gap-2 text-[10px] text-foreground/45">
-              <span className="h-0.5 w-5 bg-foreground/30" />
-              flusso principale
-            </span>
-            <span className="inline-flex items-center gap-2 text-[10px] text-foreground/45">
-              <span className="h-0.5 w-5 border-t border-dashed border-foreground/30" />
-              livello opzionale
-            </span>
-            <span className="inline-flex items-center gap-2 text-[10px] text-foreground/45">
-              <span className="h-0.5 w-5 border-t border-dashed border-emerald-500/50" />
-              risposta al client
-            </span>
-          </div>
-
-          <figcaption className="mt-3 text-center text-xs leading-5 text-foreground/45">
-            Partiamo sempre dal frontend. API e database si aggiungono solo quando
-            servono dati dinamici o persistenza.
-          </figcaption>
-        </figure>
+          Dal click alla risposta: come comunicano le tecnologie
+        </h2>
+        <p className="mt-3 text-sm leading-6 text-foreground/65 sm:text-base">
+          Ogni app web funziona così: tu interagisci dall&apos;interfaccia, la
+          richiesta arriva al server, i dati vengono elaborati e la risposta
+          torna sullo schermo — tutto in pochi millisecondi. Ogni colonna qui
+          sotto è un passaggio di questo viaggio. La struttura è sempre la
+          stessa; ciò che cambia è ciò che vuoi costruire — e le possibilità
+          sono praticamente infinite.
+        </p>
       </div>
+
+      <figure
+        className="mt-10 rounded-2xl border border-foreground/10 bg-foreground/[0.02] p-4 sm:p-6 lg:p-8"
+        role="img"
+        aria-label="Schema orizzontale: Client, Frontend, Server, Database collegati da HTTPS, JSON e SQL"
+      >
+        <HorizontalDiagram />
+        <VerticalDiagram />
+
+        <div className="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-2 border-t border-foreground/10 pt-4">
+          <span className="inline-flex items-center gap-2 text-[10px] text-foreground/45">
+            <span className="h-0.5 w-5 bg-foreground/30" />
+            flusso principale
+          </span>
+          <span className="inline-flex items-center gap-2 text-[10px] text-foreground/45">
+            <span className="h-0.5 w-5 border-t border-dashed border-foreground/30" />
+            livello opzionale
+          </span>
+          <span className="inline-flex items-center gap-2 text-[10px] text-foreground/45">
+            <span className="h-0.5 w-5 border-t border-dashed border-emerald-500/50" />
+            risposta al client
+          </span>
+        </div>
+
+        <figcaption className="mt-3 text-center text-xs leading-5 text-foreground/45">
+          Partiamo sempre dal frontend. API e database si aggiungono solo quando
+          servono dati dinamici o persistenza.
+        </figcaption>
+      </figure>
     </section>
   );
 }

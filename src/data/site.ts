@@ -36,7 +36,7 @@ export const valuePropositions: ValueProposition[] = [
     title: "Siti che caricano subito",
     description:
       "Quando una pagina è lenta, le persone se ne vanno prima ancora di leggere la tua offerta. Usiamo tecnologie leggere e ottimizzate: il tuo sito si apre in un attimo anche da telefono, e più visitatori arrivano fino al contatto o all'acquisto.",
-    metric: "Meno abbandoni",
+    metric: "Velocità",
   },
   {
     id: "seo",
@@ -46,11 +46,11 @@ export const valuePropositions: ValueProposition[] = [
     metric: "Più visibilità",
   },
   {
-    id: "animations",
-    title: "Un'esperienza che convince",
+    id: "responsive",
+    title: "Perfetto su ogni schermo",
     description:
-      "Un sito curato nei dettagli trasmette professionalità e fiducia. Animazioni leggere e piacevoli guidano lo sguardo verso ciò che conta — il tuo servizio, la tua storia, il pulsante per contattarti.",
-    metric: "Più fiducia",
+      "Il sito si adatta a smartphone, tablet e desktop: testi leggibili, pulsanti comodi e layout che resta ordinato su ogni dispositivo. Animazioni leggere rendono la navigazione fluida senza appesantire la pagina.",
+    metric: "Responsive",
   },
   {
     id: "code",
@@ -89,3 +89,34 @@ export const aboutDetailed = {
   philosophy:
     "Credo che la migliore UX sia quella che non si nota: caricamenti istantanei, animazioni naturali, zero attrito. Ogni scelta tecnica serve un obiettivo business — conversioni, SEO, fiducia del brand.",
 };
+
+export const aboutPage = {
+  eyebrow: "About",
+  title: aboutTeam.title,
+  description: aboutTeam.description,
+};
+
+export const aboutMembers = {
+  engineer: {
+    id: "engineer",
+    anchorId: "tecnologie",
+    name: "Marco",
+    role: "Software Engineer",
+    image: "/images/team-engineer.svg",
+    imageAlt: "Marco — software engineer",
+    bio: "Progetto e sviluppo siti e applicazioni web su misura: architetture solide, performance alte e codice che regge nel tempo. Le olimpiadi di informatica mi hanno formato in C++ e strutture dati avanzate — competenze che applico ogni giorno per scegliere algoritmi efficienti e soluzioni scalabili.",
+    expandLabel: "Mostra come funziona il codice",
+    collapseLabel: "Nascondi dettagli tecnici",
+  },
+  advertiser: {
+    id: "advertiser",
+    anchorId: "comunicazione",
+    name: "Andrea",
+    role: "Stratega pubblicitario",
+    image: "/images/team-advertiser.svg",
+    imageAlt: "Andrea — stratega pubblicitario",
+    bio: "Traduco obiettivi di business in strategie di visibilità: SEO, campagne e contenuti che portano persone reali sul sito.",
+    expandLabel: "Mostra come funziona la comunicazione",
+    collapseLabel: "Nascondi dettagli strategici",
+  },
+} as const;

@@ -148,54 +148,88 @@ function SeoVisual() {
   );
 }
 
-function AnimationsVisual() {
+function DeviceFrame({
+  label,
+  widthClass,
+  layout,
+  orientation = "portrait",
+}: {
+  label: string;
+  widthClass: string;
+  layout: "desktop" | "tablet" | "mobile";
+  orientation?: "portrait" | "landscape";
+}) {
+  return (
+    <div className="flex flex-col items-center">
+      <div
+        className={cn(
+          "overflow-hidden rounded-lg border border-foreground/15 bg-background shadow-sm",
+          widthClass,
+          orientation === "landscape" && "aspect-[5/3]",
+          layout === "mobile" && "aspect-[3/5]",
+        )}
+      >
+        <div className="flex items-center gap-1 border-b border-foreground/10 bg-foreground/[0.03] px-2 py-1.5">
+          <span className="size-1.5 rounded-full bg-foreground/20" aria-hidden />
+          <span className="size-1.5 rounded-full bg-foreground/15" aria-hidden />
+          <span className="size-1.5 rounded-full bg-foreground/10" aria-hidden />
+        </div>
+        <div className="p-2">
+          <div className="h-1.5 w-3/4 rounded bg-foreground/20" aria-hidden />
+          <div className="mt-1.5 h-1 w-1/2 rounded bg-foreground/10" aria-hidden />
+          {layout === "desktop" ? (
+            <div className="mt-2 grid grid-cols-3 gap-1">
+              <div className="aspect-[4/3] rounded bg-foreground/10" aria-hidden />
+              <div className="aspect-[4/3] rounded bg-foreground/8" aria-hidden />
+              <div className="aspect-[4/3] rounded bg-foreground/6" aria-hidden />
+            </div>
+          ) : layout === "tablet" ? (
+            <div className="mt-2 grid grid-cols-2 gap-1">
+              <div className="aspect-[4/3] rounded bg-foreground/10" aria-hidden />
+              <div className="aspect-[4/3] rounded bg-foreground/8" aria-hidden />
+            </div>
+          ) : (
+            <div className="mt-2 space-y-1">
+              <div className="h-6 rounded bg-foreground/10" aria-hidden />
+              <div className="h-6 rounded bg-foreground/8" aria-hidden />
+              <div className="h-6 rounded bg-foreground/6" aria-hidden />
+            </div>
+          )}
+          <div
+            className={cn(
+              "mt-2 rounded bg-emerald-500/80 motion-safe:animate-pulse",
+              layout === "mobile" ? "h-2 w-full" : "mx-auto h-2 w-2/3",
+            )}
+            aria-hidden
+          />
+        </div>
+      </div>
+      <span className="mt-1.5 text-[9px] font-medium text-foreground/50">{label}</span>
+    </div>
+  );
+}
+
+function ResponsiveVisual() {
   return (
     <div
       role="img"
-      aria-label="Anteprima sito con animazioni che guidano verso il pulsante di contatto"
+      aria-label="Anteprima responsive su desktop, tablet e smartphone con animazioni leggere"
       className="flex h-full flex-col justify-center"
     >
-      <div className="overflow-hidden rounded-xl border border-foreground/10 bg-background shadow-sm">
-        <div className="flex items-center gap-1.5 border-b border-foreground/10 bg-foreground/[0.03] px-3 py-2">
-          <span className="size-2 rounded-full bg-red-400/70" aria-hidden />
-          <span className="size-2 rounded-full bg-yellow-400/70" aria-hidden />
-          <span className="size-2 rounded-full bg-green-400/70" aria-hidden />
-          <span className="ml-2 h-2 flex-1 rounded bg-foreground/10" aria-hidden />
-        </div>
-        <div className="relative p-4">
-          <div className="h-2.5 w-2/3 rounded bg-foreground/20" aria-hidden />
-          <div className="mt-2 h-2 w-1/2 rounded bg-foreground/10" aria-hidden />
-          <div className="mt-4 grid grid-cols-3 gap-2">
-            <div className="aspect-[4/3] rounded bg-foreground/10" aria-hidden />
-            <div className="aspect-[4/3] rounded bg-foreground/8" aria-hidden />
-            <div className="aspect-[4/3] rounded bg-foreground/6" aria-hidden />
-          </div>
-
-          <div className="relative mt-4 flex justify-center">
-            <div
-              className="absolute inset-x-6 -inset-y-1 rounded-lg bg-emerald-500/20 motion-safe:animate-pulse"
-              aria-hidden
-            />
-            <span className="relative rounded-lg bg-foreground px-4 py-2 text-[10px] font-semibold text-background">
-              Contattaci ora
-            </span>
-          </div>
-
-          <svg
-            viewBox="0 0 24 24"
-            className="absolute bottom-3 right-5 size-5 text-foreground/70 motion-safe:animate-bounce"
-            aria-hidden
-          >
-            <path
-              d="M5 3l14 9-14 9V3z"
-              fill="currentColor"
-              transform="rotate(90 12 12)"
-            />
-          </svg>
+      <div className="flex flex-col items-center gap-3">
+        <DeviceFrame label="Desktop" widthClass="w-[9rem]" layout="desktop" />
+        <div className="flex items-end justify-center gap-3">
+          <DeviceFrame
+            label="Tablet"
+            widthClass="w-[6.5rem]"
+            layout="tablet"
+            orientation="landscape"
+          />
+          <DeviceFrame label="Smartphone" widthClass="w-[2.75rem]" layout="mobile" />
         </div>
       </div>
-      <p className="mt-3 text-center text-[10px] font-medium text-foreground/50">
-        Lo sguardo segue il percorso verso l&apos;azione
+      <p className="mt-4 text-center text-[10px] font-medium text-foreground/50">
+        Stesso sito, tre dispositivi — animazioni leggere su ogni schermo
       </p>
     </div>
   );
@@ -263,7 +297,7 @@ function CodeVisual() {
 const visuals: Record<string, () => React.JSX.Element> = {
   performance: PerformanceVisual,
   seo: SeoVisual,
-  animations: AnimationsVisual,
+  responsive: ResponsiveVisual,
   code: CodeVisual,
 };
 

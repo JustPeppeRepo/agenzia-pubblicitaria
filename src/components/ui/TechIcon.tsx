@@ -6,6 +6,7 @@ import {
   siReact,
   siTailwindcss,
   siTypescript,
+  siVercel,
   type SimpleIcon,
 } from "simple-icons";
 import { cn } from "@/lib/utils";
@@ -18,14 +19,11 @@ const TECH_ICONS: Record<string, SimpleIcon> = {
   express: siExpress,
   prisma: siPrisma,
   framer: siFramer,
+  vercel: siVercel,
 };
 
 /** Dark brand marks — use foreground on dark UI */
-const FOREGROUND_ICONS = new Set(["nextjs", "express", "prisma"]);
-
-const FALLBACK_ICONS: Record<string, string> = {
-  recharts: "📊",
-};
+const FOREGROUND_ICONS = new Set(["nextjs", "express", "prisma", "vercel"]);
 
 type TechIconProps = {
   id: string;
@@ -43,15 +41,14 @@ export function TechIcon({
   const icon = TECH_ICONS[id];
 
   if (!icon) {
-    const glyph = fallback ?? FALLBACK_ICONS[id];
-    if (!glyph) return null;
+    if (!fallback) return null;
 
     return (
       <span
         className={cn("text-2xl leading-none", className)}
         aria-hidden
       >
-        {glyph}
+        {fallback}
       </span>
     );
   }

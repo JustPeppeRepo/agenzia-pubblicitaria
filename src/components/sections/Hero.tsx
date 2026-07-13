@@ -1,22 +1,17 @@
 "use client";
 
-import { useRef } from "react";
 import { motion } from "framer-motion";
 import { siteConfig } from "@/data/site";
 import { Button } from "@/components/ui/Button";
-import { HeroDevices } from "@/components/sections/HeroDevices";
+import { TeamImageAnchor } from "@/components/sections/TeamScrollBridge";
 import { useMotionSafe } from "@/hooks/use-motion-safe";
 
 export function Hero() {
-  const sectionRef = useRef<HTMLElement>(null);
   const { mounted, prefersReducedMotion } = useMotionSafe();
   const shouldAnimate = mounted && !prefersReducedMotion;
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative overflow-hidden border-b border-foreground/10"
-    >
+    <section className="relative overflow-hidden border-b border-foreground/10">
       <div className="mx-auto flex max-w-6xl flex-col gap-12 px-6 pt-12 pb-24 md:flex-row md:items-center md:gap-10 md:pt-16 md:pb-32">
         <div className="flex flex-1 flex-col gap-10">
           <motion.div
@@ -67,7 +62,7 @@ export function Hero() {
           transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
           className="w-full md:w-[360px] md:shrink-0 md:py-2"
         >
-          <HeroDevices sectionRef={sectionRef} />
+          <TeamImageAnchor variant="hero" priority />
         </motion.div>
       </div>
 

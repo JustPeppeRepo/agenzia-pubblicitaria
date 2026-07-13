@@ -24,10 +24,22 @@ export type Technology = {
   id: string;
   name: string;
   icon: string;
-  category: "frontend" | "backend" | "tooling" | "design";
+  category: "frontend" | "backend" | "tooling" | "design" | "marketing";
   shortDescription: string;
   whyChosen: string;
   proficiency: number;
+};
+
+export type AboutMember = {
+  id: string;
+  anchorId?: string;
+  name: string;
+  role: string;
+  image: string;
+  imageAlt: string;
+  bio: string;
+  expandLabel: string;
+  collapseLabel: string;
 };
 
 export type ValueProposition = {

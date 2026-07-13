@@ -72,14 +72,14 @@ export const technologies: Technology[] = [
     proficiency: 88,
   },
   {
-    id: "recharts",
-    name: "Recharts",
-    icon: "📊",
+    id: "vercel",
+    name: "Vercel",
+    icon: "▲",
     category: "tooling",
-    shortDescription: "Grafici React composable",
+    shortDescription: "Deploy, preview e edge network",
     whyChosen:
-      "Per i case study uso Recharts: leggero, dichiarativo e perfetto per visualizzare metriche simulate in modo credibile senza appesantire il bundle homepage.",
-    proficiency: 85,
+      "Vercel è la piattaforma nativa per Next.js: deploy automatici da Git, preview URL per ogni PR, CDN globale e integrazione con Analytics e Speed Insights già attive su questo sito.",
+    proficiency: 88,
   },
 ];
 
@@ -96,3 +96,66 @@ const featuredIds = [
 export const featuredTechnologies = featuredIds.map(
   (id) => technologies.find((tech) => tech.id === id)!,
 );
+
+export const marketingTechnologies: Technology[] = [
+  {
+    id: "seo",
+    name: "SEO",
+    icon: "🔍",
+    category: "marketing",
+    shortDescription: "Visibilità organica su Google",
+    whyChosen:
+      "Ottimizziamo struttura, contenuti e performance del sito perché Google capisca subito chi sei e cosa offri. Risultato: traffico qualificato senza costi per click.",
+    proficiency: 92,
+  },
+  {
+    id: "google-ads",
+    name: "Google Ads",
+    icon: "G",
+    category: "marketing",
+    shortDescription: "Campagne search e display",
+    whyChosen:
+      "Intercettiamo chi sta già cercando i tuoi servizi con annunci mirati. Budget controllato, keyword strategiche e landing page allineate al messaggio dell'annuncio.",
+    proficiency: 90,
+  },
+  {
+    id: "meta-ads",
+    name: "Meta Ads",
+    icon: "M",
+    category: "marketing",
+    shortDescription: "Facebook e Instagram Ads",
+    whyChosen:
+      "Raggiungiamo il pubblico giusto sui social con creatività testate e audience segmentate. Ideale per brand awareness, lead generation e retargeting.",
+    proficiency: 88,
+  },
+  {
+    id: "analytics",
+    name: "Google Analytics",
+    icon: "📈",
+    category: "marketing",
+    shortDescription: "Misurazione e conversioni",
+    whyChosen:
+      "Tracciamo ogni passaggio del visitatore — da dove arriva a cosa fa sul sito — per capire cosa funziona e dove migliorare. Dati reali, decisioni informate.",
+    proficiency: 91,
+  },
+  {
+    id: "content",
+    name: "Content Strategy",
+    icon: "✎",
+    category: "marketing",
+    shortDescription: "Copy e contenuti che convertono",
+    whyChosen:
+      "Ogni testo — dalla headline alla CTA — guida l'utente verso l'azione. Tono di voce coerente, messaggi chiari e struttura pensata per persuadere senza forzare.",
+    proficiency: 89,
+  },
+  {
+    id: "brand",
+    name: "Brand Identity",
+    icon: "◆",
+    category: "marketing",
+    shortDescription: "Posizionamento e identità visiva",
+    whyChosen:
+      "Definiamo come il brand si presenta online: palette, tono, gerarchia visiva. Un'identità riconoscibile aumenta fiducia e memorabilità in ogni touchpoint digitale.",
+    proficiency: 87,
+  },
+];

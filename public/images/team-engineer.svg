@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="400" viewBox="0 0 320 400" fill="none">
+  <rect width="320" height="400" rx="20" fill="#E8E4DF"/>
+  <circle cx="160" cy="108" r="44" fill="#A89F94"/>
+  <ellipse cx="160" cy="108" rx="32" ry="36" fill="#C4BDB4"/>
+  <path d="M116 168 C116 148 136 136 160 136 C184 136 204 148 204 168 L204 300 C204 326 184 342 160 342 C136 342 116 326 116 300 Z" fill="#C4BDB4"/>
+  <path d="M128 228 L104 360 L132 360 L142 270 Z" fill="#B8AFA6"/>
+  <path d="M192 228 L216 360 L188 360 L178 270 Z" fill="#B8AFA6"/>
+  <ellipse cx="160" cy="360" rx="88" ry="8" fill="#D4CEC6"/>
+  <text x="160" y="388" text-anchor="middle" fill="#6B6560" font-family="system-ui,sans-serif" font-size="12" letter-spacing="0.08em">MARCO</text>
+</svg>

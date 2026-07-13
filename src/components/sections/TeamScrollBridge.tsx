@@ -14,10 +14,10 @@ import {
   useContext,
   useEffect,
   useRef,
+  useState,
   type ReactNode,
 } from "react";
 import { aboutMembers, aboutTeam } from "@/data/site";
-import { useMotionSafe } from "@/hooks/use-motion-safe";
 import { cn } from "@/lib/utils";
 
 type AnchorVariant = "hero" | "about";
@@ -88,10 +88,11 @@ function computeProgress(hero: HTMLDivElement, about: HTMLDivElement) {
 
 type TeamScrollFlyLayerProps = {
   anchorRefs: React.MutableRefObject<Record<AnchorVariant, HTMLDivElement | null>>;
-  enabled: boolean;
+  ready: boolean;
+  simplifyMotion: boolean;
 };
 
-function TeamScrollFlyLayer({ anchorRefs, enabled }: TeamScrollFlyLayerProps) {
+function TeamScrollFlyLayer({ anchorRefs, ready, simplifyMotion }: TeamScrollFlyLayerProps) {
   const { scrollY } = useScroll();
   const top = useMotionValue(0);
   const left = useMotionValue(0);
@@ -105,7 +106,7 @@ function TeamScrollFlyLayer({ anchorRefs, enabled }: TeamScrollFlyLayerProps) {
     const hero = anchorRefs.current.hero;
     const about = anchorRefs.current.about;
 
-    if (!enabled || !hero || !about) {
+    if (!ready || !hero || !about) {
       if (hero) hero.style.opacity = "1";
       if (about) about.style.opacity = "1";
       opacity.set(0);
@@ -140,9 +141,9 @@ function TeamScrollFlyLayer({ anchorRefs, enabled }: TeamScrollFlyLayerProps) {
     width.set(rect.width);
     height.set(rect.height);
     opacity.set(flyOpacity);
-    rotate.set((progress - 0.5) * -3);
-    splitBlend.set(getSplitBlend(progress));
-  }, [anchorRefs, enabled, height, left, opacity, rotate, splitBlend, top, width]);
+    rotate.set(simplifyMotion ? 0 : (progress - 0.5) * -3);
+    splitBlend.set(simplifyMotion ? 0 : getSplitBlend(progress));
+  }, [anchorRefs, height, left, opacity, ready, rotate, simplifyMotion, splitBlend, top, width]);
 
   useMotionValueEvent(scrollY, "change", updateFrame);
 
@@ -152,7 +153,7 @@ function TeamScrollFlyLayer({ anchorRefs, enabled }: TeamScrollFlyLayerProps) {
     return () => window.removeEventListener("resize", updateFrame);
   }, [updateFrame]);
 
-  if (!enabled) return null;
+  if (!ready) return null;
 
   return (
     <motion.div
@@ -207,12 +208,21 @@ function SplitBlendFrame({ splitBlend }: { splitBlend: MotionValue<number> }) {
 }
 
 export function TeamScrollBridge({ children }: { children: ReactNode }) {
-  const { mounted, prefersReducedMotion } = useMotionSafe();
-  const bridgeEnabled = mounted && !prefersReducedMotion;
+  const [ready, setReady] = useState(false);
+  const [simplifyMotion, setSimplifyMotion] = useState(false);
   const anchorRefs = useRef<Record<AnchorVariant, HTMLDivElement | null>>({
     hero: null,
     about: null,
   });
+
+  useEffect(() => {
+    setReady(true);
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => setSimplifyMotion(media.matches);
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
 
   const registerAnchor = useCallback(
     (variant: AnchorVariant, element: HTMLDivElement | null) => {
@@ -225,7 +235,11 @@ export function TeamScrollBridge({ children }: { children: ReactNode }) {
     <TeamScrollContext.Provider value={{ registerAnchor }}>
       <div className="relative">
         {children}
-        <TeamScrollFlyLayer anchorRefs={anchorRefs} enabled={bridgeEnabled} />
+        <TeamScrollFlyLayer
+          anchorRefs={anchorRefs}
+          ready={ready}
+          simplifyMotion={simplifyMotion}
+        />
       </div>
     </TeamScrollContext.Provider>
   );

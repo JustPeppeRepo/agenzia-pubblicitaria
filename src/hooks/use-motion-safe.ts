@@ -15,7 +15,8 @@ function getReducedMotionSnapshot() {
 }
 
 function getReducedMotionServerSnapshot() {
-  return true;
+  // Assume motion is allowed during SSR; the client refines this after hydration.
+  return false;
 }
 
 function subscribeMounted() {
@@ -31,9 +32,8 @@ function getMountedServerSnapshot() {
 }
 
 /**
- * SSR-safe motion preferences. During SSR and the first client render,
- * returns prefersReducedMotion=true so server HTML matches hydration.
- * After mount, reflects the real OS prefers-reduced-motion setting via matchMedia.
+ * SSR-safe motion preferences. During SSR, assumes motion is allowed.
+ * After hydration, reflects the real OS prefers-reduced-motion setting via matchMedia.
  */
 export function useMotionSafe() {
   const mounted = useSyncExternalStore(

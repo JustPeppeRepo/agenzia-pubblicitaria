@@ -58,7 +58,7 @@ export default function AboutPage() {
       </section>
 
       {/* Tech stack deep dive */}
-      <section className="mt-12 border-t border-foreground/10 pt-20">
+      <section id="tecnologie" className="mt-12 border-t border-foreground/10 pt-20 scroll-mt-24">
         <FadeIn>
           <SectionHeading
             eyebrow="Stack tecnologico"

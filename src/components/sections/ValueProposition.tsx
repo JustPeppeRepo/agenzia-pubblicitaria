@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { valuePropositions } from "@/data/site";
 import { FadeIn, StaggerContainer, StaggerItem } from "@/components/motion/FadeIn";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -12,6 +13,12 @@ export function ValueProposition() {
             title="Più clienti, partendo dal tuo sito"
             description="Non devi capire di tecnologia per ottenere risultati. Ogni scelta che facciamo — dalla velocità alla visibilità su Google — serve un solo obiettivo: portarti più contatti, più richieste e più vendite."
           />
+          <Link
+            href="/about#tecnologie"
+            className="mt-6 inline-flex items-center gap-1 text-sm font-medium text-foreground/70 transition-colors hover:text-foreground"
+          >
+            Scopri che tecnologie uso →
+          </Link>
         </FadeIn>
 
         <StaggerContainer className="mt-12 grid gap-6 sm:grid-cols-2">

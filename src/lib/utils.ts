@@ -13,6 +13,13 @@ export function formatPhoneLink(phone: string): string {
   return `tel:${phone.replace(/\s/g, "")}`;
 }
 
+export function formatWhatsAppLink(phone: string, message?: string): string {
+  const digits = phone.replace(/\D/g, "");
+  const base = `https://wa.me/${digits}`;
+  if (!message) return base;
+  return `${base}?text=${encodeURIComponent(message)}`;
+}
+
 /** Validates contact form fields client-side */
 export function validateContactForm(data: {
   name: string;

@@ -11,8 +11,8 @@ import {
 import { useEffect, useRef, useState, type ReactNode } from "react";
 
 const LAPTOP_WIDTH = 310;
-const TABLET_WIDTH = 118;
-const PHONE_WIDTH = 58;
+const TABLET_WIDTH = 200;
+const PHONE_WIDTH = 74;
 
 type DeviceShellProps = {
   children: ReactNode;
@@ -56,17 +56,21 @@ function LaptopDevice() {
 function TabletDevice() {
   return (
     <DeviceShell width={TABLET_WIDTH}>
-      <div className="rounded-[18px] border-2 border-foreground/35 bg-foreground/10 p-2 shadow-xl shadow-black/25">
+      <div className="rounded-[18px] border-2 border-foreground/35 bg-foreground/10 p-2.5 shadow-xl shadow-black/25">
         <div
           className="overflow-hidden rounded-[12px] border border-foreground/20 bg-gradient-to-br from-foreground/15 to-foreground/5"
-          style={{ aspectRatio: "3 / 4" }}
+          style={{ aspectRatio: "4 / 3" }}
         >
           <div className="flex h-full flex-col p-3">
-            <div className="mx-auto mb-2.5 h-1.5 w-8 rounded-full bg-foreground/30" />
-            <div className="h-2 w-full rounded bg-foreground/25" />
-            <div className="mt-1.5 h-2 w-4/5 rounded bg-foreground/15" />
-            <div className="mt-2.5 flex-1 rounded-md bg-foreground/20" />
-            <div className="mt-2.5 h-2 w-2/3 rounded bg-foreground/15" />
+            <div className="mx-auto mb-2.5 h-2 w-8 rounded-full bg-foreground/30" />
+            <div className="flex flex-1 gap-2.5">
+              <div className="w-2/5 rounded-md bg-foreground/20" />
+              <div className="flex flex-1 flex-col gap-2">
+                <div className="h-2.5 w-full rounded bg-foreground/25" />
+                <div className="h-2.5 w-4/5 rounded bg-foreground/15" />
+                <div className="mt-auto h-2.5 w-2/3 rounded bg-foreground/15" />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -77,19 +81,19 @@ function TabletDevice() {
 function PhoneDevice() {
   return (
     <DeviceShell width={PHONE_WIDTH}>
-      <div className="rounded-[8px] border-2 border-foreground/35 bg-foreground/10 p-[6px] shadow-xl shadow-black/25">
+      <div className="rounded-[8px] border-2 border-foreground/35 bg-foreground/10 p-[7px] shadow-xl shadow-black/25">
         <div
-          className="overflow-hidden rounded-[5px] border border-foreground/20 bg-gradient-to-br from-foreground/15 to-foreground/5"
+          className="overflow-hidden rounded-[6px] border border-foreground/20 bg-gradient-to-br from-foreground/15 to-foreground/5"
           style={{ aspectRatio: "9 / 19.5" }}
         >
-          <div className="flex h-full flex-col p-2">
-            <div className="mx-auto mb-2 h-[3px] w-6 rounded-full bg-foreground/30" />
-            <div className="h-1.5 w-full rounded bg-foreground/25" />
-            <div className="mt-1.5 h-1.5 w-3/4 rounded bg-foreground/15" />
-            <div className="mt-2 flex-1 rounded bg-foreground/20" />
-            <div className="mt-2 grid grid-cols-2 gap-1">
-              <div className="h-3.5 rounded bg-foreground/15" />
-              <div className="h-3.5 rounded bg-foreground/10" />
+          <div className="flex h-full flex-col p-2.5">
+            <div className="mx-auto mb-2.5 h-[4px] w-7 rounded-full bg-foreground/30" />
+            <div className="h-2 w-full rounded bg-foreground/25" />
+            <div className="mt-2 h-2 w-3/4 rounded bg-foreground/15" />
+            <div className="mt-2.5 flex-1 rounded bg-foreground/20" />
+            <div className="mt-2.5 grid grid-cols-2 gap-1.5">
+              <div className="h-4 rounded bg-foreground/15" />
+              <div className="h-4 rounded bg-foreground/10" />
             </div>
           </div>
         </div>
@@ -255,12 +259,12 @@ export function HeroDevices({ sectionRef }: HeroDevicesProps) {
           className="pointer-events-none absolute inset-y-4 left-1/2 w-40 -translate-x-1/2 rounded-full bg-foreground/[0.04] blur-3xl"
         />
 
-        <div className="flex items-end justify-center gap-4 sm:gap-5">
+        <div className="flex w-full max-w-[310px] items-center justify-center gap-3 sm:gap-4">
           <DeviceMotion
             scrollY={tabletY}
             parallaxX={tabletParallaxX}
             parallaxRotate={tabletParallaxRotate}
-            baseRotate={-5}
+            baseRotate={0}
             baseX={0}
             baseY={0}
             hoverRotate={-2}
@@ -275,10 +279,10 @@ export function HeroDevices({ sectionRef }: HeroDevicesProps) {
             scrollY={phoneY}
             parallaxX={phoneParallaxX}
             parallaxRotate={phoneParallaxRotate}
-            baseRotate={5}
+            baseRotate={0}
             baseX={0}
             baseY={0}
-            hoverRotate={-4}
+            hoverRotate={2}
             floatDelay={0.3}
             floatDuration={2.8}
             reducedMotion={reducedMotion}

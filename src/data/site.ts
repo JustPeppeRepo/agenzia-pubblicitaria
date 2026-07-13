@@ -5,7 +5,7 @@ export const siteConfig: SiteConfig = {
   role: "Frontend Engineer & Creative Developer",
   tagline: "Siti web veloci, animati e costruiti per convertire",
   description:
-    "Sviluppo portfolio e siti vetrina ad alte prestazioni con Next.js, animazioni fluide e architetture data-driven — senza database, senza compromessi.",
+    "Sviluppiamo siti e applicazioni web ad alte prestazioni con Next.js, animazioni fluide e architetture scalabili — con o senza database, in base a ciò che serve al tuo progetto.",
   email: "ciao@marcoddev.it",
   phone: "+39 333 123 4567",
   location: "Milano, Italia",

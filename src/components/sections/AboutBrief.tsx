@@ -2,6 +2,7 @@ import Image from "next/image";
 import { aboutTeam } from "@/data/site";
 import { featuredTechnologies } from "@/data/technologies";
 import { FadeIn, StaggerContainer, StaggerItem } from "@/components/motion/FadeIn";
+import { TechIcon } from "@/components/ui/TechIcon";
 
 export function AboutBrief() {
   return (
@@ -61,12 +62,11 @@ export function AboutBrief() {
           {featuredTechnologies.map((tech) => (
             <StaggerItem key={tech.id}>
               <div className="group flex flex-col items-center rounded-2xl border border-foreground/10 bg-foreground/[0.02] p-4 text-center transition-colors hover:border-foreground/25 hover:bg-foreground/[0.04]">
-                <span
-                  className="text-2xl transition-transform group-hover:scale-110"
-                  aria-hidden
-                >
-                  {tech.icon}
-                </span>
+                <TechIcon
+                  id={tech.id}
+                  fallback={tech.icon}
+                  className="transition-transform group-hover:scale-110"
+                />
                 <span className="mt-2 text-xs font-medium text-foreground/80">
                   {tech.name}
                 </span>

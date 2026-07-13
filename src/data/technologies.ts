@@ -32,16 +32,6 @@ export const technologies: Technology[] = [
     proficiency: 92,
   },
   {
-    id: "framer",
-    name: "Framer Motion",
-    icon: "◎",
-    category: "frontend",
-    shortDescription: "Animazioni dichiarative",
-    whyChosen:
-      "Framer Motion offre API React-native per animazioni scroll e hover, con supporto built-in per prefers-reduced-motion. Tree-shakeable e stabile in produzione.",
-    proficiency: 88,
-  },
-  {
     id: "react",
     name: "React 19",
     icon: "⚛",
@@ -50,6 +40,36 @@ export const technologies: Technology[] = [
     whyChosen:
       "React resta lo standard de facto per UI complesse. Con Server Components di Next.js, separo logica server-side da interattività client-side in modo netto.",
     proficiency: 93,
+  },
+  {
+    id: "express",
+    name: "Express",
+    icon: "EX",
+    category: "backend",
+    shortDescription: "API REST veloci e leggere",
+    whyChosen:
+      "Express è il framework Node.js più collaudato per API REST e middleware custom. Lo uso quando serve un backend snello, integrazioni terze parti o logica server dedicata.",
+    proficiency: 88,
+  },
+  {
+    id: "prisma",
+    name: "Prisma",
+    icon: "◇",
+    category: "backend",
+    shortDescription: "ORM type-safe per database",
+    whyChosen:
+      "Prisma offre migrazioni, query type-safe e un client generato automaticamente. Riduce errori sui dati e accelera lo sviluppo con PostgreSQL, MySQL o SQLite.",
+    proficiency: 87,
+  },
+  {
+    id: "framer",
+    name: "Framer Motion",
+    icon: "◎",
+    category: "frontend",
+    shortDescription: "Animazioni dichiarative",
+    whyChosen:
+      "Framer Motion offre API React-native per animazioni scroll e hover, con supporto built-in per prefers-reduced-motion. Tree-shakeable e stabile in produzione.",
+    proficiency: 88,
   },
   {
     id: "recharts",
@@ -63,5 +83,16 @@ export const technologies: Technology[] = [
   },
 ];
 
+const featuredIds = [
+  "nextjs",
+  "typescript",
+  "tailwind",
+  "react",
+  "express",
+  "prisma",
+] as const;
+
 /** Subset shown on homepage */
-export const featuredTechnologies = technologies.slice(0, 6);
+export const featuredTechnologies = featuredIds.map(
+  (id) => technologies.find((tech) => tech.id === id)!,
+);

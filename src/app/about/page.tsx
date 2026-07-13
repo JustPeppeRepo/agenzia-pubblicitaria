@@ -3,6 +3,7 @@ import { aboutDetailed } from "@/data/site";
 import { technologies } from "@/data/technologies";
 import { FadeIn, StaggerContainer, StaggerItem } from "@/components/motion/FadeIn";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { TechIcon } from "@/components/ui/TechIcon";
 
 export const metadata: Metadata = {
   title: "About",
@@ -72,8 +73,8 @@ export default function AboutPage() {
               <article className="h-full rounded-2xl border border-foreground/10 p-6 transition-colors hover:border-foreground/20">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-foreground/5 text-lg">
-                      {tech.icon}
+                    <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-foreground/5">
+                      <TechIcon id={tech.id} fallback={tech.icon} size={22} />
                     </span>
                     <div>
                       <h3 className="font-semibold">{tech.name}</h3>

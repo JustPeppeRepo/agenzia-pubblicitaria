@@ -13,8 +13,23 @@ import {
 } from "react";
 import { createPortal } from "react-dom";
 import { aboutMembers, aboutTeam } from "@/data/site";
-import { useMotionSafe } from "@/hooks/use-motion-safe";
 import { cn } from "@/lib/utils";
+
+const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
+
+function useScrollBridgeEnabled() {
+  const [enabled, setEnabled] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia(REDUCED_MOTION_QUERY);
+    const update = () => setEnabled(!media.matches);
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
+
+  return enabled;
+}
 
 type AnchorVariant = "hero" | "about";
 
@@ -137,8 +152,7 @@ type TeamScrollFlyLayerProps = {
 function TeamScrollFlyLayer({ anchorRefs, anchorVersion }: TeamScrollFlyLayerProps) {
   const [progress, setProgress] = useState(0);
   const [rect, setRect] = useState<FrameRect | null>(null);
-  const { mounted, prefersReducedMotion } = useMotionSafe();
-  const isBridgeActive = mounted && !prefersReducedMotion;
+  const isBridgeActive = useScrollBridgeEnabled();
 
   const updateFrame = useCallback(() => {
     const hero = anchorRefs.current.hero;
@@ -232,8 +246,7 @@ function TeamScrollFlyLayer({ anchorRefs, anchorVersion }: TeamScrollFlyLayerPro
 }
 
 export function TeamScrollBridge({ children }: { children: ReactNode }) {
-  const { mounted, prefersReducedMotion } = useMotionSafe();
-  const isBridgeActive = mounted && !prefersReducedMotion;
+  const isBridgeActive = useScrollBridgeEnabled();
   const anchorRefs = useRef<Record<AnchorVariant, HTMLDivElement | null>>({
     hero: null,
     about: null,

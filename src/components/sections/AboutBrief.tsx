@@ -1,7 +1,7 @@
-import Image from "next/image";
 import { aboutTeam } from "@/data/site";
 import { featuredTechnologies } from "@/data/technologies";
 import { FadeIn, StaggerContainer, StaggerItem } from "@/components/motion/FadeIn";
+import { TeamImageAnchor } from "@/components/sections/TeamScrollBridge";
 import { TechIcon } from "@/components/ui/TechIcon";
 
 export function AboutBrief() {
@@ -22,16 +22,7 @@ export function AboutBrief() {
 
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-[auto_1fr] sm:items-center sm:gap-x-8 sm:gap-y-6 lg:grid-cols-[1fr_auto_1fr] lg:gap-12">
           <div className="mx-auto w-full max-w-[220px] sm:mx-0 sm:row-span-2 sm:w-[150px] sm:max-w-none lg:col-start-2 lg:row-span-1 lg:row-start-1 lg:w-auto lg:max-w-[320px]">
-            <div className="overflow-hidden rounded-3xl border border-foreground/10 bg-foreground/[0.02] shadow-sm">
-              <Image
-                src={aboutTeam.image}
-                alt={aboutTeam.imageAlt}
-                width={400}
-                height={520}
-                className="h-auto w-full object-cover"
-                priority
-              />
-            </div>
+            <TeamImageAnchor variant="about" priority />
           </div>
 
           <div className="text-left sm:col-start-2 sm:row-start-1 lg:col-start-1 lg:row-start-1 lg:text-right">

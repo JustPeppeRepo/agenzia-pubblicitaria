@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { ContactForm, ContactLinks } from "@/components/sections/ContactForm";
+import { ContactForm } from "@/components/sections/ContactForm";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { SocialLinks } from "@/components/ui/SocialLinks";
 
 export const metadata: Metadata = {
   title: "Contatti",
@@ -18,7 +19,7 @@ export default function ContactPage() {
             title="Parliamo del tuo prossimo progetto"
             description="Compila il modulo con validazione client-side, oppure contattami direttamente via email o LinkedIn."
           />
-          <ContactLinks />
+          <SocialLinks className="mt-6" />
         </FadeIn>
 
         <FadeIn delay={0.15}>

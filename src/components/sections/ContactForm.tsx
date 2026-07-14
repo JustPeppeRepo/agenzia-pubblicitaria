@@ -2,7 +2,6 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { siteConfig } from "@/data/site";
 import { validateContactForm } from "@/lib/utils";
 
 type FormData = {
@@ -165,32 +164,5 @@ function Field({
         </motion.p>
       ) : null}
     </label>
-  );
-}
-
-export function ContactLinks() {
-  return (
-    <ul className="mt-8 space-y-3 text-sm">
-      <li>
-        <a
-          href={`mailto:${siteConfig.email}`}
-          className="text-foreground/70 transition-colors hover:text-foreground"
-        >
-          {siteConfig.email}
-        </a>
-      </li>
-      {siteConfig.social.map((link) => (
-        <li key={link.platform}>
-          <a
-            href={link.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-foreground/70 transition-colors hover:text-foreground"
-          >
-            {link.label} →
-          </a>
-        </li>
-      ))}
-    </ul>
   );
 }

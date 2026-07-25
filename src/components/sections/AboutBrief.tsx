@@ -52,7 +52,13 @@ export function AboutBrief() {
         <StaggerContainer className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-6">
           {featuredTechnologies.map((tech) => (
             <StaggerItem key={tech.id}>
-              <div className="group flex flex-col items-center rounded-2xl border border-foreground/10 bg-foreground/[0.02] p-4 text-center transition-colors hover:border-foreground/25 hover:bg-foreground/[0.04]">
+              <a
+                href={tech.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${tech.name} — sito ufficiale`}
+                className="group flex flex-col items-center rounded-2xl border border-foreground/10 bg-foreground/[0.02] p-4 text-center transition-colors hover:border-foreground/25 hover:bg-foreground/[0.04] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground/30"
+              >
                 <TechIcon
                   id={tech.id}
                   fallback={tech.icon}
@@ -61,7 +67,7 @@ export function AboutBrief() {
                 <span className="mt-2 text-xs font-medium text-foreground/80">
                   {tech.name}
                 </span>
-              </div>
+              </a>
             </StaggerItem>
           ))}
         </StaggerContainer>

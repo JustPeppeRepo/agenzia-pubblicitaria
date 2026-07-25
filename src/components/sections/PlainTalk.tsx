@@ -1,0 +1,132 @@
+"use client";
+
+import { motion } from "framer-motion";
+import { comparisonPlainTalk, type PlainTalkVisualId } from "@/data/site";
+import { FadeIn } from "@/components/motion/FadeIn";
+import { PlainTalkVisual } from "@/components/sections/PlainTalkVisual";
+import { useMotionSafe } from "@/hooks/use-motion-safe";
+import { cn } from "@/lib/utils";
+
+type RowProps = {
+  index: number;
+  title: string;
+  text: string;
+  visual: PlainTalkVisualId;
+};
+
+function PlainTalkRow({ index, title, text, visual }: RowProps) {
+  const { mounted, prefersReducedMotion } = useMotionSafe();
+  const shouldAnimate = mounted && !prefersReducedMotion;
+  const textFirst = index % 2 === 1;
+
+  return (
+    <motion.div
+      className={cn(
+        "mx-auto grid max-w-6xl items-center gap-8 px-6 md:grid-cols-2 md:gap-12 lg:gap-16",
+        textFirst && "md:[&>*:first-child]:order-2",
+      )}
+      initial={false}
+      whileInView={
+        shouldAnimate
+          ? { opacity: [0.35, 1], y: [28, 0] }
+          : undefined
+      }
+      viewport={{ once: true, amount: 0.35 }}
+      transition={{ duration: 0.55, ease: [0.25, 0.1, 0.25, 1] }}
+    >
+      <div className={cn(textFirst ? "md:text-right" : "md:text-left")}>
+        <h4 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+          {title}
+        </h4>
+        <p
+          className={cn(
+            "mt-4 max-w-xl text-base leading-7 text-foreground/65 sm:text-lg sm:leading-8",
+            textFirst && "md:ml-auto",
+          )}
+        >
+          {text}
+        </p>
+      </div>
+
+      <div
+        className={cn(
+          "relative flex justify-center",
+          textFirst ? "md:justify-start" : "md:justify-end",
+        )}
+      >
+        <div className="pointer-events-none absolute inset-6 rounded-full bg-emerald-500/[0.06] blur-2xl" />
+        <PlainTalkVisual id={visual} className="relative" />
+      </div>
+    </motion.div>
+  );
+}
+
+export function PlainTalk() {
+  const {
+    eyebrow,
+    title,
+    intro,
+    offerBlocks,
+    glossaryBlocks,
+    closing,
+  } = comparisonPlainTalk;
+
+  let rowIndex = 0;
+
+  return (
+    <section className="relative mt-20 w-full border-t border-foreground/10 bg-gradient-to-b from-foreground/[0.03] via-transparent to-foreground/[0.03] py-16 sm:py-20">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-foreground/15 to-transparent"
+      />
+
+      <FadeIn className="mx-auto max-w-3xl px-6 text-center">
+        <p className="text-sm font-medium uppercase tracking-[0.2em] text-foreground/50">
+          {eyebrow}
+        </p>
+        <h3 className="mt-3 text-2xl font-semibold tracking-tight sm:text-4xl">
+          {title}
+        </h3>
+        <p className="mt-4 text-base leading-7 text-foreground/65 sm:text-lg">
+          {intro}
+        </p>
+      </FadeIn>
+
+      <div className="mt-14 space-y-16 sm:space-y-20">
+        {offerBlocks.map((block) => {
+          const index = rowIndex++;
+          return (
+            <PlainTalkRow
+              key={block.id}
+              index={index}
+              title={block.title}
+              text={block.text}
+              visual={block.visual}
+            />
+          );
+        })}
+      </div>
+
+      <div className="mt-16 space-y-16 sm:space-y-20">
+        {glossaryBlocks.map((block) => {
+          const index = rowIndex++;
+          return (
+            <PlainTalkRow
+              key={block.id}
+              index={index}
+              title={block.term}
+              text={block.text}
+              visual={block.visual}
+            />
+          );
+        })}
+      </div>
+
+      <FadeIn className="mx-auto mt-20 max-w-3xl px-6 text-center">
+        <p className="text-base font-medium leading-8 text-foreground/80 sm:text-lg">
+          {closing}
+        </p>
+      </FadeIn>
+    </section>
+  );
+}

@@ -10,6 +10,7 @@ export const technologies: Technology[] = [
     whyChosen:
       "Scelgo Next.js per la SEO nativa, il rendering ibrido (SSG + ISR) e l'Image Optimization integrata. Permette di servire pagine statiche velocissime mantenendo la flessibilità di route dinamiche.",
     proficiency: 95,
+    url: "https://nextjs.org",
   },
   {
     id: "typescript",
@@ -20,6 +21,7 @@ export const technologies: Technology[] = [
     whyChosen:
       "TypeScript riduce bug in produzione e rende i refactoring sicuri. Con tipi condivisi tra data layer e componenti, l'intero portfolio resta coerente e manutenibile.",
     proficiency: 90,
+    url: "https://www.typescriptlang.org",
   },
   {
     id: "tailwind",
@@ -30,6 +32,7 @@ export const technologies: Technology[] = [
     whyChosen:
       "Tailwind elimina CSS morto dal bundle finale e accelera lo sviluppo responsive. Con v4 e @theme inline, il design system resta centralizzato e performante.",
     proficiency: 92,
+    url: "https://tailwindcss.com",
   },
   {
     id: "react",
@@ -40,6 +43,7 @@ export const technologies: Technology[] = [
     whyChosen:
       "React resta lo standard de facto per UI complesse. Con Server Components di Next.js, separo logica server-side da interattività client-side in modo netto.",
     proficiency: 93,
+    url: "https://react.dev",
   },
   {
     id: "express",
@@ -50,6 +54,7 @@ export const technologies: Technology[] = [
     whyChosen:
       "Express è il framework Node.js più collaudato per API REST e middleware custom. Lo uso quando serve un backend snello, integrazioni terze parti o logica server dedicata.",
     proficiency: 88,
+    url: "https://expressjs.com",
   },
   {
     id: "prisma",
@@ -60,6 +65,7 @@ export const technologies: Technology[] = [
     whyChosen:
       "Prisma offre migrazioni, query type-safe e un client generato automaticamente. Riduce errori sui dati e accelera lo sviluppo con PostgreSQL, MySQL o SQLite.",
     proficiency: 87,
+    url: "https://www.prisma.io",
   },
   {
     id: "framer",
@@ -70,6 +76,7 @@ export const technologies: Technology[] = [
     whyChosen:
       "Framer Motion offre API React-native per animazioni scroll e hover, con supporto built-in per prefers-reduced-motion. Tree-shakeable e stabile in produzione.",
     proficiency: 88,
+    url: "https://motion.dev",
   },
   {
     id: "vercel",
@@ -80,6 +87,7 @@ export const technologies: Technology[] = [
     whyChosen:
       "Vercel è la piattaforma nativa per Next.js: deploy automatici da Git, preview URL per ogni PR, CDN globale e integrazione con Analytics e Speed Insights già attive su questo sito.",
     proficiency: 88,
+    url: "https://vercel.com",
   },
 ];
 

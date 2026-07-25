@@ -28,6 +28,8 @@ export type Technology = {
   shortDescription: string;
   whyChosen: string;
   proficiency: number;
+  /** Official docs / product page */
+  url?: string;
 };
 
 export type AboutMember = {
@@ -47,6 +49,21 @@ export type ValueProposition = {
   title: string;
   description: string;
   metric?: string;
+};
+
+export type StackDuelSide = {
+  techId: string;
+  name: string;
+  /** Short plain-language intro shown before the points list */
+  summary: string;
+  points: string[];
+  /** Extra tech icons shown under the main stack */
+  stackIds?: string[];
+};
+
+export type StackDuel = {
+  competitor: StackDuelSide;
+  ours: StackDuelSide;
 };
 
 export type ProjectMetric = {

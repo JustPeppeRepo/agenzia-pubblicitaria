@@ -1,12 +1,18 @@
 import {
+  siBootstrap,
+  siCursor,
+  siElementor,
   siExpress,
   siFramer,
+  siJquery,
   siNextdotjs,
+  siPhp,
   siPrisma,
   siReact,
   siTailwindcss,
   siTypescript,
   siVercel,
+  siWordpress,
   type SimpleIcon,
 } from "simple-icons";
 import { cn } from "@/lib/utils";
@@ -20,10 +26,22 @@ const TECH_ICONS: Record<string, SimpleIcon> = {
   prisma: siPrisma,
   framer: siFramer,
   vercel: siVercel,
+  wordpress: siWordpress,
+  cursor: siCursor,
+  jquery: siJquery,
+  php: siPhp,
+  elementor: siElementor,
+  bootstrap: siBootstrap,
 };
 
 /** Dark brand marks — use foreground on dark UI */
-const FOREGROUND_ICONS = new Set(["nextjs", "express", "prisma", "vercel"]);
+const FOREGROUND_ICONS = new Set([
+  "nextjs",
+  "express",
+  "prisma",
+  "vercel",
+  "cursor",
+]);
 
 type TechIconProps = {
   id: string;

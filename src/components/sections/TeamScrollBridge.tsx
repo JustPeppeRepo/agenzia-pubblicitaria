@@ -39,19 +39,23 @@ function clamp(value: number, min: number, max: number) {
   return Math.min(max, Math.max(min, value));
 }
 
+function easeOutCubic(t: number) {
+  return 1 - (1 - t) ** 3;
+}
+
 function getSplitBlend(progress: number) {
-  if (progress < 0.12) return 0;
-  if (progress < 0.28) return (progress - 0.12) / 0.16;
-  if (progress < 0.72) return 1;
-  if (progress < 0.88) return 1 - (progress - 0.72) / 0.16;
+  if (progress < 0.1) return 0;
+  if (progress < 0.24) return (progress - 0.1) / 0.14;
+  if (progress < 0.62) return 1;
+  if (progress < 0.78) return 1 - (progress - 0.62) / 0.16;
   return 0;
 }
 
 function getFlyOpacity(progress: number) {
   if (progress <= 0.03) return 0;
   if (progress < 0.1) return (progress - 0.03) / 0.07;
-  if (progress < 0.9) return 1;
-  if (progress < 0.97) return 1 - (progress - 0.9) / 0.07;
+  if (progress < 0.82) return 1;
+  if (progress < 0.92) return 1 - (progress - 0.82) / 0.1;
   return 0;
 }
 
@@ -62,8 +66,8 @@ function getAnchorOpacity(progress: number, variant: AnchorVariant) {
     return 0;
   }
 
-  if (progress >= 0.97) return 1;
-  if (progress > 0.9) return (progress - 0.9) / 0.07;
+  if (progress >= 0.92) return 1;
+  if (progress > 0.82) return (progress - 0.82) / 0.1;
   return 0;
 }
 
@@ -76,14 +80,16 @@ function interpolateRect(start: FrameRect, end: FrameRect, progress: number): Fr
   };
 }
 
-function computeProgress(hero: HTMLDivElement, about: HTMLDivElement) {
-  const heroY = hero.getBoundingClientRect().top + window.scrollY;
+function computeProgress(about: HTMLDivElement) {
   const aboutY = about.getBoundingClientRect().top + window.scrollY;
-  const distance = aboutY - heroY;
+  // Land while the about slot is still lower in the viewport, so the fly
+  // layer settles before it can cover the About copy during scroll.
+  const settleY = clamp(window.innerHeight * 0.58, 220, 560);
+  const endScroll = aboutY - settleY;
 
-  if (distance <= 0) return 0;
+  if (endScroll <= 0) return 1;
 
-  return clamp(window.scrollY / distance, 0, 1);
+  return easeOutCubic(clamp(window.scrollY / endScroll, 0, 1));
 }
 
 type TeamScrollFlyLayerProps = {
@@ -113,7 +119,7 @@ function TeamScrollFlyLayer({ anchorRefs, ready, simplifyMotion }: TeamScrollFly
       return;
     }
 
-    const progress = computeProgress(hero, about);
+    const progress = computeProgress(about);
     const heroRect = hero.getBoundingClientRect();
     const aboutRect = about.getBoundingClientRect();
     const rect = interpolateRect(

@@ -1,4 +1,4 @@
-import type { NavLink, SiteConfig, ValueProposition } from "@/types";
+import type { NavLink, SiteConfig, StackDuel, ValueProposition } from "@/types";
 
 export const siteConfig: SiteConfig = {
   name: "Marco Dev",
@@ -29,6 +29,98 @@ export const navLinks: NavLink[] = [
   { label: "Progetti", href: "/#projects" },
   { label: "Contatti", href: "/contact" },
 ];
+
+/** Plain-language explainer under the comparison block */
+export const comparisonPlainTalk = {
+  eyebrow: "In parole semplici",
+  title: "Cosa facciamo per te — senza paroloni",
+  intro:
+    "Qui sopra abbiamo usato termini tecnici. Qui sotto ti diciamo la stessa cosa come se ne stessimo parlando al bar: cosa ottieni, e perché conta per il tuo business.",
+  offerBlocks: [
+    {
+      id: "clients",
+      visual: "clients",
+      title: "Un sito che porta clienti",
+      text: "Ti costruiamo un sito (o un'app web) pensato per portare clienti: veloce da aprire, chiaro da usare e facile da trovare su Google.",
+    },
+    {
+      id: "aligned",
+      visual: "aligned",
+      title: "Tecnologia e comunicazione insieme",
+      text: "Non ci fermiamo al “sito bello”. Allineiamo tecnologia e comunicazione: il sito e la strategia per farti trovare lavorano insieme, così chi arriva è già interessato a ciò che offri.",
+    },
+    {
+      id: "grow",
+      visual: "grow",
+      title: "Cresce con il tuo business",
+      text: "Quando il business cresce — nuove pagine, nuovi servizi, più visite — non ripartiamo da zero. Aggiorniamo e ampliamo ciò che abbiamo già costruito.",
+    },
+  ],
+  glossaryBlocks: [
+    {
+      id: "speed",
+      visual: "speed",
+      term: "Velocità",
+      text: "Quanto tempo aspetta una persona prima di vedere la tua pagina. Se aspetta troppo, chiude e va dal concorrente. Un sito veloce tiene le persone lì e aumenta le richieste.",
+    },
+    {
+      id: "security",
+      visual: "security",
+      term: "Sicurezza",
+      text: "Quanto è difficile per qualcuno attaccare o compromettere il sito. Un sito poco protetto può essere bloccato, defacciato o usato per rubare dati — con danni a te e ai tuoi clienti.",
+    },
+    {
+      id: "seo",
+      visual: "seo",
+      term: "SEO",
+      text: "È il modo in cui Google decide di mostrarti (o meno) quando qualcuno cerca i tuoi servizi. “SEO massimizzata” significa: struttuiamo il sito perché tu compaia nelle ricerche giuste, non solo perché “esisti online”.",
+    },
+    {
+      id: "scale",
+      visual: "scale",
+      term: "Scalabilità",
+      text: "La capacità del sito di crescere con te. Più traffico, più contenuti, nuove funzioni: senza dover buttare tutto e rifare il progetto ogni volta che il business fa un passo avanti.",
+    },
+  ],
+  closing:
+    "In sintesi: meno rotture tecniche, più chiarezza per chi ti cerca, e un sito che lavora per portarti contatti — non solo per “esserci” su internet.",
+} as const;
+
+export type PlainTalkVisualId =
+  (typeof comparisonPlainTalk.offerBlocks)[number]["visual"]
+  | (typeof comparisonPlainTalk.glossaryBlocks)[number]["visual"];
+
+export const stackDuel: StackDuel = {
+  competitor: {
+    techId: "wordpress",
+    name: "WordPress",
+    summary:
+      "Siti “in fretta” con temi e plugin già pronti: comodo all’inizio, poi spesso lento e fragile.",
+    points: [
+      "Lento: plugin e template che fanno abbandonare i visitatori",
+      "Vulnerabile agli attacchi hacker",
+      "SEO trascurata o venduta a parte",
+      "Sito e ads da fornitori diversi",
+      "Ogni crescita richiede un rifacimento",
+    ],
+    stackIds: ["php", "jquery", "elementor", "bootstrap"],
+  },
+  ours: {
+    techId: "nextjs",
+    name: "Next.js",
+    summary:
+      "Strumenti moderni per siti veloci, più sicuri e pronti a durare nel tempo.",
+    points: [
+      "Completamente flessibile e personalizzabile sulle scelte del cliente",
+      "Veloce anche da telefono, più contatti",
+      "Stack moderno e più sicuro",
+      "SEO integrata dal primo giorno",
+      "Dev e strategia pubblicitaria insieme",
+      "Cresce con te, senza ripartire da zero",
+    ],
+    stackIds: ["react", "typescript", "vercel", "cursor"],
+  },
+};
 
 export const valuePropositions: ValueProposition[] = [
   {

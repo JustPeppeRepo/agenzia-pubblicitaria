@@ -103,22 +103,10 @@ export const comparisonPlainTalk = {
     "Oggi le alternative economiche e automatizzate non mancano, ma ciò che fa la differenza tra un sito inutile e uno professionale è la capacità di rispondere davvero alle esigenze degli utenti e del mercato web. È qui che interveniamo noi.",
   offerBlocks: [
     {
-      id: "clients",
-      visual: "clients",
-      title: "Un sito che porta clienti",
-      text: "Ti costruiamo un sito (o un'app web) pensato per portare clienti: veloce da aprire, chiaro da usare e facile da trovare su Google.",
-    },
-    {
-      id: "aligned",
-      visual: "aligned",
-      title: "Tecnologia e comunicazione insieme",
-      text: "Non ci fermiamo al “sito bello”. Allineiamo tecnologia e comunicazione: il sito e la strategia per farti trovare lavorano insieme, così chi arriva è già interessato a ciò che offri.",
-    },
-    {
-      id: "grow",
-      visual: "grow",
-      title: "Cresce con il tuo business",
-      text: "Quando il business cresce — nuove pagine, nuovi servizi, più visite — non ripartiamo da zero. Aggiorniamo e ampliamo ciò che abbiamo già costruito.",
+      id: "responsive",
+      visual: "responsive",
+      title: "Perfetto su ogni dispositivo",
+      text: "Il tuo sito si adatta a smartphone, tablet e computer: stessi contenuti, layout chiaro e leggibile. Chi ti trova da mobile o da desktop vede sempre una versione professionale.",
     },
   ],
   glossaryBlocks: [

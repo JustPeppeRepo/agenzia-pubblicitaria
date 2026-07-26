@@ -1,14 +1,18 @@
-import type { NavLink, SiteConfig, StackDuel, ValueProposition } from "@/types";
+import type { NavLink, SiteConfig, StackDuel } from "@/types";
+
+/* -------------------------------------------------------------------------- */
+/* Global — layout, header, footer                                            */
+/* -------------------------------------------------------------------------- */
 
 export const siteConfig: SiteConfig = {
-  name: "Marco Dev",
-  role: "Frontend Engineer & Creative Developer",
+  name: "Aiello Digital Studio",
+  role: "Frontend Engineer & Marketing Specialist",
   tagline: "Siti web veloci, animati e costruiti per convertire",
   description:
-    "Sviluppiamo siti e applicazioni web ad alte prestazioni con Next.js, animazioni fluide e architetture scalabili — con o senza database, in base a ciò che serve al tuo progetto.",
+    "Sviluppiamo siti e applicazioni web ad alte prestazioni, pensati per aumentare la visibilità che la tua azienda ha online",
   email: "ciao@marcoddev.it",
   phone: "+39 333 123 4567",
-  location: "Milano, Italia",
+  location: "Palermo, Italia",
   social: [
     {
       platform: "linkedin",
@@ -30,12 +34,73 @@ export const navLinks: NavLink[] = [
   { label: "Contatti", href: "/contact" },
 ];
 
-/** Plain-language explainer under the comparison block */
+/* -------------------------------------------------------------------------- */
+/* Home — ordine visivo                                                       */
+/* 1. Hero → siteConfig                                                       */
+/* 2. AboutBrief                                                              */
+/* 3. ValueProposition (confronto + plain talk)                               */
+/* 4. ProjectsGrid → data/projects.ts                                         */
+/* 5. ContactCTA → siteConfig                                                 */
+/* -------------------------------------------------------------------------- */
+
+export const aboutTeam = {
+  eyebrow: "Chi siamo",
+  title: "Siamo in due, lavoriamo come uno solo",
+  description:
+    "Un team affiatato con due ruoli complementari: uno trasforma le idee in software solido e veloce, l'altro fa arrivare il tuo messaggio alle persone giuste. Insieme costruiamo la presenza digitale del tuo business — dal codice alla visibilità online.",
+  left: {
+    title: "GIUSEPPE - Web Developer",
+    description:
+      "Progetto siti e applicazioni web su misura: veloci, affidabili e pronti a crescere con te. Ogni riga di codice serve a offrire un'esperienza fluida a chi visita il tuo sito.",
+  },
+  right: {
+    title: "VITO - Marketing Specialist",
+    description:
+      "Curo la visibilità del sito online, i contenuti e la strategia di comunicazione digitale perché il tuo brand emerga su Google e sui canali giusti. Non basta esistere online: serve essere visibili, credibili e convincenti.",
+  },
+  image: "/images/team-placeholder.svg",
+  imageAlt: "Il team — due persone appoggiate schiena a schiena",
+};
+
+/** CompetitiveComparison — WordPress vs Next.js */
+export const stackDuel: StackDuel = {
+  competitor: {
+    techId: "wordpress",
+    name: "WordPress",
+    summary:
+      "Wordpress è una applicazione web che permette di creare siti senza saper programmare, questo si traduce in siti inadatti alla pubblicità e tutti uguali.",
+    points: [
+      "Sito generico e non personalizzabile",
+      "Utilizza plugin che rendono il sito lento e poco sicuro",
+      "Più vulnerabile agli attacchi hacker",
+      "SEO trascurata o venduta a parte",
+      "Difficilmente scalabile o modificabile",
+    ],
+    stackIds: ["php", "jquery", "elementor", "bootstrap"],
+  },
+  ours: {
+    techId: "nextjs",
+    name: "Next.js",
+    summary:
+      "Next.js è un vero e proprio linguaggio di programmazione che permette le massime performance di velocità e sicurezza e la massima creatività e flessibilità secondo le esigenze del cliente",
+    points: [
+      "Completamente personalizzabile sulle scelte del cliente",
+      "Velocità e performance garantite",
+      "Tecnologia moderna e più sicura",
+      "SEO integrata nella struttra stessa del sito",
+      "Programmazione e pubblicità nello stesso progetto",
+      "Completamente scalabile in base al numero di visitatori",
+    ],
+    stackIds: ["react", "typescript", "vercel", "cursor"],
+  },
+};
+
+/** PlainTalk — sotto il blocco di confronto */
 export const comparisonPlainTalk = {
-  eyebrow: "In parole semplici",
-  title: "Cosa facciamo per te — senza paroloni",
+  eyebrow: "LA VISIBILITÀ",
+  title: "Serve veramente avere un sito veloce e professionale?",
   intro:
-    "Qui sopra abbiamo usato termini tecnici. Qui sotto ti diciamo la stessa cosa come se ne stessimo parlando al bar: cosa ottieni, e perché conta per il tuo business.",
+    "Oggi le alternative economiche e automatizzate non mancano, ma ciò che fa la differenza tra un sito inutile e uno professionale è la capacità di rispondere davvero alle esigenze degli utenti e del mercato web. È qui che interveniamo noi.",
   offerBlocks: [
     {
       id: "clients",
@@ -87,100 +152,12 @@ export const comparisonPlainTalk = {
 } as const;
 
 export type PlainTalkVisualId =
-  (typeof comparisonPlainTalk.offerBlocks)[number]["visual"]
+  | (typeof comparisonPlainTalk.offerBlocks)[number]["visual"]
   | (typeof comparisonPlainTalk.glossaryBlocks)[number]["visual"];
 
-export const stackDuel: StackDuel = {
-  competitor: {
-    techId: "wordpress",
-    name: "WordPress",
-    summary:
-      "Siti “in fretta” con temi e plugin già pronti: comodo all’inizio, poi spesso lento e fragile.",
-    points: [
-      "Lento: plugin e template che fanno abbandonare i visitatori",
-      "Vulnerabile agli attacchi hacker",
-      "SEO trascurata o venduta a parte",
-      "Sito e ads da fornitori diversi",
-      "Ogni crescita richiede un rifacimento",
-    ],
-    stackIds: ["php", "jquery", "elementor", "bootstrap"],
-  },
-  ours: {
-    techId: "nextjs",
-    name: "Next.js",
-    summary:
-      "Strumenti moderni per siti veloci, più sicuri e pronti a durare nel tempo.",
-    points: [
-      "Completamente flessibile e personalizzabile sulle scelte del cliente",
-      "Veloce anche da telefono, più contatti",
-      "Stack moderno e più sicuro",
-      "SEO integrata dal primo giorno",
-      "Dev e strategia pubblicitaria insieme",
-      "Cresce con te, senza ripartire da zero",
-    ],
-    stackIds: ["react", "typescript", "vercel", "cursor"],
-  },
-};
-
-export const valuePropositions: ValueProposition[] = [
-  {
-    id: "performance",
-    title: "Siti che caricano subito",
-    description:
-      "Quando una pagina è lenta, le persone se ne vanno prima ancora di leggere la tua offerta. Usiamo tecnologie leggere e ottimizzate: il tuo sito si apre in un attimo anche da telefono, e più visitatori arrivano fino al contatto o all'acquisto.",
-    metric: "Velocità",
-  },
-  {
-    id: "seo",
-    title: "Ti trovano su Google",
-    description:
-      "Costruiamo il sito in modo che Google capisca subito chi sei, cosa offri e dove operi. Risultato: compari nelle ricerche di chi sta già cercando i tuoi servizi — clienti nuovi senza dipendere solo dalla pubblicità.",
-    metric: "Più visibilità",
-  },
-  {
-    id: "responsive",
-    title: "Perfetto su ogni schermo",
-    description:
-      "Il sito si adatta a smartphone, tablet e desktop: testi leggibili, pulsanti comodi e layout che resta ordinato su ogni dispositivo. Animazioni leggere rendono la navigazione fluida senza appesantire la pagina.",
-    metric: "Responsive",
-  },
-  {
-    id: "code",
-    title: "Un investimento che dura",
-    description:
-      "Non costruiamo siti fragili da rifare ogni anno. La base tecnica è solida, sicura e facile da aggiornare quando il tuo business cresce: nuove pagine, nuovi servizi, più traffico — senza ripartire da zero.",
-    metric: "Crescita senza stress",
-  },
-];
-
-export const aboutTeam = {
-  eyebrow: "Chi siamo",
-  title: "Siamo in due, lavoriamo come uno solo",
-  description:
-    "Un team affiatato con due ruoli complementari: uno trasforma le idee in software solido e veloce, l'altro fa arrivare il tuo messaggio alle persone giuste. Insieme costruiamo la presenza digitale del tuo business — dal codice alla visibilità online.",
-  left: {
-    title: "Software Engineering",
-    description:
-      "Progettiamo e sviluppiamo siti e applicazioni web su misura: veloci, affidabili e pronti a crescere con te. Ogni riga di codice serve a offrire un'esperienza fluida a chi visita il tuo sito.",
-  },
-  right: {
-    title: "Fatti trovare, fatti scegliere",
-    description:
-      "Curiamo SEO, contenuti e strategia di comunicazione digitale perché il tuo brand emerga su Google e sui canali giusti. Non basta esistere online: serve essere visibili, credibili e convincenti.",
-  },
-  image: "/images/team-placeholder.svg",
-  imageAlt: "Il team — due persone appoggiate schiena a schiena",
-};
-
-/** @deprecated Use aboutTeam — kept for content helpers */
-export const aboutBrief = aboutTeam.description;
-
-export const aboutDetailed = {
-  intro:
-    "Ho iniziato a programmare oltre 8 anni fa, spinto dalla curiosità di capire come funzionassero le interfacce che usavo ogni giorno. Oggi lavoro con brand e freelance che vogliono distinguersi online con siti che non solo bello da vedere, ma tecnicamente impeccabili.",
-  philosophy:
-    "Credo che la migliore UX sia quella che non si nota: caricamenti istantanei, animazioni naturali, zero attrito. Ogni scelta tecnica serve un obiettivo business — conversioni, SEO, fiducia del brand.",
-};
+/* -------------------------------------------------------------------------- */
+/* About page                                                                 */
+/* -------------------------------------------------------------------------- */
 
 export const aboutPage = {
   eyebrow: "About",
@@ -192,11 +169,11 @@ export const aboutMembers = {
   engineer: {
     id: "engineer",
     anchorId: "tecnologie",
-    name: "Marco",
-    role: "Software Engineer",
+    name: "Giuseppe",
+    role: "Full Stack Developer",
     image: "/images/team-engineer.svg",
-    imageAlt: "Marco — software engineer",
-    bio: "Progetto e sviluppo siti e applicazioni web su misura: architetture solide, performance alte e codice che regge nel tempo. Le olimpiadi di informatica mi hanno formato in C++ e strutture dati avanzate — competenze che applico ogni giorno per scegliere algoritmi efficienti e soluzioni scalabili.",
+    imageAlt: "Giuseppe — Web Developer",
+    bio: "Progetto e sviluppo siti e applicazioni web su misura: architetture solide, performance alte e codice che regge nel tempo. Le olimpiadi di informatica mi hanno formato in C++ e strutture dati avanzate — competenze che applico ogni giorno per scegliere algoritmi efficienti e ottimizzati, mentre il corso Full Stack Open mi ha fornito le competenze più moderne e performanti per sviluppare siti web efficienti e scalabili.",
     expandLabel: "Mostra come funziona il codice",
     collapseLabel: "Nascondi dettagli tecnici",
   },

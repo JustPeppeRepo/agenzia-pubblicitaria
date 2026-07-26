@@ -24,7 +24,7 @@ export type Technology = {
   id: string;
   name: string;
   icon: string;
-  category: "frontend" | "backend" | "tooling" | "design" | "marketing";
+  category: "frontend" | "backend" | "tooling" | "marketing";
   shortDescription: string;
   whyChosen: string;
   proficiency: number;
@@ -42,13 +42,6 @@ export type AboutMember = {
   bio: string;
   expandLabel: string;
   collapseLabel: string;
-};
-
-export type ValueProposition = {
-  id: string;
-  title: string;
-  description: string;
-  metric?: string;
 };
 
 export type StackDuelSide = {

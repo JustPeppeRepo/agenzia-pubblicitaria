@@ -80,25 +80,48 @@ function interpolateRect(start: FrameRect, end: FrameRect, progress: number): Fr
   };
 }
 
-function computeProgress(about: HTMLDivElement) {
-  const aboutY = about.getBoundingClientRect().top + window.scrollY;
+function computeProgress(
+  hero: HTMLDivElement,
+  about: HTMLDivElement,
+  isCompact: boolean,
+) {
+  const scrollY = window.scrollY;
+  const heroY = hero.getBoundingClientRect().top + scrollY;
+  const aboutY = about.getBoundingClientRect().top + scrollY;
   // Land while the about slot is still lower in the viewport, so the fly
   // layer settles before it can cover the About copy during scroll.
   const settleY = clamp(window.innerHeight * 0.58, 220, 560);
   const endScroll = aboutY - settleY;
 
-  if (endScroll <= 0) return 1;
+  // On mobile the hero image sits below the fold. Keep it still until the
+  // user has scrolled it near the top — otherwise it flies off before
+  // they ever see it in place.
+  const startScroll = isCompact
+    ? Math.max(0, heroY - window.innerHeight * 0.08)
+    : 0;
 
-  return easeOutCubic(clamp(window.scrollY / endScroll, 0, 1));
+  if (endScroll <= startScroll) {
+    return scrollY >= endScroll ? 1 : 0;
+  }
+
+  return easeOutCubic(
+    clamp((scrollY - startScroll) / (endScroll - startScroll), 0, 1),
+  );
 }
 
 type TeamScrollFlyLayerProps = {
   anchorRefs: React.MutableRefObject<Record<AnchorVariant, HTMLDivElement | null>>;
   ready: boolean;
   simplifyMotion: boolean;
+  isCompact: boolean;
 };
 
-function TeamScrollFlyLayer({ anchorRefs, ready, simplifyMotion }: TeamScrollFlyLayerProps) {
+function TeamScrollFlyLayer({
+  anchorRefs,
+  ready,
+  simplifyMotion,
+  isCompact,
+}: TeamScrollFlyLayerProps) {
   const { scrollY } = useScroll();
   const top = useMotionValue(0);
   const left = useMotionValue(0);
@@ -119,7 +142,7 @@ function TeamScrollFlyLayer({ anchorRefs, ready, simplifyMotion }: TeamScrollFly
       return;
     }
 
-    const progress = computeProgress(about);
+    const progress = computeProgress(hero, about, isCompact);
     const heroRect = hero.getBoundingClientRect();
     const aboutRect = about.getBoundingClientRect();
     const rect = interpolateRect(
@@ -149,7 +172,19 @@ function TeamScrollFlyLayer({ anchorRefs, ready, simplifyMotion }: TeamScrollFly
     opacity.set(flyOpacity);
     rotate.set(simplifyMotion ? 0 : (progress - 0.5) * -3);
     splitBlend.set(simplifyMotion ? 0 : getSplitBlend(progress));
-  }, [anchorRefs, height, left, opacity, ready, rotate, simplifyMotion, splitBlend, top, width]);
+  }, [
+    anchorRefs,
+    height,
+    isCompact,
+    left,
+    opacity,
+    ready,
+    rotate,
+    simplifyMotion,
+    splitBlend,
+    top,
+    width,
+  ]);
 
   useMotionValueEvent(scrollY, "change", updateFrame);
 
@@ -213,9 +248,12 @@ function SplitBlendFrame({ splitBlend }: { splitBlend: MotionValue<number> }) {
   );
 }
 
+const COMPACT_VIEWPORT_QUERY = "(max-width: 767px)";
+
 export function TeamScrollBridge({ children }: { children: ReactNode }) {
   const [ready, setReady] = useState(false);
   const [simplifyMotion, setSimplifyMotion] = useState(false);
+  const [isCompact, setIsCompact] = useState(false);
   const anchorRefs = useRef<Record<AnchorVariant, HTMLDivElement | null>>({
     hero: null,
     about: null,
@@ -223,11 +261,20 @@ export function TeamScrollBridge({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     setReady(true);
-    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const update = () => setSimplifyMotion(media.matches);
-    update();
-    media.addEventListener("change", update);
-    return () => media.removeEventListener("change", update);
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const compactViewport = window.matchMedia(COMPACT_VIEWPORT_QUERY);
+
+    const updateMotion = () => setSimplifyMotion(reducedMotion.matches);
+    const updateCompact = () => setIsCompact(compactViewport.matches);
+
+    updateMotion();
+    updateCompact();
+    reducedMotion.addEventListener("change", updateMotion);
+    compactViewport.addEventListener("change", updateCompact);
+    return () => {
+      reducedMotion.removeEventListener("change", updateMotion);
+      compactViewport.removeEventListener("change", updateCompact);
+    };
   }, []);
 
   const registerAnchor = useCallback(
@@ -245,6 +292,7 @@ export function TeamScrollBridge({ children }: { children: ReactNode }) {
           anchorRefs={anchorRefs}
           ready={ready}
           simplifyMotion={simplifyMotion}
+          isCompact={isCompact}
         />
       </div>
     </TeamScrollContext.Provider>

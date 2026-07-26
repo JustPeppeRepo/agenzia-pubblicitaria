@@ -1,5 +1,6 @@
 import type { Technology } from "@/types";
 
+/* About page — stack tecnico (Giuseppe) */
 export const technologies: Technology[] = [
   {
     id: "nextjs",
@@ -100,11 +101,12 @@ const featuredIds = [
   "prisma",
 ] as const;
 
-/** Subset shown on homepage */
+/** Home — AboutBrief, strip “Stack principale” */
 export const featuredTechnologies = featuredIds.map(
   (id) => technologies.find((tech) => tech.id === id)!,
 );
 
+/* About page — strumenti marketing (Andrea) */
 export const marketingTechnologies: Technology[] = [
   {
     id: "seo",

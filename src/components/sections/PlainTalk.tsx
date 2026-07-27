@@ -74,7 +74,7 @@ export function PlainTalk() {
   let rowIndex = 0;
 
   return (
-    <section className="relative mt-20 w-full border-t border-foreground/10 bg-gradient-to-b from-foreground/[0.03] via-transparent to-foreground/[0.03] py-16 sm:py-20">
+    <section className="relative mt-10 w-full border-t border-foreground/10 bg-gradient-to-b from-foreground/[0.03] via-transparent to-foreground/[0.03] py-16 sm:py-20">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-foreground/15 to-transparent"

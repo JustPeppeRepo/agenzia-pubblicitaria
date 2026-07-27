@@ -6,7 +6,7 @@ import type { NavLink, SiteConfig, StackDuel } from "@/types";
 
 export const siteConfig: SiteConfig = {
   name: "Aiello Digital Studio",
-  role: "Frontend Engineer & Marketing Specialist",
+  role: "Web Developer & Advertising Strategist",
   tagline: "Siti web veloci, animati e costruiti per convertire",
   description:
     "Sviluppiamo siti e applicazioni web ad alte prestazioni, pensati per aumentare la visibilità che la tua azienda ha online",
@@ -54,7 +54,7 @@ export const aboutTeam = {
       "Progetto siti e applicazioni web su misura: veloci, affidabili e pronti a crescere con te. Ogni riga di codice serve a offrire un'esperienza fluida a chi visita il tuo sito.",
   },
   right: {
-    title: "VITO - Marketing Specialist",
+    title: "VITO - Advertising Strategist",
     description:
       "Curo la visibilità del sito online, i contenuti e la strategia di comunicazione digitale perché il tuo brand emerga su Google e sui canali giusti. Non basta esistere online: serve essere visibili, credibili e convincenti.",
   },
@@ -134,9 +134,7 @@ export const comparisonPlainTalk = {
       term: "Scalabilità",
       text: "La capacità del sito di crescere con te. Più traffico, più contenuti, nuove funzioni: senza dover buttare tutto e rifare il progetto ogni volta che il business fa un passo avanti.",
     },
-  ],
-  closing:
-    "In sintesi: meno rotture tecniche, più chiarezza per chi ti cerca, e un sito che lavora per portarti contatti — non solo per “esserci” su internet.",
+  ]
 } as const;
 
 export type PlainTalkVisualId =
@@ -161,17 +159,17 @@ export const aboutMembers = {
     role: "Full Stack Developer",
     image: "/images/team-engineer.svg",
     imageAlt: "Giuseppe — Web Developer",
-    bio: "Progetto e sviluppo siti e applicazioni web su misura: architetture solide, performance alte e codice che regge nel tempo. Le olimpiadi di informatica mi hanno formato in C++ e strutture dati avanzate — competenze che applico ogni giorno per scegliere algoritmi efficienti e ottimizzati, mentre il corso Full Stack Open mi ha fornito le competenze più moderne e performanti per sviluppare siti web efficienti e scalabili.",
+    bio: "Sono uno sviluppatore con una solida preparazione logico-strutturata. La **formazione con la Luiss** mi ha fornito basi rigorose in C++ e nell'ottimizzazione estrema delle risorse, sviluppando un'impostazione orientata all'efficienza algoritmica. A questo percorso ho affiancato il **Full Stack Open dell'Università di Helsinki**, completando il mio profilo con le tecnologie e i pattern più moderni per lo sviluppo web full stack.",
     expandLabel: "Mostra come funziona il codice",
     collapseLabel: "Nascondi dettagli tecnici",
   },
   advertiser: {
     id: "advertiser",
     anchorId: "comunicazione",
-    name: "Andrea",
+    name: "Vito",
     role: "Stratega pubblicitario",
     image: "/images/team-advertiser.svg",
-    imageAlt: "Andrea — stratega pubblicitario",
+    imageAlt: "Vito — stratega pubblicitario",
     bio: "Traduco obiettivi di business in strategie di visibilità: SEO, campagne e contenuti che portano persone reali sul sito.",
     expandLabel: "Mostra come funziona la comunicazione",
     collapseLabel: "Nascondi dettagli strategici",

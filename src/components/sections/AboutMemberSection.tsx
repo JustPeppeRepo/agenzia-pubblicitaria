@@ -11,6 +11,24 @@ type AboutMemberSectionProps = {
   className?: string;
 };
 
+/** Renders `**bold**` segments from bio copy in site.ts */
+function BioText({ text }: { text: string }) {
+  const parts = text.split(/(\*\*[^*]+\*\*)/g);
+  return (
+    <>
+      {parts.map((part, i) =>
+        part.startsWith("**") && part.endsWith("**") ? (
+          <strong key={i} className="font-semibold text-foreground/85">
+            {part.slice(2, -2)}
+          </strong>
+        ) : (
+          part
+        ),
+      )}
+    </>
+  );
+}
+
 export function AboutMemberSection({
   member,
   children,
@@ -48,7 +66,7 @@ export function AboutMemberSection({
             {member.name}
           </h2>
           <p className="mt-3 max-w-xl text-sm leading-6 text-foreground/65 sm:text-base">
-            {member.bio}
+            <BioText text={member.bio} />
           </p>
 
           <button

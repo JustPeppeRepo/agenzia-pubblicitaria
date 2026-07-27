@@ -550,7 +550,7 @@ function SpeedVisual({ animate }: VisualProps) {
       </Soft>
 
       {/* Main Performance score */}
-      <ScoreRing cx="96" cy="112" r="44" score={100} animate={animate} strokeWidth={8} />
+      <ScoreRing cx={96} cy={112} r={44} score={100} animate={animate} strokeWidth={8} />
       <ScoreCount score={100} animate={animate} x={96} y={108} />
       <text
         x="96"

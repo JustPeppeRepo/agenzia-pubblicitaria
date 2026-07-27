@@ -68,7 +68,6 @@ export function PlainTalk() {
     intro,
     offerBlocks,
     glossaryBlocks,
-    closing,
   } = comparisonPlainTalk;
 
   let rowIndex = 0;
@@ -121,12 +120,6 @@ export function PlainTalk() {
           );
         })}
       </div>
-
-      <FadeIn className="mx-auto mt-20 max-w-3xl px-6 text-center">
-        <p className="text-base font-medium leading-8 text-foreground/80 sm:text-lg">
-          {closing}
-        </p>
-      </FadeIn>
     </section>
   );
 }

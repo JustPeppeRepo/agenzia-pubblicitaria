@@ -518,7 +518,11 @@ function SpeedVisual({ animate }: VisualProps) {
   const cardW = 120;
 
   return (
-    <svg viewBox="0 0 320 200" className="h-auto w-full" aria-hidden>
+    <svg
+      viewBox="0 0 320 200"
+      className="h-auto w-full overflow-visible"
+      aria-hidden
+    >
       {/* Panel */}
       <rect
         x="16"
@@ -613,12 +617,37 @@ function SpeedVisual({ animate }: VisualProps) {
           </g>
         );
       })}
+
+      {/* Fulmine grande, obliquo, sovrapposto al bordo destro */}
+      <g transform="translate(308 100)">
+        <motion.g
+          initial={false}
+          animate={
+            animate
+              ? {
+                  rotate: [12, 18, 12],
+                  y: [0, -3, 0],
+                  opacity: [0.75, 1, 0.75],
+                }
+              : { rotate: 14, y: 0, opacity: 0.9 }
+          }
+          transition={{
+            duration: 2.4,
+            ease: "easeInOut",
+            repeat: Infinity,
+          }}
+        >
+          <path
+            d="M10 -72 L-30 2 H-6 L-22 72 L30 -12 H2 Z"
+            className="fill-emerald-500"
+          />
+        </motion.g>
+      </g>
     </svg>
   );
 }
 
 /** Scudo centrato, minacce su angoli simmetrici fissi */
-/** Minacce verso lo scudo → rimbalzo + flash d’impatto */
 function SecurityVisual({ animate }: VisualProps) {
   const threats = [
     { x: 52, y: 44, dx: 68, dy: 40 },
@@ -626,83 +655,54 @@ function SecurityVisual({ animate }: VisualProps) {
     { x: 52, y: 148, dx: 68, dy: -36 },
     { x: 268, y: 148, dx: -68, dy: -36 },
   ];
-  const cycle = 2.8;
+  const cycle = 3.6;
 
   return (
     <svg viewBox="0 0 320 200" className="h-auto w-full" aria-hidden>
       <motion.g
         initial={false}
-        animate={animate ? { x: [-10, 10], y: [7, -7] } : { x: 0, y: 0 }}
+        animate={animate ? { y: [0, -5, 0] } : { y: 0 }}
         transition={{
-          x: {
-            duration: 5.4,
-            ease: "linear",
-            repeat: Infinity,
-            repeatType: "mirror",
-          },
-          y: {
-            duration: 6.8,
-            ease: "linear",
-            repeat: Infinity,
-            repeatType: "mirror",
-          },
+          duration: 3.4,
+          ease: "easeInOut",
+          repeat: Infinity,
         }}
       >
         <path
           d="M160 36l44 18v30c0 28-18 48-44 56-26-8-44-28-44-56V54l44-18z"
-          fill="currentColor"
-          stroke="currentColor"
-          strokeWidth="2"
-          className="fill-emerald-500/8 text-emerald-500/70"
+          className="fill-emerald-500"
         />
         <path
           d="M146 100l10 10 18-20"
           fill="none"
           stroke="currentColor"
-          strokeWidth="2.25"
+          strokeWidth="2.5"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="text-emerald-500"
+          className="text-white"
         />
       </motion.g>
 
       {threats.map((t, i) => (
         <g key={i}>
-          {/* Flash d’impatto rosso — solo all’urto coi pallini */}
-          <motion.circle
-            cx={t.x + t.dx}
-            cy={t.y + t.dy}
-            r={12}
-            className="fill-rose-500"
-            initial={false}
-            animate={animate ? { opacity: [0, 0, 0.45, 0], scale: [0.5, 0.5, 1.2, 1.45] } : { opacity: 0 }}
-            transition={{
-              duration: cycle,
-              delay: i * 0.4,
-              times: [0, 0.48, 0.56, 0.72],
-              ease: "easeOut",
-              repeat: Infinity,
-            }}
-            style={{ originX: 0.5, originY: 0.5 }}
-          />
           <motion.circle
             cx={t.x + t.dx}
             cy={t.y + t.dy}
             r={16}
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            className="text-rose-500"
+            className="fill-rose-400/35"
             initial={false}
-            animate={animate ? { opacity: [0, 0, 0.65, 0], scale: [0.6, 0.6, 1.25, 1.5] } : { opacity: 0 }}
+            animate={
+              animate
+                ? { opacity: [0, 0, 0.55, 0] }
+                : { opacity: 0 }
+            }
             transition={{
               duration: cycle,
-              delay: i * 0.4,
+              delay: i * 0.55,
               times: [0, 0.48, 0.56, 0.72],
-              ease: "easeOut",
+              ease: "easeInOut",
               repeat: Infinity,
             }}
-            style={{ originX: 0.5, originY: 0.5 }}
           />
 
           <motion.g
@@ -710,34 +710,40 @@ function SecurityVisual({ animate }: VisualProps) {
             animate={
               animate
                 ? {
-                    x: [0, t.dx, t.dx * 0.72, 0],
-                    y: [0, t.dy, t.dy * 0.72, 0],
+                    x: [0, t.dx, t.dx * 0.78, 0],
+                    y: [0, t.dy, t.dy * 0.78, 0],
                   }
                 : { x: 0, y: 0 }
             }
             transition={{
               duration: cycle,
-              delay: i * 0.4,
-              times: [0, 0.52, 0.64, 1],
-              ease: ["easeIn", "easeOut", "easeInOut"],
+              delay: i * 0.55,
+              times: [0, 0.5, 0.62, 1],
+              ease: "easeInOut",
               repeat: Infinity,
             }}
           >
             <circle
               cx={t.x}
               cy={t.y}
-              r={13}
+              r={14}
+              className="fill-rose-700"
+            />
+            <circle
+              cx={t.x}
+              cy={t.y}
+              r={14}
               fill="none"
               stroke="currentColor"
               strokeWidth="1.75"
-              className="text-rose-500/55"
+              className="text-rose-900 dark:text-rose-800"
             />
             <path
               d={`M${t.x - 4.5} ${t.y - 4.5}l9 9M${t.x + 4.5} ${t.y - 4.5}l-9 9`}
               stroke="currentColor"
-              strokeWidth="1.75"
+              strokeWidth="2"
               strokeLinecap="round"
-              className="text-rose-500/70"
+              className="text-white/90"
             />
           </motion.g>
         </g>
@@ -759,7 +765,7 @@ function SeoVisual({ animate }: VisualProps) {
     if (animate) setDone(false);
   }, [animate]);
 
-  const slots = [56, 118, 158] as const;
+  const slots = [54, 126, 166] as const;
   const climb = {
     duration: 3.4,
     ease: [0.45, 0, 0.15, 1] as const,
@@ -781,19 +787,28 @@ function SeoVisual({ animate }: VisualProps) {
       />
       <circle cx="48" cy="28" r="7" fill="none" stroke="currentColor" strokeWidth="1.75" className="text-foreground/35" />
       <path d="M53 33l6 6" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" className="text-foreground/35" />
-      <rect x="66" y="23" width="96" height="9" rx="3" className="fill-foreground/15" />
+      <text
+        x="66"
+        y="32"
+        fill="currentColor"
+        fontSize="11"
+        fontWeight="500"
+        className="fill-foreground/55"
+      >
+        migliore negozio a Palermo
+      </text>
 
       {[1, 2, 3].map((n, i) => (
         <g key={n}>
           <circle
             cx="44"
-            cy={n === 1 ? slots[0] + 22 : slots[i] + 12}
+            cy={n === 1 ? slots[0] + 28 : slots[i] + 12}
             r={n === 1 ? 13 : 10}
             className={n === 1 ? "fill-emerald-500" : "fill-foreground/12"}
           />
           <text
             x="44"
-            y={n === 1 ? slots[0] + 27 : slots[i] + 16}
+            y={n === 1 ? slots[0] + 33 : slots[i] + 16}
             textAnchor="middle"
             fill={n === 1 ? "#fff" : "currentColor"}
             fontSize={n === 1 ? 13 : 10}
@@ -849,170 +864,346 @@ function SeoVisual({ animate }: VisualProps) {
           x="66"
           y="0"
           width="210"
-          height="44"
+          height="56"
           rx="10"
           fill="currentColor"
           className="fill-emerald-500/[0.1]"
         />
-        <rect x="66" y="0" width="4" height="44" rx="2" className="fill-emerald-500" />
-        <rect x="80" y="10" width="160" height="10" rx="3" className="fill-emerald-500/80" />
+        <rect x="66" y="0" width="4" height="56" rx="2" className="fill-emerald-500" />
+        {/* Favicon */}
+        <rect x="80" y="10" width="18" height="18" rx="4" className="fill-emerald-500" />
+        <path
+          d="M85 19h8M89 15v8"
+          stroke="#fff"
+          strokeWidth="1.75"
+          strokeLinecap="round"
+        />
         <text
-          x="80"
-          y="36"
+          x="104"
+          y="18"
           fill="currentColor"
-          fontSize="10"
-          fontWeight="600"
-          className="fill-emerald-600/85"
+          fontSize="11"
+          fontWeight="700"
+          className="fill-emerald-600"
+        >
+          Negozio Rossi Palermo
+        </text>
+        <text
+          x="104"
+          y="30"
+          fill="currentColor"
+          fontSize="8.5"
+          fontWeight="500"
+          className="fill-emerald-600/70"
         >
           www.tuosito.it
         </text>
-      </motion.g>
-
-      <motion.g
-        initial={false}
-        animate={
-          play
-            ? { opacity: [0, 0, 0, 0, 1, 1] }
-            : { opacity: showFinal ? 1 : 0 }
-        }
-        transition={climb}
-      >
-        <rect x="214" y="50" width="78" height="16" rx="5" className="fill-emerald-500" />
         <text
-          x="253"
-          y="61"
-          textAnchor="middle"
-          fill="#fff"
-          fontSize="8"
-          fontWeight="700"
-          letterSpacing="0.04em"
+          x="80"
+          y="48"
+          fill="currentColor"
+          fontSize="8.5"
+          className="fill-foreground/45"
         >
-          1° POSIZIONE
+          Orari, mappa e recensioni del negozio.
         </text>
       </motion.g>
     </svg>
   );
 }
 
-/** Grafico clienti in crescita + freccia che segue la curva */
+/**
+ * Scalabilità: nucleo solido (il sito) che non si ricostruisce;
+ * nuovi moduli si agganciano come pezzi di un sistema vivo.
+ */
 function ScaleVisual({ animate }: VisualProps) {
-  const pts = [
-    { x: 48, y: 142 },
-    { x: 96, y: 128 },
-    { x: 144, y: 108 },
-    { x: 192, y: 78 },
-    { x: 236, y: 52 },
-    { x: 272, y: 38 },
+  const cycle = 6.2;
+  const core = { x: 108, y: 52, w: 104, h: 92 };
+  const coreCx = core.x + core.w / 2;
+  const coreCy = core.y + core.h / 2;
+
+  const modules = [
+    {
+      id: "traffic",
+      x: 16,
+      y: 12,
+      label: "Traffico",
+      ox: -18,
+      oy: -14,
+      delay: 0.15,
+      icon: "users" as const,
+    },
+    {
+      id: "content",
+      x: 232,
+      y: 12,
+      label: "Contenuti",
+      ox: 18,
+      oy: -14,
+      delay: 0.45,
+      icon: "docs" as const,
+    },
+    {
+      id: "features",
+      x: 16,
+      y: 144,
+      label: "Funzioni",
+      ox: -18,
+      oy: 14,
+      delay: 0.75,
+      icon: "plus" as const,
+    },
+    {
+      id: "api",
+      x: 232,
+      y: 144,
+      label: "Integrazioni",
+      ox: 18,
+      oy: 14,
+      delay: 1.05,
+      icon: "nodes" as const,
+    },
   ];
-  const lineD = `M${pts.map((p) => `${p.x} ${p.y}`).join(" L")}`;
-  const areaD = `${lineD} L${pts[pts.length - 1].x} 156 L${pts[0].x} 156 Z`;
-  const duration = 5.2;
-  const repeatDelay = 2;
 
   return (
-    <svg viewBox="0 0 320 200" className="h-auto w-full" aria-hidden>
-      {/* Assi */}
-      <line x1="40" y1="28" x2="40" y2="156" stroke="currentColor" strokeWidth="1.5" className="text-foreground/15" />
-      <line x1="40" y1="156" x2="292" y2="156" stroke="currentColor" strokeWidth="1.5" className="text-foreground/15" />
-
-      {[60, 96, 132].map((y) => (
-        <line
-          key={y}
-          x1="40"
-          y1={y}
-          x2="292"
-          y2={y}
+    <svg viewBox="0 0 320 200" className="h-auto w-full overflow-visible" aria-hidden>
+      {/* Anelli di capacità che respirano attorno al nucleo */}
+      <Soft animate={animate} delay={0.2}>
+        <circle
+          cx={coreCx}
+          cy={coreCy}
+          r={68}
+          fill="none"
           stroke="currentColor"
           strokeWidth="1"
-          strokeDasharray="3 5"
-          className="text-foreground/8"
+          strokeDasharray="3 6"
+          className="text-emerald-500/25"
         />
-      ))}
-
-      <text x="36" y="22" fill="currentColor" fontSize="9" fontWeight="600" className="fill-foreground/40">
-        Clienti
-      </text>
-
-      {/* Area */}
-      <motion.path
-        d={areaD}
-        className="fill-emerald-500/10"
-        initial={false}
-        animate={animate ? { opacity: [0.15, 1, 1, 0.15] } : { opacity: 0.9 }}
-        transition={{
-          duration,
-          times: [0, 0.45, 0.85, 1],
-          ease: "easeOut",
-          repeat: Infinity,
-          repeatDelay,
-        }}
-      />
-
-      {/* Linea */}
-      <motion.path
-        d={lineD}
+      </Soft>
+      <motion.circle
+        cx={coreCx}
+        cy={coreCy}
+        r={84}
         fill="none"
         stroke="currentColor"
-        strokeWidth="2.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="text-emerald-500"
+        strokeWidth="1"
+        className="text-emerald-500/15"
         initial={false}
-        animate={animate ? { pathLength: [0, 1] } : { pathLength: 1 }}
-        transition={{
-          duration: duration * 0.7,
-          ease: [0.22, 1, 0.36, 1],
-          repeat: Infinity,
-          repeatDelay: repeatDelay + duration * 0.3,
-        }}
+        animate={animate ? { opacity: [0.2, 0.55, 0.2] } : { opacity: 0.35 }}
+        transition={{ duration: 3.6, ease: "easeInOut", repeat: Infinity }}
       />
 
-      {/* Punti */}
-      {pts.map((p, i) => (
-        <motion.circle
-          key={i}
-          cx={p.x}
-          cy={p.y}
-          r={i === pts.length - 1 ? 4.5 : 3}
-          className="fill-emerald-500"
+      {/* Connettori nucleo ↔ moduli */}
+      {modules.map((m) => {
+        const mx = m.x + 36;
+        const my = m.y + 22;
+        return (
+          <motion.line
+            key={`line-${m.id}`}
+            x1={coreCx}
+            y1={coreCy}
+            x2={mx}
+            y2={my}
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            className="text-emerald-500/40"
+            initial={false}
+            animate={
+              animate
+                ? { opacity: [0, 0, 1, 1, 0] }
+                : { opacity: 0.7 }
+            }
+            transition={{
+              duration: cycle,
+              delay: m.delay,
+              times: [0, 0.08, 0.22, 0.78, 1],
+              ease: "easeInOut",
+              repeat: Infinity,
+            }}
+          />
+        );
+      })}
+
+      {/* Particelle di carico che fluiscono verso il nucleo */}
+      {modules.map((m) => {
+        const mx = m.x + 36;
+        const my = m.y + 22;
+        return (
+          <motion.circle
+            key={`dot-${m.id}`}
+            r={2.5}
+            className="fill-emerald-500"
+            initial={false}
+            animate={
+              animate
+                ? {
+                    cx: [mx, coreCx],
+                    cy: [my, coreCy],
+                    opacity: [0, 1, 0],
+                  }
+                : { cx: coreCx, cy: coreCy, opacity: 0 }
+            }
+            transition={{
+              duration: 1.4,
+              delay: m.delay + 1.2,
+              ease: "easeInOut",
+              repeat: Infinity,
+              repeatDelay: cycle - 1.4,
+            }}
+          />
+        );
+      })}
+
+      {/* Moduli che si agganciano */}
+      {modules.map((m) => (
+        <motion.g
+          key={m.id}
           initial={false}
           animate={
             animate
-              ? { opacity: [0, 1, 1], scale: [0.6, 1, 1] }
-              : { opacity: 1, scale: 1 }
+              ? {
+                  x: [m.ox, 0, 0, m.ox * 0.3],
+                  y: [m.oy, 0, 0, m.oy * 0.3],
+                  opacity: [0, 1, 1, 0],
+                }
+              : { x: 0, y: 0, opacity: 1 }
           }
           transition={{
-            duration: duration * 0.7,
-            times: [0, 0.15, 1],
-            delay: animate ? (i / (pts.length - 1)) * duration * 0.55 : 0,
-            ease: "easeOut",
+            duration: cycle,
+            delay: m.delay,
+            times: [0, 0.18, 0.78, 1],
+            ease: "easeInOut",
             repeat: Infinity,
-            repeatDelay: repeatDelay + duration * 0.3,
           }}
-        />
+        >
+          <rect
+            x={m.x}
+            y={m.y}
+            width="72"
+            height="44"
+            rx="10"
+            fill="currentColor"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            className="fill-background text-foreground/18"
+          />
+          <rect
+            x={m.x}
+            y={m.y}
+            width="72"
+            height="44"
+            rx="10"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.25"
+            className="text-emerald-500/35"
+          />
+
+          {m.icon === "users" && (
+            <g className="text-emerald-500" stroke="currentColor" fill="none" strokeWidth="1.5">
+              <circle cx={m.x + 32} cy={m.y + 13} r="3.5" />
+              <path d={`M${m.x + 25} ${m.y + 23}c1.2-4 4-5.5 7-5.5s5.8 1.5 7 5.5`} strokeLinecap="round" />
+              <circle cx={m.x + 43} cy={m.y + 14} r="2.8" opacity="0.65" />
+            </g>
+          )}
+          {m.icon === "docs" && (
+            <g className="text-emerald-500" stroke="currentColor" fill="none" strokeWidth="1.5">
+              <rect x={m.x + 29} y={m.y + 8} width="14" height="16" rx="2" />
+              <path d={`M${m.x + 32} ${m.y + 13}h8M${m.x + 32} ${m.y + 17}h8M${m.x + 32} ${m.y + 21}h5`} strokeLinecap="round" />
+            </g>
+          )}
+          {m.icon === "plus" && (
+            <g className="text-emerald-500" stroke="currentColor" fill="none" strokeWidth="1.75">
+              <rect x={m.x + 28} y={m.y + 8} width="16" height="16" rx="4" />
+              <path d={`M${m.x + 36} ${m.y + 12}v8M${m.x + 32} ${m.y + 16}h8`} strokeLinecap="round" />
+            </g>
+          )}
+          {m.icon === "nodes" && (
+            <g className="text-emerald-500" stroke="currentColor" fill="none" strokeWidth="1.5">
+              <circle cx={m.x + 29} cy={m.y + 11} r="3" />
+              <circle cx={m.x + 43} cy={m.y + 11} r="3" />
+              <circle cx={m.x + 36} cy={m.y + 21} r="3" />
+              <path d={`M${m.x + 31.5} ${m.y + 13}L${m.x + 34} ${m.y + 18.5}M${m.x + 40.5} ${m.y + 13}L${m.x + 38} ${m.y + 18.5}`} />
+            </g>
+          )}
+
+          <text
+            x={m.x + 36}
+            y={m.y + 36}
+            textAnchor="middle"
+            fill="currentColor"
+            fontSize="8"
+            fontWeight="700"
+            className="fill-foreground/60"
+          >
+            {m.label}
+          </text>
+        </motion.g>
       ))}
 
-      <text x="48" y="176" textAnchor="middle" fill="currentColor" fontSize="9" className="fill-foreground/40">
-        inizio
-      </text>
-      <text x="164" y="176" textAnchor="middle" fill="currentColor" fontSize="9" className="fill-foreground/40">
-        tempo
-      </text>
-      <text x="272" y="176" textAnchor="middle" fill="currentColor" fontSize="9" className="fill-emerald-600/75">
-        oggi
-      </text>
+      {/* Nucleo sopra linee e particelle */}
+      <g>
+        <rect
+          x={core.x}
+          y={core.y}
+          width={core.w}
+          height={core.h}
+          rx="14"
+          className="fill-background"
+        />
+        <rect
+          x={core.x}
+          y={core.y}
+          width={core.w}
+          height={core.h}
+          rx="14"
+          fill="currentColor"
+          stroke="currentColor"
+          strokeWidth="1.75"
+          className="fill-emerald-500/10 text-emerald-500/55"
+        />
+        <circle cx={core.x + 14} cy={core.y + 14} r="3" className="fill-foreground/25" />
+        <circle cx={core.x + 24} cy={core.y + 14} r="3" className="fill-foreground/25" />
+        <circle cx={core.x + 34} cy={core.y + 14} r="3" className="fill-foreground/25" />
+        <rect
+          x={core.x + 12}
+          y={core.y + 28}
+          width={core.w - 24}
+          height={7}
+          rx="2.5"
+          className="fill-emerald-500/70"
+        />
+        <rect
+          x={core.x + 12}
+          y={core.y + 42}
+          width={core.w - 36}
+          height={5}
+          rx="2"
+          className="fill-foreground/15"
+        />
+        <rect
+          x={core.x + 12}
+          y={core.y + 52}
+          width={core.w - 48}
+          height={5}
+          rx="2"
+          className="fill-foreground/10"
+        />
+        <text
+          x={coreCx}
+          y={core.y + 76}
+          textAnchor="middle"
+          fill="currentColor"
+          fontSize="11"
+          fontWeight="700"
+          letterSpacing="0.1em"
+          className="fill-emerald-600/85"
+        >
+          SITO
+        </text>
+      </g>
 
-      <text
-        x="300"
-        y="18"
-        textAnchor="end"
-        fill="currentColor"
-        fontSize="11"
-        fontWeight="700"
-        className="fill-emerald-600/80"
-      >
-        + clienti
-      </text>
     </svg>
   );
 }
@@ -1030,7 +1221,7 @@ const LABELS: Record<PlainTalkVisualId, string> = {
   speed: "Illustrazione: score di performance e Core Web Vitals",
   security: "Illustrazione: scudo che protegge il sito",
   seo: "Illustrazione: il sito sale dal terzo al primo posto nei risultati di ricerca",
-  scale: "Illustrazione: grafico della crescita dei clienti nel tempo",
+  scale: "Illustrazione: il nucleo del sito resta solido mentre si agganciano nuovi moduli",
 };
 
 export function PlainTalkVisual({ id, className }: PlainTalkVisualProps) {

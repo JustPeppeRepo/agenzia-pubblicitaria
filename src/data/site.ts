@@ -7,9 +7,8 @@ import type { NavLink, SiteConfig, StackDuel } from "@/types";
 export const siteConfig: SiteConfig = {
   name: "Aiello Digital Studio",
   role: "Web Developer & Advertising Strategist",
-  tagline: "Siti web veloci, animati e costruiti per convertire",
-  description:
-    "Sviluppiamo siti e applicazioni web ad alte prestazioni, pensati per aumentare la visibilità che la tua azienda ha online",
+  tagline: "Amplifica la tua visibilità online: siti web e pubblicità mirata.",
+  description:"Ci occupiamo della tua visibilità online con un unico obiettivo: far crescere i tuoi clienti e il tuo fatturatoCreiamo un sito web perfettamente adatto al tuo settore e gestiamo la tua pubblicità per farti raggiungere le persone giuste",
   email: "ciao@marcoddev.it",
   phone: "+39 333 123 4567",
   location: "Palermo, Italia",
@@ -45,9 +44,9 @@ export const navLinks: NavLink[] = [
 
 export const aboutTeam = {
   eyebrow: "Chi siamo",
-  title: "Siamo in due, lavoriamo come uno solo",
+  title: "Il nostro Team",
   description:
-    "Un team affiatato con due ruoli complementari: uno trasforma le idee in software solido e veloce, l'altro fa arrivare il tuo messaggio alle persone giuste. Insieme costruiamo la presenza digitale del tuo business — dal codice alla visibilità online.",
+    "Uniamo la precisione del codice alla forza della comunicazione.",
   left: {
     title: "GIUSEPPE - Web Developer",
     description:
@@ -103,6 +102,12 @@ export const comparisonPlainTalk = {
     "Oggi le alternative economiche e automatizzate non mancano, ma ciò che fa la differenza tra un sito inutile e uno professionale è la capacità di rispondere davvero alle esigenze degli utenti e del mercato web. È qui che interveniamo noi.",
   offerBlocks: [
     {
+      id: "seo",
+      visual: "seo",
+      title: "SEO",
+      text: "È il modo in cui Google decide di mostrarti (o meno) quando qualcuno cerca i tuoi servizi. “SEO massimizzata” significa: struttuiamo il sito perché tu compaia nelle ricerche giuste, non solo perché “esisti online”.",
+    },
+    {
       id: "responsive",
       visual: "responsive",
       title: "Perfetto su ogni dispositivo",
@@ -121,12 +126,6 @@ export const comparisonPlainTalk = {
       visual: "security",
       term: "Sicurezza",
       text: "Quanto è difficile per qualcuno attaccare o compromettere il sito. Un sito poco protetto può essere bloccato, defacciato o usato per rubare dati — con danni a te e ai tuoi clienti.",
-    },
-    {
-      id: "seo",
-      visual: "seo",
-      term: "SEO",
-      text: "È il modo in cui Google decide di mostrarti (o meno) quando qualcuno cerca i tuoi servizi. “SEO massimizzata” significa: struttuiamo il sito perché tu compaia nelle ricerche giuste, non solo perché “esisti online”.",
     },
     {
       id: "scale",

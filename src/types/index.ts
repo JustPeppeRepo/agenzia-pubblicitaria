@@ -74,6 +74,12 @@ export type ProjectChartPoint = {
   loadTime: number;
 };
 
+/** Desktop + mobile sources for project preview / detail videos */
+export type ProjectVideoSet = {
+  desktop: string;
+  mobile: string;
+};
+
 export type Project = {
   id: string;
   slug: string;
@@ -83,7 +89,10 @@ export type Project = {
   category: string;
   tags: string[];
   image: string;
-  previewVideo?: string;
+  /** Lightweight hover preview on project cards */
+  previewVideo?: ProjectVideoSet;
+  /** Higher-quality video on the project detail (slug) page */
+  detailVideo?: ProjectVideoSet;
   liveUrl?: string;
   repoUrl?: string;
   featured: boolean;

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getAllProjectSlugs, getProjectBySlug } from "@/lib/content";
 import { CaseStudySection } from "@/components/project/CaseStudySection";
+import { ProjectHeroVideo } from "@/components/project/ProjectHeroVideo";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { Button } from "@/components/ui/Button";
 
@@ -95,16 +96,24 @@ export default async function ProjectPage({ params }: PageProps) {
         </div>
 
         <div className="relative mx-auto mb-8 aspect-[21/9] max-w-6xl overflow-hidden rounded-t-2xl px-6">
-          <div className="relative h-full w-full overflow-hidden rounded-t-2xl">
-            <Image
-            src={project.image}
-            alt={project.title}
-            fill
-            priority
-            sizes="(max-width: 1280px) 100vw, 1152px"
-            className="object-cover"
-          />
-          </div>
+          {project.detailVideo ? (
+            <ProjectHeroVideo
+              title={project.title}
+              image={project.image}
+              video={project.detailVideo}
+            />
+          ) : (
+            <div className="relative h-full w-full overflow-hidden rounded-t-2xl border border-white">
+              <Image
+                src={project.image}
+                alt={project.title}
+                fill
+                priority
+                sizes="(max-width: 1280px) 100vw, 1152px"
+                className="object-cover"
+              />
+            </div>
+          )}
         </div>
       </div>
 

@@ -2,8 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import { useCallback, useRef, useState } from "react";
+import { useMediaQuery } from "@/hooks/use-media-query";
+import { useMotionSafe } from "@/hooks/use-motion-safe";
 import type { Project } from "@/types";
 import { cn } from "@/lib/utils";
 
@@ -15,17 +17,24 @@ type ProjectCardProps = {
 export function ProjectCard({ project, priority = false }: ProjectCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const prefersReducedMotion = useReducedMotion();
+  const isMobile = useMediaQuery("(max-width: 767px)");
+  const { prefersReducedMotion } = useMotionSafe();
+
+  const previewSrc = project.previewVideo
+    ? isMobile
+      ? project.previewVideo.mobile
+      : project.previewVideo.desktop
+    : undefined;
 
   const handleMouseEnter = useCallback(() => {
     setIsHovered(true);
-    if (project.previewVideo && videoRef.current) {
+    if (previewSrc && videoRef.current && !prefersReducedMotion) {
       videoRef.current.currentTime = 0;
       videoRef.current.play().catch(() => {
         /* Autoplay blocked — fallback to static image */
       });
     }
-  }, [project.previewVideo]);
+  }, [previewSrc, prefersReducedMotion]);
 
   const handleMouseLeave = useCallback(() => {
     setIsHovered(false);
@@ -40,10 +49,10 @@ export function ProjectCard({ project, priority = false }: ProjectCardProps) {
       transition={{ duration: 0.3, ease: "easeOut" }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className="group overflow-hidden rounded-2xl border border-foreground/10 bg-background transition-colors hover:border-foreground/25"
+      className="group overflow-hidden rounded-2xl border border-foreground/10 transition-colors hover:border-foreground/25"
     >
       <Link href={`/projects/${project.slug}`} className="block">
-        <div className="relative aspect-[16/10] overflow-hidden bg-foreground/5">
+        <div className="relative aspect-video overflow-hidden bg-black">
           <Image
             src={project.image}
             alt={project.title}
@@ -53,12 +62,15 @@ export function ProjectCard({ project, priority = false }: ProjectCardProps) {
             sizes="(max-width: 768px) 100vw, 50vw"
             className={cn(
               "object-cover transition-opacity duration-500",
-              isHovered && project.previewVideo ? "opacity-0" : "opacity-100",
+              isHovered && previewSrc && !prefersReducedMotion
+                ? "opacity-0"
+                : "opacity-100",
             )}
           />
 
-          {project.previewVideo ? (
+          {previewSrc && !prefersReducedMotion ? (
             <video
+              key={previewSrc}
               ref={videoRef}
               muted
               loop
@@ -70,11 +82,9 @@ export function ProjectCard({ project, priority = false }: ProjectCardProps) {
                 isHovered ? "opacity-100" : "opacity-0",
               )}
             >
-              <source src={project.previewVideo} type="video/mp4" />
+              <source src={previewSrc} type="video/mp4" />
             </video>
           ) : null}
-
-          <div className="absolute inset-0 bg-gradient-to-t from-foreground/40 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
           <span className="absolute bottom-4 left-4 rounded-full bg-background/90 px-3 py-1 text-xs font-medium backdrop-blur-sm">
             {project.category}

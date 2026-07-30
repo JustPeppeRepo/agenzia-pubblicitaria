@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { comparisonPlainTalk, type PlainTalkVisualId } from "@/data/site";
+import { LayeredWaves } from "@/components/decor/LayeredWaves";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { PlainTalkVisual } from "@/components/sections/PlainTalkVisual";
 import { useMotionSafe } from "@/hooks/use-motion-safe";
@@ -54,8 +55,7 @@ function PlainTalkRow({ index, title, text, visual }: RowProps) {
           textFirst ? "md:justify-start" : "md:justify-end",
         )}
       >
-        <div className="pointer-events-none absolute inset-6 rounded-full bg-emerald-500/[0.06] blur-2xl" />
-        <PlainTalkVisual id={visual} className="relative" />
+        <PlainTalkVisual id={visual} />
       </div>
     </motion.div>
   );
@@ -73,53 +73,72 @@ export function PlainTalk() {
   let rowIndex = 0;
 
   return (
-    <section className="relative mt-10 w-full border-t border-foreground/10 bg-gradient-to-b from-foreground/[0.03] via-transparent to-foreground/[0.03] py-16 sm:py-20">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-foreground/15 to-transparent"
+    <section className="relative mt-2 w-full overflow-hidden">
+      {/* Zona onde trasparente — niente fill sezione dietro */}
+      <LayeredWaves
+        placement="top"
+        from="background"
+        to="warm"
+        className="relative z-10"
       />
 
-      <FadeIn className="mx-auto max-w-3xl px-6 text-center">
-        <p className="text-sm font-medium uppercase tracking-[0.2em] text-foreground/50">
-          {eyebrow}
-        </p>
-        <h3 className="mt-3 text-2xl font-semibold tracking-tight sm:text-4xl">
-          {title}
-        </h3>
-        <p className="mt-4 text-base leading-7 text-foreground/65 sm:text-lg">
-          {intro}
-        </p>
-      </FadeIn>
+      <div className="bg-warm-wash relative -mt-10 sm:-mt-12">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-dot-grid opacity-30"
+        />
 
-      <div className="mt-14 space-y-16 sm:space-y-20">
-        {offerBlocks.map((block) => {
-          const index = rowIndex++;
-          return (
-            <PlainTalkRow
-              key={block.id}
-              index={index}
-              title={block.title}
-              text={block.text}
-              visual={block.visual}
-            />
-          );
-        })}
+        <div className="relative py-16 sm:py-20">
+          <FadeIn className="mx-auto max-w-3xl px-6 text-center">
+            <p className="text-sm font-medium uppercase tracking-[0.2em] text-accent-2">
+              {eyebrow}
+            </p>
+            <h3 className="mt-3 text-2xl font-semibold tracking-tight sm:text-4xl">
+              {title}
+            </h3>
+            <p className="mt-4 text-base leading-7 text-foreground/65 sm:text-lg">
+              {intro}
+            </p>
+          </FadeIn>
+
+          <div className="mt-14 space-y-16 sm:space-y-20">
+            {offerBlocks.map((block) => {
+              const index = rowIndex++;
+              return (
+                <PlainTalkRow
+                  key={block.id}
+                  index={index}
+                  title={block.title}
+                  text={block.text}
+                  visual={block.visual}
+                />
+              );
+            })}
+          </div>
+
+          <div className="mt-16 space-y-16 sm:space-y-20">
+            {glossaryBlocks.map((block) => {
+              const index = rowIndex++;
+              return (
+                <PlainTalkRow
+                  key={block.id}
+                  index={index}
+                  title={block.term}
+                  text={block.text}
+                  visual={block.visual}
+                />
+              );
+            })}
+          </div>
+        </div>
       </div>
 
-      <div className="mt-16 space-y-16 sm:space-y-20">
-        {glossaryBlocks.map((block) => {
-          const index = rowIndex++;
-          return (
-            <PlainTalkRow
-              key={block.id}
-              index={index}
-              title={block.term}
-              text={block.text}
-              visual={block.visual}
-            />
-          );
-        })}
-      </div>
+      <LayeredWaves
+        placement="bottom"
+        from="background"
+        to="warm"
+        className="relative z-10 -mt-10 sm:-mt-12"
+      />
     </section>
   );
 }

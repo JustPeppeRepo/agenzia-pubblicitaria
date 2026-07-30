@@ -29,7 +29,7 @@ export function SectionHeading({
         <p
           className={cn(
             "mb-3 text-sm font-medium uppercase tracking-[0.2em]",
-            dark ? "text-background/50" : "text-foreground/50",
+            dark ? "text-accent-foreground/70" : "text-accent-2",
           )}
         >
           {eyebrow}
@@ -38,7 +38,7 @@ export function SectionHeading({
       <h2
         className={cn(
           "text-3xl font-semibold tracking-tight sm:text-4xl",
-          dark ? "text-background" : "text-foreground",
+          dark ? "text-accent-foreground" : "text-foreground",
         )}
       >
         {title}
@@ -47,7 +47,7 @@ export function SectionHeading({
         <p
           className={cn(
             "mt-4 text-base leading-7 sm:text-lg",
-            dark ? "text-background/70" : "text-foreground/65",
+            dark ? "text-accent-foreground/75" : "text-foreground/65",
           )}
         >
           {description}

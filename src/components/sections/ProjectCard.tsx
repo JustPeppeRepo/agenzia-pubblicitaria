@@ -49,7 +49,7 @@ export function ProjectCard({ project, priority = false }: ProjectCardProps) {
       transition={{ duration: 0.3, ease: "easeOut" }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className="group overflow-hidden rounded-2xl border border-foreground/10 transition-colors hover:border-foreground/25"
+      className="group overflow-hidden rounded-2xl border border-foreground/10 transition-colors hover:border-accent/35 hover:shadow-md hover:shadow-accent/10"
     >
       <Link href={`/projects/${project.slug}`} className="block">
         <div className="relative aspect-video overflow-hidden bg-black">

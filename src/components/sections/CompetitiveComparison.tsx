@@ -37,8 +37,8 @@ function CheckIcon({ className }: { className?: string }) {
 
 function CompetitorLegend() {
   return (
-    <div className="inline-flex items-center gap-2.5 rounded-xl border border-rose-500/20 bg-rose-500/8 px-4 py-2.5 text-base font-semibold uppercase tracking-[0.14em] text-rose-700 dark:text-rose-300">
-      <span className="flex size-7 items-center justify-center rounded-md bg-rose-500/15 text-rose-600 dark:text-rose-400">
+    <div className="inline-flex items-center gap-2.5 rounded-xl border border-rose-500/55 bg-rose-500/22 px-4 py-2.5 text-base font-semibold uppercase tracking-[0.14em] text-rose-800 dark:border-rose-500/30 dark:bg-rose-500/12 dark:text-rose-300">
+      <span className="flex size-7 items-center justify-center rounded-md bg-rose-500/35 text-rose-700 dark:bg-rose-500/20 dark:text-rose-400">
         <CrossIcon />
       </span>
       Concorrenza
@@ -51,8 +51,8 @@ function OursLegend({ shouldAnimate }: { shouldAnimate: boolean }) {
     <span className="relative inline-flex overflow-visible py-1">
       <motion.span
         aria-hidden
-        className="absolute -inset-x-3 -inset-y-2.5 rounded-full bg-emerald-500/20 blur-xl"
-        animate={shouldAnimate ? { opacity: [0.25, 0.55] } : undefined}
+        className="absolute -inset-x-3 -inset-y-2.5 rounded-full bg-emerald-500/50 blur-xl dark:bg-emerald-500/25"
+        animate={shouldAnimate ? { opacity: [0.45, 0.85] } : undefined}
         transition={{
           duration: 2.2,
           repeat: Infinity,
@@ -60,8 +60,8 @@ function OursLegend({ shouldAnimate }: { shouldAnimate: boolean }) {
           ease: "easeInOut",
         }}
       />
-      <span className="relative inline-flex items-center gap-2.5 rounded-xl border border-emerald-500/35 bg-emerald-500/12 px-4 py-2.5 text-base font-semibold uppercase tracking-[0.14em] text-emerald-800 dark:text-emerald-300">
-        <span className="flex size-7 items-center justify-center rounded-md bg-emerald-500/20 text-emerald-600 dark:text-emerald-400">
+      <span className="relative inline-flex items-center gap-2.5 rounded-xl border border-emerald-500/65 bg-emerald-500/28 px-4 py-2.5 text-base font-semibold uppercase tracking-[0.14em] text-emerald-900 dark:border-emerald-500/40 dark:bg-emerald-500/14 dark:text-emerald-300">
+        <span className="flex size-7 items-center justify-center rounded-md bg-emerald-500/40 text-emerald-800 dark:bg-emerald-500/25 dark:text-emerald-400">
           <CheckIcon />
         </span>
         Noi
@@ -104,20 +104,25 @@ function StackShowdown() {
 
         <VsBadge className="top-[calc(0.25rem+1.55rem)]" />
 
-        <div className="order-2 flex flex-col rounded-2xl border border-foreground/10 bg-rose-500/[0.04] p-5 opacity-90 shadow-sm shadow-foreground/5 sm:order-3 sm:rounded-r-none sm:border-r-0 sm:p-6 sm:shadow-none dark:bg-rose-500/[0.06]">
+        <div className="order-2 flex flex-col rounded-2xl border-2 border-rose-500/50 border-b-rose-500/70 bg-rose-500/[0.16] p-5 shadow-md shadow-rose-500/15 sm:order-3 sm:rounded-r-none sm:border-r-0 sm:p-6 sm:shadow-none dark:border dark:border-rose-500/25 dark:border-b-rose-500/40 dark:bg-rose-500/[0.08] dark:shadow-foreground/5">
           <div className="flex items-center gap-3">
-            <span className="flex size-11 items-center justify-center rounded-xl border border-rose-500/20 bg-background">
+            <span className="flex size-11 items-center justify-center rounded-xl border border-rose-500/45 bg-rose-500/10 dark:border-rose-500/25 dark:bg-background">
               <TechIcon id={competitor.techId} size={26} />
             </span>
-            <p className="text-base font-semibold tracking-tight">{competitor.name}</p>
+            <p className="text-base font-semibold tracking-tight text-rose-950 dark:text-foreground">
+              {competitor.name}
+            </p>
           </div>
-          <p className="mt-4 text-sm leading-6 text-foreground/55">
+          <p className="mt-4 text-sm leading-6 text-rose-950/65 dark:text-foreground/55">
             {competitor.summary}
           </p>
           <ul className="mt-4 space-y-2">
             {competitor.points.map((point) => (
-              <li key={point} className="flex gap-2 text-sm leading-6 text-foreground/55">
-                <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-md bg-rose-500/15 text-rose-600 dark:text-rose-400">
+              <li
+                key={point}
+                className="flex gap-2 text-sm leading-6 text-rose-950/65 dark:text-foreground/55"
+              >
+                <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-md bg-rose-500/40 text-rose-800 dark:bg-rose-500/20 dark:text-rose-400">
                   <CrossIcon className="size-3" />
                 </span>
                 {point}
@@ -126,14 +131,14 @@ function StackShowdown() {
           </ul>
           {competitor.stackIds?.length ? (
             <div className="mt-auto pt-6">
-              <div className="flex flex-wrap items-center gap-2 border-t border-rose-500/15 pt-3">
-                <span className="text-[11px] font-medium uppercase tracking-[0.14em] text-rose-800/60 dark:text-rose-300/60">
+              <div className="flex flex-wrap items-center gap-2 border-t border-rose-500/40 pt-3 dark:border-rose-500/20">
+                <span className="text-[11px] font-medium uppercase tracking-[0.14em] text-rose-800 dark:text-rose-300/60">
                   Tipico
                 </span>
                 {competitor.stackIds.map((id) => (
                   <span
                     key={id}
-                    className="flex size-8 items-center justify-center rounded-lg border border-rose-500/20 bg-background opacity-80"
+                    className="flex size-8 items-center justify-center rounded-lg border border-rose-500/40 bg-background opacity-80 dark:border-rose-500/25"
                     title={id}
                   >
                     <TechIcon id={id} size={18} />
@@ -145,7 +150,7 @@ function StackShowdown() {
         </div>
 
         <motion.div
-          className="relative order-4 flex flex-col rounded-2xl border border-emerald-500/25 bg-emerald-500/[0.07] p-5 shadow-sm shadow-foreground/5 ring-1 ring-inset ring-emerald-500/25 sm:rounded-l-none sm:border-l-0 sm:p-6 sm:shadow-none"
+          className="relative order-4 flex flex-col rounded-2xl border-2 border-emerald-500/60 border-b-emerald-500/80 bg-emerald-500/[0.18] p-5 shadow-md shadow-emerald-500/20 ring-1 ring-inset ring-emerald-500/45 sm:rounded-l-none sm:border-l-0 sm:p-6 sm:shadow-none dark:border dark:border-emerald-500/30 dark:border-b-emerald-500/50 dark:bg-emerald-500/[0.09] dark:shadow-foreground/5 dark:ring-emerald-500/25"
           initial={false}
           whileInView={
             shouldAnimate ? { opacity: [0.4, 1], x: [20, 0] } : undefined
@@ -154,25 +159,27 @@ function StackShowdown() {
           transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
         >
           <VsBadge className="left-0 top-1/2" />
-          <span className="absolute right-4 top-4 rounded-md bg-emerald-500 px-2 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-white shadow-sm shadow-emerald-500/30">
+          <span className="absolute right-4 top-4 rounded-md bg-emerald-600 px-2 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-white shadow-md shadow-emerald-600/45 dark:bg-emerald-500 dark:shadow-emerald-500/40">
             La migliore
           </span>
           <div className="flex items-center gap-3 pr-16">
-            <span className="flex size-11 items-center justify-center rounded-xl border border-emerald-500/25 bg-background shadow-sm">
+            <span className="flex size-11 items-center justify-center rounded-xl border border-emerald-500/50 bg-emerald-500/12 shadow-sm dark:border-emerald-500/30 dark:bg-background">
               <TechIcon id={ours.techId} size={26} />
             </span>
-            <p className="text-base font-semibold tracking-tight">{ours.name}</p>
+            <p className="text-base font-semibold tracking-tight text-emerald-950 dark:text-foreground">
+              {ours.name}
+            </p>
           </div>
-          <p className="mt-4 text-sm leading-6 text-foreground/75">
+          <p className="mt-4 text-sm leading-6 text-emerald-950/75 dark:text-foreground/75">
             {ours.summary}
           </p>
           <ul className="mt-4 space-y-2">
             {ours.points.map((point) => (
               <li
                 key={point}
-                className="flex gap-2 text-sm font-medium leading-6 text-foreground/85"
+                className="flex gap-2 text-sm font-medium leading-6 text-emerald-950/85 dark:text-foreground/85"
               >
-                <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-md bg-emerald-500/20 text-emerald-600 dark:text-emerald-400">
+                <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-md bg-emerald-500/45 text-emerald-800 dark:bg-emerald-500/25 dark:text-emerald-400">
                   <CheckIcon className="size-3" />
                 </span>
                 {point}
@@ -181,14 +188,14 @@ function StackShowdown() {
           </ul>
           {ours.stackIds?.length ? (
             <div className="mt-auto pt-6">
-              <div className="flex flex-wrap items-center gap-2 border-t border-emerald-500/15 pt-3">
-                <span className="text-[11px] font-medium uppercase tracking-[0.14em] text-emerald-800/70 dark:text-emerald-300/70">
+              <div className="flex flex-wrap items-center gap-2 border-t border-emerald-500/45 pt-3 dark:border-emerald-500/20">
+                <span className="text-[11px] font-medium uppercase tracking-[0.14em] text-emerald-900 dark:text-emerald-300/70">
                   Con
                 </span>
                 {ours.stackIds.map((id) => (
                   <span
                     key={id}
-                    className="flex size-8 items-center justify-center rounded-lg border border-emerald-500/20 bg-background"
+                    className="flex size-8 items-center justify-center rounded-lg border border-emerald-500/45 bg-background dark:border-emerald-500/25"
                   >
                     <TechIcon id={id} size={18} />
                   </span>

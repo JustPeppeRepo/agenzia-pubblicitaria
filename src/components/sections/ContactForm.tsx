@@ -99,7 +99,7 @@ export function ContactForm() {
           />
           <button
             type="submit"
-            className="w-full rounded-full bg-foreground px-6 py-3 text-sm font-medium text-background transition-colors hover:bg-foreground/90"
+            className="w-full rounded-full bg-accent px-6 py-3 text-sm font-medium text-accent-foreground shadow-sm shadow-accent/25 transition-colors hover:bg-accent/90"
           >
             Invia messaggio
           </button>

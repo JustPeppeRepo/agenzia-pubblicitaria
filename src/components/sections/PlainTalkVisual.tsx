@@ -27,7 +27,7 @@ const pulse = {
   ease: "easeInOut" as const,
 };
 
-/** Visual one-shot che ripartono a ogni rientro in viewport */
+/** Visual one-shot: remount al rientro in viewport per rifare il play */
 const REPLAY_ON_VIEW = new Set<PlainTalkVisualId>(["speed", "seo"]);
 
 function useCanAnimate() {
@@ -36,10 +36,14 @@ function useCanAnimate() {
 }
 
 /**
- * Avvia l’animazione in viewport e la resetta all’uscita,
- * così al rientro riparte (soglie pensate anche per mobile).
+ * Anima solo in viewport. Fuori schermo i loop si fermano (evita jank
+ * quando PlainTalk ha più SVG motion attivi insieme).
+ * Con remountOnEnter, al rientro incrementa cycle per ripartire da zero.
  */
-function useReplayOnView(enabled: boolean): {
+function useInViewMotion(
+  enabled: boolean,
+  remountOnEnter = false,
+): {
   ref: RefObject<HTMLDivElement | null>;
   active: boolean;
   cycle: number;
@@ -70,7 +74,7 @@ function useReplayOnView(enabled: boolean): {
 
         if (visible && !inViewRef.current) {
           inViewRef.current = true;
-          setCycle((c) => c + 1);
+          if (remountOnEnter) setCycle((c) => c + 1);
           setActive(true);
         } else if (hidden && inViewRef.current) {
           inViewRef.current = false;
@@ -79,14 +83,13 @@ function useReplayOnView(enabled: boolean): {
       },
       {
         threshold: [0, 0.06, 0.28, 0.45, 0.7],
-        // Margine inferiore: conta “in vista” solo se è davvero nello schermo
         rootMargin: "0px 0px -12% 0px",
       },
     );
 
     observer.observe(node);
     return () => observer.disconnect();
-  }, [enabled]);
+  }, [enabled, remountOnEnter]);
 
   return { ref, active: enabled && active, cycle };
 }
@@ -107,8 +110,8 @@ function Soft({
     <motion.g
       className={className}
       initial={false}
-      animate={animate ? { opacity: [0.55, 1, 0.55] } : undefined}
-      transition={{ ...pulse, delay }}
+      animate={animate ? { opacity: [0.55, 1, 0.55] } : { opacity: 0.85 }}
+      transition={animate ? { ...pulse, delay } : { duration: 0 }}
     >
       {children}
     </motion.g>
@@ -165,14 +168,14 @@ function SiteScrollContent({
       }
     >
       {/* Nav */}
-      <rect x={x + pad} y={y0 + 4} width={inner} height={7} rx="2" className="fill-foreground/12" />
+      <rect x={x + pad} y={y0 + 4} width={inner} height={7} rx="2" className="fill-foreground/25" />
       <rect
         x={x + pad + 2}
         y={y0 + 6}
         width={layout === "mobile" ? 12 : 18}
         height={3}
         rx="1"
-        className="fill-emerald-500/70"
+        className="fill-spark"
       />
 
       {/* Hero */}
@@ -182,37 +185,37 @@ function SiteScrollContent({
         width={inner}
         height={layout === "mobile" ? 20 : 16}
         rx="3"
-        className="fill-emerald-500/35"
+        className="fill-spark/45"
       />
 
       {layout === "desktop" ? (
         <>
-          <rect x={x + pad} y={y0 + 34} width={(inner - 4) / 2} height={14} rx="2" className="fill-foreground/14" />
-          <rect x={x + pad + (inner - 4) / 2 + 4} y={y0 + 34} width={(inner - 4) / 2} height={14} rx="2" className="fill-foreground/10" />
-          <rect x={x + pad} y={y0 + 52} width={inner} height={8} rx="2" className="fill-foreground/12" />
-          <rect x={x + pad} y={y0 + 64} width={inner * 0.7} height={6} rx="2" className="fill-foreground/10" />
-          <rect x={x + pad} y={y0 + 74} width={inner * 0.45} height={8} rx="3" className="fill-emerald-500/55" />
-          <rect x={x + pad} y={y0 + 88} width={inner} height={12} rx="2" className="fill-foreground/10" />
-          <rect x={x + pad} y={y0 + 104} width={inner * 0.55} height={6} rx="2" className="fill-foreground/12" />
-          <rect x={x + pad} y={y0 + 116} width={inner} height={10} rx="2" className="fill-foreground/10" />
+          <rect x={x + pad} y={y0 + 34} width={(inner - 4) / 2} height={14} rx="2" className="fill-foreground/22" />
+          <rect x={x + pad + (inner - 4) / 2 + 4} y={y0 + 34} width={(inner - 4) / 2} height={14} rx="2" className="fill-foreground/16" />
+          <rect x={x + pad} y={y0 + 52} width={inner} height={8} rx="2" className="fill-foreground/20" />
+          <rect x={x + pad} y={y0 + 64} width={inner * 0.7} height={6} rx="2" className="fill-foreground/14" />
+          <rect x={x + pad} y={y0 + 74} width={inner * 0.45} height={8} rx="3" className="fill-spark/65" />
+          <rect x={x + pad} y={y0 + 88} width={inner} height={12} rx="2" className="fill-foreground/16" />
+          <rect x={x + pad} y={y0 + 104} width={inner * 0.55} height={6} rx="2" className="fill-foreground/20" />
+          <rect x={x + pad} y={y0 + 116} width={inner} height={10} rx="2" className="fill-foreground/14" />
         </>
       ) : layout === "tablet" ? (
         <>
-          <rect x={x + pad} y={y0 + 34} width={inner} height={12} rx="2" className="fill-foreground/14" />
-          <rect x={x + pad} y={y0 + 50} width={inner} height={12} rx="2" className="fill-foreground/10" />
-          <rect x={x + pad} y={y0 + 66} width={inner * 0.55} height={8} rx="3" className="fill-emerald-500/55" />
-          <rect x={x + pad} y={y0 + 80} width={inner} height={10} rx="2" className="fill-foreground/10" />
-          <rect x={x + pad} y={y0 + 94} width={inner * 0.7} height={6} rx="2" className="fill-foreground/12" />
-          <rect x={x + pad} y={y0 + 106} width={inner} height={10} rx="2" className="fill-foreground/10" />
+          <rect x={x + pad} y={y0 + 34} width={inner} height={12} rx="2" className="fill-foreground/22" />
+          <rect x={x + pad} y={y0 + 50} width={inner} height={12} rx="2" className="fill-foreground/16" />
+          <rect x={x + pad} y={y0 + 66} width={inner * 0.55} height={8} rx="3" className="fill-spark/65" />
+          <rect x={x + pad} y={y0 + 80} width={inner} height={10} rx="2" className="fill-foreground/16" />
+          <rect x={x + pad} y={y0 + 94} width={inner * 0.7} height={6} rx="2" className="fill-foreground/20" />
+          <rect x={x + pad} y={y0 + 106} width={inner} height={10} rx="2" className="fill-foreground/14" />
         </>
       ) : (
         <>
-          <rect x={x + pad} y={y0 + 38} width={inner} height={10} rx="2" className="fill-foreground/14" />
-          <rect x={x + pad} y={y0 + 52} width={inner} height={10} rx="2" className="fill-foreground/10" />
-          <rect x={x + pad} y={y0 + 66} width={inner} height={10} rx="2" className="fill-foreground/12" />
-          <rect x={x + pad} y={y0 + 80} width={inner} height={12} rx="3" className="fill-emerald-500/55" />
-          <rect x={x + pad} y={y0 + 96} width={inner * 0.75} height={6} rx="2" className="fill-foreground/10" />
-          <rect x={x + pad} y={y0 + 108} width={inner} height={10} rx="2" className="fill-foreground/12" />
+          <rect x={x + pad} y={y0 + 38} width={inner} height={10} rx="2" className="fill-foreground/22" />
+          <rect x={x + pad} y={y0 + 52} width={inner} height={10} rx="2" className="fill-foreground/16" />
+          <rect x={x + pad} y={y0 + 66} width={inner} height={10} rx="2" className="fill-foreground/20" />
+          <rect x={x + pad} y={y0 + 80} width={inner} height={12} rx="3" className="fill-spark/65" />
+          <rect x={x + pad} y={y0 + 96} width={inner * 0.75} height={6} rx="2" className="fill-foreground/14" />
+          <rect x={x + pad} y={y0 + 108} width={inner} height={10} rx="2" className="fill-foreground/20" />
         </>
       )}
     </motion.g>
@@ -247,7 +250,7 @@ function ResponsiveVisual({ animate }: VisualProps) {
         </clipPath>
       </defs>
 
-      {/* Desktop */}
+      {/* Desktop — solo stroke, senza fondo scuro */}
       <rect
         x={desk.x}
         y={desk.y}
@@ -256,8 +259,8 @@ function ResponsiveVisual({ animate }: VisualProps) {
         rx="8"
         fill="none"
         stroke="currentColor"
-        strokeWidth="1.75"
-        className="text-foreground/28"
+        strokeWidth="2"
+        className="text-[#0a0a0c]/65"
       />
       {/* Title bar — above screen */}
       <rect
@@ -266,17 +269,17 @@ function ResponsiveVisual({ animate }: VisualProps) {
         width={desk.w - 2}
         height="18"
         rx="7"
-        className="fill-foreground/[0.04]"
+        className="fill-foreground/12"
       />
-      <circle cx={desk.x + 14} cy={desk.y + 10} r="2.5" className="fill-foreground/25" />
-      <circle cx={desk.x + 24} cy={desk.y + 10} r="2.5" className="fill-foreground/18" />
-      <circle cx={desk.x + 34} cy={desk.y + 10} r="2.5" className="fill-foreground/12" />
+      <circle cx={desk.x + 14} cy={desk.y + 10} r="2.5" className="fill-foreground/55" />
+      <circle cx={desk.x + 24} cy={desk.y + 10} r="2.5" className="fill-foreground/40" />
+      <circle cx={desk.x + 34} cy={desk.y + 10} r="2.5" className="fill-foreground/30" />
       <rect
         x={desk.screenX}
         y={desk.screenY}
         width={desk.screenW}
         height={desk.screenH}
-        className="fill-foreground/[0.03]"
+        className="fill-foreground/[0.06]"
       />
       <g clipPath={`url(#${clipDesktop})`}>
         <SiteScrollContent
@@ -290,20 +293,20 @@ function ResponsiveVisual({ animate }: VisualProps) {
           layout="desktop"
         />
       </g>
-      <rect x="52" y="146" width="50" height="5" rx="2" className="fill-foreground/12" />
-      <rect x="40" y="151" width="74" height="3" rx="1" className="fill-foreground/10" />
+      <rect x="52" y="146" width="50" height="5" rx="2" className="fill-foreground/40" />
+      <rect x="40" y="151" width="74" height="3" rx="1" className="fill-foreground/30" />
       <text
         x={desk.x + desk.w / 2}
         y="172"
         textAnchor="middle"
         fill="currentColor"
         fontSize="9"
-        className="fill-foreground/40"
+        className="fill-foreground/70"
       >
         Desktop
       </text>
 
-      {/* Tablet */}
+      {/* Tablet — solo stroke */}
       <rect
         x={tab.x}
         y={tab.y}
@@ -312,15 +315,15 @@ function ResponsiveVisual({ animate }: VisualProps) {
         rx="10"
         fill="none"
         stroke="currentColor"
-        strokeWidth="1.75"
-        className="text-emerald-500/45"
+        strokeWidth="2"
+        className="text-[#0a0a0c]/65"
       />
       <rect
         x={tab.screenX}
         y={tab.screenY}
         width={tab.screenW}
         height={tab.screenH}
-        className="fill-foreground/[0.03]"
+        className="fill-foreground/[0.06]"
       />
       <g clipPath={`url(#${clipTablet})`}>
         <SiteScrollContent
@@ -334,19 +337,19 @@ function ResponsiveVisual({ animate }: VisualProps) {
           layout="tablet"
         />
       </g>
-      <circle cx={tab.x + tab.w / 2} cy={tab.y + tab.h - 8} r="2.5" className="fill-foreground/15" />
+      <circle cx={tab.x + tab.w / 2} cy={tab.y + tab.h - 8} r="2.5" className="fill-foreground/45" />
       <text
         x={tab.x + tab.w / 2}
         y="172"
         textAnchor="middle"
         fill="currentColor"
         fontSize="9"
-        className="fill-foreground/40"
+        className="fill-foreground/70"
       >
         Tablet
       </text>
 
-      {/* Phone */}
+      {/* Phone — solo stroke */}
       <rect
         x={phone.x}
         y={phone.y}
@@ -355,8 +358,8 @@ function ResponsiveVisual({ animate }: VisualProps) {
         rx="12"
         fill="none"
         stroke="currentColor"
-        strokeWidth="1.75"
-        className="text-emerald-500/65"
+        strokeWidth="2"
+        className="text-[#0a0a0c]/65"
       />
       <rect
         x={phone.x + phone.w / 2 - 10}
@@ -364,14 +367,14 @@ function ResponsiveVisual({ animate }: VisualProps) {
         width="20"
         height="3"
         rx="1.5"
-        className="fill-foreground/15"
+        className="fill-foreground/40"
       />
       <rect
         x={phone.screenX}
         y={phone.screenY}
         width={phone.screenW}
         height={phone.screenH}
-        className="fill-foreground/[0.03]"
+        className="fill-foreground/[0.06]"
       />
       <g clipPath={`url(#${clipPhone})`}>
         <SiteScrollContent
@@ -385,14 +388,14 @@ function ResponsiveVisual({ animate }: VisualProps) {
           layout="mobile"
         />
       </g>
-      <circle cx={phone.x + phone.w / 2} cy={phone.y + phone.h - 7} r="2.5" className="fill-foreground/15" />
+      <circle cx={phone.x + phone.w / 2} cy={phone.y + phone.h - 7} r="2.5" className="fill-foreground/45" />
       <text
         x={phone.x + phone.w / 2}
         y="172"
         textAnchor="middle"
         fill="currentColor"
         fontSize="9"
-        className="fill-foreground/40"
+        className="fill-foreground/70"
       >
         Mobile
       </text>
@@ -433,7 +436,7 @@ function ScoreRing({
         fill="none"
         stroke="currentColor"
         strokeWidth={strokeWidth}
-        className="text-foreground/10"
+        className="text-[#0a0a0c]/40"
       />
       <motion.circle
         cx={cx}
@@ -444,7 +447,7 @@ function ScoreRing({
         strokeWidth={strokeWidth}
         strokeLinecap="round"
         strokeDasharray={c}
-        className="text-emerald-500"
+        className="text-spark"
         transform={`rotate(-90 ${cx} ${cy})`}
         initial={false}
         animate={{ strokeDashoffset: animate ? [c, offset] : offset }}
@@ -523,7 +526,7 @@ function SpeedVisual({ animate }: VisualProps) {
       className="h-auto w-full overflow-visible"
       aria-hidden
     >
-      {/* Panel */}
+      {/* Panel — solo bordo, senza contenitore pieno */}
       <rect
         x="16"
         y="12"
@@ -532,8 +535,8 @@ function SpeedVisual({ animate }: VisualProps) {
         rx="16"
         fill="none"
         stroke="currentColor"
-        strokeWidth="1.5"
-        className="text-foreground/15"
+        strokeWidth="2"
+        className="text-[#0a0a0c]/65"
       />
 
       {/* Header */}
@@ -544,13 +547,13 @@ function SpeedVisual({ animate }: VisualProps) {
         fontSize="11"
         fontWeight="600"
         letterSpacing="0.06em"
-        className="fill-foreground/45"
+        className="fill-foreground/70"
       >
         SPEED INSIGHTS
       </text>
       <Soft animate={animate} delay={0.4}>
-        <circle cx="276" cy="34" r="4" className="fill-emerald-500" />
-        <circle cx="276" cy="34" r="8" fill="none" stroke="currentColor" strokeWidth="1.25" className="text-emerald-500/40" />
+        <circle cx="276" cy="34" r="4" className="fill-spark" />
+        <circle cx="276" cy="34" r="8" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-spark/70" />
       </Soft>
 
       {/* Main Performance score */}
@@ -562,7 +565,7 @@ function SpeedVisual({ animate }: VisualProps) {
         textAnchor="middle"
         fill="currentColor"
         fontSize="10"
-        className="fill-foreground/45"
+        className="fill-foreground/70"
       >
         Performance
       </text>
@@ -578,11 +581,13 @@ function SpeedVisual({ animate }: VisualProps) {
               width={cardW}
               height={34}
               rx="8"
-              fill="currentColor"
-              className="fill-foreground/[0.04]"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              className="text-[#0a0a0c]/55"
             />
             <Soft animate={animate} delay={0.2 + i * 0.12}>
-              <circle cx={cardX + 14} cy={y + 17} r="4" className="fill-emerald-500" />
+              <circle cx={cardX + 14} cy={y + 17} r="4" className="fill-spark" />
             </Soft>
             <text
               x={cardX + 28}
@@ -590,7 +595,7 @@ function SpeedVisual({ animate }: VisualProps) {
               fill="currentColor"
               fontSize="10"
               fontWeight="600"
-              className="fill-foreground/55"
+              className="fill-foreground/80"
             >
               {m.label}
             </text>
@@ -600,7 +605,7 @@ function SpeedVisual({ animate }: VisualProps) {
               fill="currentColor"
               fontSize="12"
               fontWeight="700"
-              className="fill-emerald-600/85"
+              className="fill-spark"
             >
               {m.value}
             </text>
@@ -610,7 +615,7 @@ function SpeedVisual({ animate }: VisualProps) {
               textAnchor="end"
               fill="currentColor"
               fontSize="9"
-              className="fill-emerald-600/70"
+              className="fill-spark/85"
             >
               {m.hint}
             </text>
@@ -639,7 +644,7 @@ function SpeedVisual({ animate }: VisualProps) {
         >
           <path
             d="M10 -72 L-30 2 H-6 L-22 72 L30 -12 H2 Z"
-            className="fill-emerald-500"
+            className="fill-spark"
           />
         </motion.g>
       </g>
@@ -655,22 +660,34 @@ function SecurityVisual({ animate }: VisualProps) {
     { x: 52, y: 148, dx: 68, dy: -36 },
     { x: 268, y: 148, dx: -68, dy: -36 },
   ];
-  const cycle = 3.6;
+  // Ciclo più lungo + stagger uniforme → onda continua senza scatti
+  const cycle = 5.2;
+  const stagger = cycle / threats.length;
+  const fluid = [0.4, 0.0, 0.2, 1] as const;
+  const breath = [0.45, 0.05, 0.55, 0.95] as const;
 
   return (
     <svg viewBox="0 0 320 200" className="h-auto w-full" aria-hidden>
       <motion.g
         initial={false}
-        animate={animate ? { y: [0, -5, 0] } : { y: 0 }}
+        animate={
+          animate
+            ? { y: [0, -3.5, 0, -2, 0], scale: [1, 1.015, 1, 1.01, 1] }
+            : { y: 0, scale: 1 }
+        }
         transition={{
-          duration: 3.4,
-          ease: "easeInOut",
+          duration: 5,
+          ease: breath,
+          times: [0, 0.28, 0.55, 0.78, 1],
           repeat: Infinity,
         }}
+        style={{ transformOrigin: "160px 100px" }}
       >
         <path
           d="M160 36l44 18v30c0 28-18 48-44 56-26-8-44-28-44-56V54l44-18z"
-          className="fill-emerald-500"
+          stroke="currentColor"
+          strokeWidth="2.25"
+          className="fill-spark text-[#0a0a0c]/65"
         />
         <path
           d="M146 100l10 10 18-20"
@@ -685,24 +702,29 @@ function SecurityVisual({ animate }: VisualProps) {
 
       {threats.map((t, i) => (
         <g key={i}>
+          {/* Flash d’impatto — fade morbido, niente picco secco */}
           <motion.circle
             cx={t.x + t.dx}
             cy={t.y + t.dy}
-            r={16}
-            className="fill-rose-400/35"
+            r={18}
+            className="fill-red-500/60"
             initial={false}
             animate={
               animate
-                ? { opacity: [0, 0, 0.55, 0] }
-                : { opacity: 0 }
+                ? {
+                    opacity: [0, 0, 0.15, 0.55, 0.25, 0],
+                    scale: [0.7, 0.7, 0.95, 1.2, 1.35, 1.45],
+                  }
+                : { opacity: 0, scale: 1 }
             }
             transition={{
               duration: cycle,
-              delay: i * 0.55,
-              times: [0, 0.48, 0.56, 0.72],
-              ease: "easeInOut",
+              delay: i * stagger,
+              times: [0, 0.38, 0.48, 0.55, 0.7, 1],
+              ease: fluid,
               repeat: Infinity,
             }}
+            style={{ transformOrigin: `${t.x + t.dx}px ${t.y + t.dy}px` }}
           />
 
           <motion.g
@@ -710,24 +732,28 @@ function SecurityVisual({ animate }: VisualProps) {
             animate={
               animate
                 ? {
-                    x: [0, t.dx, t.dx * 0.78, 0],
-                    y: [0, t.dy, t.dy * 0.78, 0],
+                    x: [0, t.dx * 0.22, t.dx, t.dx * 0.88, t.dx * 0.35, 0],
+                    y: [0, t.dy * 0.22, t.dy, t.dy * 0.88, t.dy * 0.35, 0],
+                    opacity: [0.3, 0.65, 1, 0.9, 0.45, 0.3],
+                    scale: [0.9, 0.96, 1, 0.98, 0.93, 0.9],
                   }
-                : { x: 0, y: 0 }
+                : { x: 0, y: 0, opacity: 1, scale: 1 }
             }
             transition={{
               duration: cycle,
-              delay: i * 0.55,
-              times: [0, 0.5, 0.62, 1],
-              ease: "easeInOut",
+              delay: i * stagger,
+              // Approccio lento → contatto → rimbalzo soft → rientro sfumato
+              times: [0, 0.22, 0.52, 0.6, 0.78, 1],
+              ease: fluid,
               repeat: Infinity,
             }}
+            style={{ transformOrigin: `${t.x}px ${t.y}px` }}
           >
             <circle
               cx={t.x}
               cy={t.y}
               r={14}
-              className="fill-rose-700"
+              className="fill-red-600"
             />
             <circle
               cx={t.x}
@@ -735,8 +761,8 @@ function SecurityVisual({ animate }: VisualProps) {
               r={14}
               fill="none"
               stroke="currentColor"
-              strokeWidth="1.75"
-              className="text-rose-900 dark:text-rose-800"
+              strokeWidth="2"
+              className="text-[#0a0a0c]/65"
             />
             <path
               d={`M${t.x - 4.5} ${t.y - 4.5}l9 9M${t.x + 4.5} ${t.y - 4.5}l-9 9`}
@@ -782,18 +808,18 @@ function SeoVisual({ animate }: VisualProps) {
         rx="16"
         fill="none"
         stroke="currentColor"
-        strokeWidth="1.75"
-        className="text-foreground/22"
+        strokeWidth="2"
+        className="text-[#0a0a0c]/65"
       />
-      <circle cx="48" cy="28" r="7" fill="none" stroke="currentColor" strokeWidth="1.75" className="text-foreground/35" />
-      <path d="M53 33l6 6" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" className="text-foreground/35" />
+      <circle cx="48" cy="28" r="7" fill="none" stroke="currentColor" strokeWidth="2" className="text-spark" />
+      <path d="M53 33l6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="text-spark" />
       <text
         x="66"
         y="32"
         fill="currentColor"
         fontSize="11"
         fontWeight="500"
-        className="fill-foreground/55"
+        className="fill-foreground/80"
       >
         migliore negozio a Palermo
       </text>
@@ -804,7 +830,7 @@ function SeoVisual({ animate }: VisualProps) {
             cx="44"
             cy={n === 1 ? slots[0] + 28 : slots[i] + 12}
             r={n === 1 ? 13 : 10}
-            className={n === 1 ? "fill-emerald-500" : "fill-foreground/12"}
+            className={n === 1 ? "fill-spark" : "fill-foreground/20"}
           />
           <text
             x="44"
@@ -813,7 +839,7 @@ function SeoVisual({ animate }: VisualProps) {
             fill={n === 1 ? "#fff" : "currentColor"}
             fontSize={n === 1 ? 13 : 10}
             fontWeight="700"
-            className={n === 1 ? undefined : "fill-foreground/45"}
+            className={n === 1 ? undefined : "fill-foreground/70"}
           >
             {n}
           </text>
@@ -828,10 +854,10 @@ function SeoVisual({ animate }: VisualProps) {
             : { y: showFinal ? slots[1] : slots[0] }
         }
         transition={climb}
-        opacity={0.38}
+        opacity={0.5}
       >
-        <rect x="70" y="4" width="140" height="8" rx="3" className="fill-foreground/16" />
-        <rect x="70" y="16" width="88" height="5" rx="2" className="fill-foreground/10" />
+        <rect x="70" y="4" width="140" height="8" rx="3" className="fill-foreground/22" />
+        <rect x="70" y="16" width="88" height="5" rx="2" className="fill-foreground/14" />
       </motion.g>
 
       <motion.g
@@ -842,10 +868,10 @@ function SeoVisual({ animate }: VisualProps) {
             : { y: showFinal ? slots[2] : slots[1] }
         }
         transition={climb}
-        opacity={0.32}
+        opacity={0.42}
       >
-        <rect x="70" y="4" width="118" height="8" rx="3" className="fill-foreground/16" />
-        <rect x="70" y="16" width="72" height="5" rx="2" className="fill-foreground/10" />
+        <rect x="70" y="4" width="118" height="8" rx="3" className="fill-foreground/22" />
+        <rect x="70" y="16" width="72" height="5" rx="2" className="fill-foreground/14" />
       </motion.g>
 
       <motion.g
@@ -866,12 +892,14 @@ function SeoVisual({ animate }: VisualProps) {
           width="210"
           height="56"
           rx="10"
-          fill="currentColor"
-          className="fill-emerald-500/[0.1]"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          className="text-[#0a0a0c]/55"
         />
-        <rect x="66" y="0" width="4" height="56" rx="2" className="fill-emerald-500" />
+        <rect x="66" y="0" width="4" height="56" rx="2" className="fill-spark" />
         {/* Favicon */}
-        <rect x="80" y="10" width="18" height="18" rx="4" className="fill-emerald-500" />
+        <rect x="80" y="10" width="18" height="18" rx="4" className="fill-spark" />
         <path
           d="M85 19h8M89 15v8"
           stroke="#fff"
@@ -884,7 +912,7 @@ function SeoVisual({ animate }: VisualProps) {
           fill="currentColor"
           fontSize="11"
           fontWeight="700"
-          className="fill-emerald-600"
+          className="fill-spark"
         >
           Negozio Rossi Palermo
         </text>
@@ -894,7 +922,7 @@ function SeoVisual({ animate }: VisualProps) {
           fill="currentColor"
           fontSize="8.5"
           fontWeight="500"
-          className="fill-emerald-600/70"
+          className="fill-spark/85"
         >
           www.tuosito.it
         </text>
@@ -903,7 +931,7 @@ function SeoVisual({ animate }: VisualProps) {
           y="48"
           fill="currentColor"
           fontSize="8.5"
-          className="fill-foreground/45"
+          className="fill-foreground/70"
         >
           Orari, mappa e recensioni del negozio.
         </text>
@@ -977,7 +1005,7 @@ function ScaleVisual({ animate }: VisualProps) {
           stroke="currentColor"
           strokeWidth="1"
           strokeDasharray="3 6"
-          className="text-emerald-500/25"
+          className="text-spark/55"
         />
       </Soft>
       <motion.circle
@@ -987,73 +1015,11 @@ function ScaleVisual({ animate }: VisualProps) {
         fill="none"
         stroke="currentColor"
         strokeWidth="1"
-        className="text-emerald-500/15"
+        className="text-spark/40"
         initial={false}
         animate={animate ? { opacity: [0.2, 0.55, 0.2] } : { opacity: 0.35 }}
         transition={{ duration: 3.6, ease: "easeInOut", repeat: Infinity }}
       />
-
-      {/* Connettori nucleo ↔ moduli */}
-      {modules.map((m) => {
-        const mx = m.x + 36;
-        const my = m.y + 22;
-        return (
-          <motion.line
-            key={`line-${m.id}`}
-            x1={coreCx}
-            y1={coreCy}
-            x2={mx}
-            y2={my}
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            className="text-emerald-500/40"
-            initial={false}
-            animate={
-              animate
-                ? { opacity: [0, 0, 1, 1, 0] }
-                : { opacity: 0.7 }
-            }
-            transition={{
-              duration: cycle,
-              delay: m.delay,
-              times: [0, 0.08, 0.22, 0.78, 1],
-              ease: "easeInOut",
-              repeat: Infinity,
-            }}
-          />
-        );
-      })}
-
-      {/* Particelle di carico che fluiscono verso il nucleo */}
-      {modules.map((m) => {
-        const mx = m.x + 36;
-        const my = m.y + 22;
-        return (
-          <motion.circle
-            key={`dot-${m.id}`}
-            r={2.5}
-            className="fill-emerald-500"
-            initial={false}
-            animate={
-              animate
-                ? {
-                    cx: [mx, coreCx],
-                    cy: [my, coreCy],
-                    opacity: [0, 1, 0],
-                  }
-                : { cx: coreCx, cy: coreCy, opacity: 0 }
-            }
-            transition={{
-              duration: 1.4,
-              delay: m.delay + 1.2,
-              ease: "easeInOut",
-              repeat: Infinity,
-              repeatDelay: cycle - 1.4,
-            }}
-          />
-        );
-      })}
 
       {/* Moduli che si agganciano */}
       {modules.map((m) => (
@@ -1083,10 +1049,10 @@ function ScaleVisual({ animate }: VisualProps) {
             width="72"
             height="44"
             rx="10"
-            fill="currentColor"
+            fill="none"
             stroke="currentColor"
-            strokeWidth="1.5"
-            className="fill-background text-foreground/18"
+            strokeWidth="1.75"
+            className="text-[#0a0a0c]/45"
           />
           <rect
             x={m.x}
@@ -1096,31 +1062,31 @@ function ScaleVisual({ animate }: VisualProps) {
             rx="10"
             fill="none"
             stroke="currentColor"
-            strokeWidth="1.25"
-            className="text-emerald-500/35"
+            strokeWidth="1.5"
+            className="text-[#0a0a0c]/65"
           />
 
           {m.icon === "users" && (
-            <g className="text-emerald-500" stroke="currentColor" fill="none" strokeWidth="1.5">
+            <g className="text-spark" stroke="currentColor" fill="none" strokeWidth="1.5">
               <circle cx={m.x + 32} cy={m.y + 13} r="3.5" />
               <path d={`M${m.x + 25} ${m.y + 23}c1.2-4 4-5.5 7-5.5s5.8 1.5 7 5.5`} strokeLinecap="round" />
               <circle cx={m.x + 43} cy={m.y + 14} r="2.8" opacity="0.65" />
             </g>
           )}
           {m.icon === "docs" && (
-            <g className="text-emerald-500" stroke="currentColor" fill="none" strokeWidth="1.5">
+            <g className="text-spark" stroke="currentColor" fill="none" strokeWidth="1.5">
               <rect x={m.x + 29} y={m.y + 8} width="14" height="16" rx="2" />
               <path d={`M${m.x + 32} ${m.y + 13}h8M${m.x + 32} ${m.y + 17}h8M${m.x + 32} ${m.y + 21}h5`} strokeLinecap="round" />
             </g>
           )}
           {m.icon === "plus" && (
-            <g className="text-emerald-500" stroke="currentColor" fill="none" strokeWidth="1.75">
+            <g className="text-spark" stroke="currentColor" fill="none" strokeWidth="1.75">
               <rect x={m.x + 28} y={m.y + 8} width="16" height="16" rx="4" />
               <path d={`M${m.x + 36} ${m.y + 12}v8M${m.x + 32} ${m.y + 16}h8`} strokeLinecap="round" />
             </g>
           )}
           {m.icon === "nodes" && (
-            <g className="text-emerald-500" stroke="currentColor" fill="none" strokeWidth="1.5">
+            <g className="text-spark" stroke="currentColor" fill="none" strokeWidth="1.5">
               <circle cx={m.x + 29} cy={m.y + 11} r="3" />
               <circle cx={m.x + 43} cy={m.y + 11} r="3" />
               <circle cx={m.x + 36} cy={m.y + 21} r="3" />
@@ -1150,29 +1116,21 @@ function ScaleVisual({ animate }: VisualProps) {
           width={core.w}
           height={core.h}
           rx="14"
-          className="fill-background"
-        />
-        <rect
-          x={core.x}
-          y={core.y}
-          width={core.w}
-          height={core.h}
-          rx="14"
-          fill="currentColor"
+          fill="none"
           stroke="currentColor"
-          strokeWidth="1.75"
-          className="fill-emerald-500/10 text-emerald-500/55"
+          strokeWidth="2"
+          className="text-[#0a0a0c]/65"
         />
-        <circle cx={core.x + 14} cy={core.y + 14} r="3" className="fill-foreground/25" />
-        <circle cx={core.x + 24} cy={core.y + 14} r="3" className="fill-foreground/25" />
-        <circle cx={core.x + 34} cy={core.y + 14} r="3" className="fill-foreground/25" />
+        <circle cx={core.x + 14} cy={core.y + 14} r="3" className="fill-foreground/45" />
+        <circle cx={core.x + 24} cy={core.y + 14} r="3" className="fill-foreground/45" />
+        <circle cx={core.x + 34} cy={core.y + 14} r="3" className="fill-foreground/45" />
         <rect
           x={core.x + 12}
           y={core.y + 28}
           width={core.w - 24}
           height={7}
           rx="2.5"
-          className="fill-emerald-500/70"
+          className="fill-spark"
         />
         <rect
           x={core.x + 12}
@@ -1180,7 +1138,7 @@ function ScaleVisual({ animate }: VisualProps) {
           width={core.w - 36}
           height={5}
           rx="2"
-          className="fill-foreground/15"
+          className="fill-foreground/25"
         />
         <rect
           x={core.x + 12}
@@ -1188,7 +1146,7 @@ function ScaleVisual({ animate }: VisualProps) {
           width={core.w - 48}
           height={5}
           rx="2"
-          className="fill-foreground/10"
+          className="fill-foreground/16"
         />
         <text
           x={coreCx}
@@ -1198,7 +1156,7 @@ function ScaleVisual({ animate }: VisualProps) {
           fontSize="11"
           fontWeight="700"
           letterSpacing="0.1em"
-          className="fill-emerald-600/85"
+          className="fill-spark"
         >
           SITO
         </text>
@@ -1226,14 +1184,13 @@ const LABELS: Record<PlainTalkVisualId, string> = {
 
 export function PlainTalkVisual({ id, className }: PlainTalkVisualProps) {
   const canAnimate = useCanAnimate();
-  const replay = REPLAY_ON_VIEW.has(id);
-  const { ref, active, cycle } = useReplayOnView(canAnimate && replay);
-  const animate = replay ? active : canAnimate;
+  const remountOnEnter = REPLAY_ON_VIEW.has(id);
+  const { ref, active, cycle } = useInViewMotion(canAnimate, remountOnEnter);
   const Visual = VISUALS[id];
 
   return (
     <div
-      ref={replay ? ref : undefined}
+      ref={ref}
       className={cn(
         "mx-auto flex w-full max-w-80 items-center justify-center text-foreground",
         className,
@@ -1241,7 +1198,7 @@ export function PlainTalkVisual({ id, className }: PlainTalkVisualProps) {
       role="img"
       aria-label={LABELS[id]}
     >
-      <Visual key={replay ? cycle : id} animate={animate} />
+      <Visual key={remountOnEnter ? cycle : id} animate={active} />
     </div>
   );
 }

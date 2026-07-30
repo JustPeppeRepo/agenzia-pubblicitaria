@@ -5,14 +5,24 @@ import { siteConfig } from "@/data/site";
 import { Button } from "@/components/ui/Button";
 import { TeamImageAnchor } from "@/components/sections/TeamScrollBridge";
 import { useMotionSafe } from "@/hooks/use-motion-safe";
+import { SectionMesh } from "@/components/decor/SectionMesh";
+import { CornerBloom } from "@/components/decor/CornerBloom";
 
 export function Hero() {
   const { mounted, prefersReducedMotion } = useMotionSafe();
   const shouldAnimate = mounted && !prefersReducedMotion;
 
   return (
-    <section className="relative overflow-hidden border-b border-foreground/10">
-      <div className="mx-auto flex max-w-6xl flex-col gap-12 px-6 pt-12 pb-24 md:flex-row md:items-center md:gap-10 md:pt-16 md:pb-32">
+    <section className="relative overflow-hidden">
+      <SectionMesh />
+      <CornerBloom tone="accent" position="top-right" />
+      <CornerBloom
+        tone="spark"
+        position="bottom-left"
+        className="h-64 w-64 opacity-70 sm:h-72 sm:w-72"
+      />
+
+      <div className="relative mx-auto flex max-w-6xl flex-col gap-12 px-6 pt-12 pb-24 md:flex-row md:items-center md:gap-10 md:pt-16 md:pb-32">
         <div className="flex flex-1 flex-col gap-10">
           <motion.div
             initial={shouldAnimate ? { opacity: 0, y: 40 } : false}
@@ -24,7 +34,7 @@ export function Hero() {
               initial={shouldAnimate ? { opacity: 0, x: -20 } : false}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="mb-4 text-sm font-medium uppercase tracking-[0.25em] text-foreground/50"
+              className="mb-4 text-sm font-medium uppercase tracking-[0.25em] text-accent-2"
             >
               {siteConfig.role}
             </motion.p>
@@ -66,16 +76,10 @@ export function Hero() {
         </motion.div>
       </div>
 
-      {/* Decorative gradient orb */}
-      <motion.div
+      {/* Sfumatura verso il wash Team — niente barra nera */}
+      <div
         aria-hidden
-        animate={
-          shouldAnimate
-            ? { scale: [1, 1.08, 1], opacity: [0.04, 0.06, 0.04] }
-            : undefined
-        }
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        className="pointer-events-none absolute -right-32 top-1/3 h-96 w-96 -translate-y-1/2 rounded-full bg-foreground/[0.04] blur-3xl"
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-1 h-40 bg-hero-to-warm sm:h-48 md:h-56"
       />
     </section>
   );

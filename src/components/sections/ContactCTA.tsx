@@ -8,7 +8,7 @@ export function ContactCTA() {
   return (
     <section className="mx-auto max-w-6xl px-6 pb-20">
       <FadeIn>
-        <div className="rounded-3xl border border-foreground/10 bg-foreground p-8 text-background sm:p-12">
+        <div className="rounded-3xl border border-accent/20 bg-accent p-8 text-accent-foreground shadow-lg shadow-accent/20 sm:p-12">
           <SectionHeading
             eyebrow="Contatti"
             title="Pronto a costruire qualcosa di eccezionale?"
@@ -19,14 +19,14 @@ export function ContactCTA() {
             <Button
               href={formatEmailLink(siteConfig.email)}
               variant="secondary"
-              className="border-background/20 bg-background text-foreground hover:bg-background/90"
+              className="border-accent-foreground/25 bg-accent-foreground text-accent hover:bg-accent-foreground/90 hover:text-accent"
             >
               Scrivimi una email
             </Button>
             <Button
               href="/contact"
               variant="ghost"
-              className="text-background/80 hover:bg-background/10 hover:text-background"
+              className="text-accent-foreground/85 hover:bg-accent-foreground/10 hover:text-accent-foreground"
             >
               Modulo contatti
             </Button>

@@ -6,7 +6,7 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="mt-auto border-t border-foreground/10 bg-foreground/[0.02]">
+    <footer className="mt-auto border-t border-accent/10 bg-section">
       <div className="mx-auto grid max-w-6xl gap-10 px-6 py-12 md:grid-cols-3">
         <div>
           <p className="text-lg font-semibold">{siteConfig.name}</p>

@@ -6,9 +6,11 @@ import type { NavLink, SiteConfig, StackDuel } from "@/types";
 
 export const siteConfig: SiteConfig = {
   name: "Aiello Digital Studio",
+  url: "https://marcoddev.it",
   role: "Web Developer & Advertising Strategist",
   tagline: "Amplifica la tua visibilità online: siti web e pubblicità mirata.",
-  description:"Ci occupiamo della tua visibilità online con un unico obiettivo: far crescere i tuoi clienti e il tuo fatturato. Creiamo un sito web perfettamente adatto al tuo settore e gestiamo la tua pubblicità per farti raggiungere le persone giuste",
+  description:
+    "Ci occupiamo della tua visibilità online con un unico obiettivo: far crescere i tuoi clienti e il tuo fatturato. Creiamo un sito web perfettamente adatto al tuo settore e gestiamo la tua pubblicità per farti raggiungere le persone giuste.",
   email: "ciao@marcoddev.it",
   phone: "+39 333 123 4567",
   location: "Palermo, Italia",

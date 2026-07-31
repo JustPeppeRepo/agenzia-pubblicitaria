@@ -10,9 +10,16 @@ import { FadeIn } from "@/components/motion/FadeIn";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 
 export const metadata: Metadata = {
-  title: "About",
+  title: "Chi siamo",
   description:
-    "Il team dietro Marco Dev: software engineering e strategia pubblicitaria per la presenza digitale del tuo business.",
+    "Il team di Aiello Digital Studio: sviluppo web e strategia pubblicitaria per far crescere la tua presenza digitale a Palermo e oltre.",
+  alternates: { canonical: "/about" },
+  openGraph: {
+    title: "Chi siamo | Aiello Digital Studio",
+    description:
+      "Sviluppo web e strategia pubblicitaria: il team dietro siti veloci, SEO e campagne mirate.",
+    url: "/about",
+  },
 };
 
 export default function AboutPage() {

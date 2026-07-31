@@ -11,6 +11,8 @@ export type SocialLink = {
 
 export type SiteConfig = {
   name: string;
+  /** Canonical site origin, no trailing slash (used by sitemap / metadata). */
+  url: string;
   role: string;
   tagline: string;
   description: string;
@@ -80,6 +82,33 @@ export type ProjectVideoSet = {
   mobile: string;
 };
 
+export type ProjectVitalRating = "good" | "needs-improvement" | "poor";
+
+export type ProjectVital = {
+  id: string;
+  label: string;
+  value: string;
+  rating: ProjectVitalRating;
+  description: string;
+};
+
+export type ProjectInsightStat = {
+  id: string;
+  label: string;
+  value: string;
+  delta?: string;
+  deltaLabel?: string;
+  /** false = delta is negative/bad (red); default treats delta as positive */
+  deltaPositive?: boolean;
+};
+
+/** Vercel-style performance & audience snapshot for case studies */
+export type ProjectInsights = {
+  performanceScore: number;
+  vitals: ProjectVital[];
+  stats: ProjectInsightStat[];
+};
+
 export type Project = {
   id: string;
   slug: string;
@@ -102,4 +131,5 @@ export type Project = {
   stack: string[];
   metrics: ProjectMetric[];
   chartData: ProjectChartPoint[];
+  insights?: ProjectInsights;
 };

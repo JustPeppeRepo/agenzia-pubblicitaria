@@ -1,21 +1,33 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { validateContactForm } from "@/lib/utils";
+import {
+  CONTACT_HONEYPOT_FIELD,
+  CONTACT_LIMITS,
+  toPlainText,
+  validateContactForm,
+} from "@/lib/contact";
 
 type FormData = {
   name: string;
   email: string;
   message: string;
+  website: string;
 };
 
-const initialForm: FormData = { name: "", email: "", message: "" };
+const initialForm: FormData = {
+  name: "",
+  email: "",
+  message: "",
+  website: "",
+};
 
 export function ContactForm() {
   const [form, setForm] = useState<FormData>(initialForm);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [formError, setFormError] = useState<string | null>(null);
 
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -31,81 +43,137 @@ export function ContactForm() {
     }
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    setFormError(null);
+
     const validationErrors = validateContactForm(form);
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
     }
-    setSubmitted(true);
+
+    setSubmitting(true);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          message: form.message,
+          [CONTACT_HONEYPOT_FIELD]: form.website,
+        }),
+      });
+
+      const data = (await res.json().catch(() => ({}))) as {
+        error?: string;
+        errors?: Record<string, string>;
+      };
+
+      if (res.status === 429) {
+        setFormError(
+          data.error ?? "Troppi tentativi. Riprova tra qualche minuto.",
+        );
+        return;
+      }
+
+      if (!res.ok) {
+        if (data.errors) setErrors(data.errors);
+        setFormError(data.error ?? "Invio non riuscito. Riprova più tardi.");
+        return;
+      }
+
+      setSubmitted(true);
+    } catch {
+      setFormError("Connessione non disponibile. Riprova più tardi.");
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  const safeFirstName = toPlainText(form.name).split(" ")[0] || "là";
+  const safeEmail = toPlainText(form.email);
+
+  if (submitted) {
+    return (
+      <div className="flex flex-col items-center py-8 text-center">
+        <span className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-emerald-500/10 text-3xl">
+          ✓
+        </span>
+        <h3 className="text-xl font-semibold">Messaggio inviato!</h3>
+        <p className="mt-2 max-w-sm text-sm text-foreground/65">
+          Grazie {safeFirstName}! Ti risponderò entro 24 ore a {safeEmail}.
+        </p>
+      </div>
+    );
   }
 
   return (
-    <AnimatePresence mode="wait">
-      {submitted ? (
-        <motion.div
-          key="success"
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
-          className="flex flex-col items-center py-8 text-center"
-        >
-          <motion.span
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ delay: 0.1, type: "spring", stiffness: 200 }}
-            className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-emerald-500/10 text-3xl"
-          >
-            ✓
-          </motion.span>
-          <h3 className="text-xl font-semibold">Messaggio inviato!</h3>
-          <p className="mt-2 max-w-sm text-sm text-foreground/65">
-            Grazie {form.name.split(" ")[0]}! Ti risponderò entro 24 ore a{" "}
-            {form.email}.
-          </p>
-        </motion.div>
-      ) : (
-        <motion.form
-          key="form"
-          onSubmit={handleSubmit}
-          className="space-y-4"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-        >
-          <Field
-            label="Nome"
-            name="name"
-            value={form.name}
-            onChange={handleChange}
-            error={errors.name}
-          />
-          <Field
-            label="Email"
-            name="email"
-            type="email"
-            value={form.email}
-            onChange={handleChange}
-            error={errors.email}
-          />
-          <Field
-            label="Messaggio"
-            name="message"
-            as="textarea"
-            value={form.message}
-            onChange={handleChange}
-            error={errors.message}
-          />
-          <button
-            type="submit"
-            className="w-full rounded-full bg-accent px-6 py-3 text-sm font-medium text-accent-foreground shadow-sm shadow-accent/25 transition-colors hover:bg-accent/90"
-          >
-            Invia messaggio
-          </button>
-        </motion.form>
-      )}
-    </AnimatePresence>
+    <form onSubmit={handleSubmit} className="relative space-y-4" noValidate>
+      {/* Honeypot: hidden from humans, filled by many bots */}
+      <div
+        className="absolute left-[-9999px] h-0 w-0 overflow-hidden"
+        aria-hidden
+      >
+        <label htmlFor={CONTACT_HONEYPOT_FIELD}>Sito web</label>
+        <input
+          id={CONTACT_HONEYPOT_FIELD}
+          name={CONTACT_HONEYPOT_FIELD}
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+          value={form.website}
+          onChange={handleChange}
+        />
+      </div>
+
+      <Field
+        label="Nome"
+        name="name"
+        value={form.name}
+        onChange={handleChange}
+        error={errors.name}
+        maxLength={CONTACT_LIMITS.nameMax}
+        autoComplete="name"
+        disabled={submitting}
+      />
+      <Field
+        label="Email"
+        name="email"
+        type="email"
+        value={form.email}
+        onChange={handleChange}
+        error={errors.email}
+        maxLength={CONTACT_LIMITS.emailMax}
+        autoComplete="email"
+        disabled={submitting}
+      />
+      <Field
+        label="Messaggio"
+        name="message"
+        as="textarea"
+        value={form.message}
+        onChange={handleChange}
+        error={errors.message}
+        maxLength={CONTACT_LIMITS.messageMax}
+        disabled={submitting}
+      />
+
+      {formError ? (
+        <p className="text-sm text-red-500" role="alert">
+          {formError}
+        </p>
+      ) : null}
+
+      <button
+        type="submit"
+        disabled={submitting}
+        className="w-full rounded-full bg-accent px-6 py-3 text-sm font-medium text-accent-foreground shadow-sm shadow-accent/25 transition-colors hover:bg-accent/90 disabled:cursor-not-allowed disabled:opacity-60"
+      >
+        {submitting ? "Invio in corso…" : "Invia messaggio"}
+      </button>
+    </form>
   );
 }
 
@@ -119,6 +187,9 @@ type FieldProps = {
   error?: string;
   type?: string;
   as?: "input" | "textarea";
+  maxLength?: number;
+  autoComplete?: string;
+  disabled?: boolean;
 };
 
 function Field({
@@ -129,9 +200,12 @@ function Field({
   error,
   type = "text",
   as = "input",
+  maxLength,
+  autoComplete,
+  disabled,
 }: FieldProps) {
   const inputClasses =
-    "mt-1 w-full rounded-xl border bg-background px-4 py-3 text-sm outline-none transition-colors focus:border-foreground/40 " +
+    "mt-1 w-full rounded-xl border bg-background px-4 py-3 text-sm outline-none transition-colors focus:border-foreground/40 disabled:opacity-60 " +
     (error ? "border-red-400" : "border-foreground/15");
 
   return (
@@ -143,6 +217,8 @@ function Field({
           rows={5}
           value={value}
           onChange={onChange}
+          maxLength={maxLength}
+          disabled={disabled}
           className={`${inputClasses} resize-none`}
         />
       ) : (
@@ -151,18 +227,13 @@ function Field({
           name={name}
           value={value}
           onChange={onChange}
+          maxLength={maxLength}
+          autoComplete={autoComplete}
+          disabled={disabled}
           className={inputClasses}
         />
       )}
-      {error ? (
-        <motion.p
-          initial={{ opacity: 0, y: -4 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mt-1 text-xs text-red-500"
-        >
-          {error}
-        </motion.p>
-      ) : null}
+      {error ? <p className="mt-1 text-xs text-red-500">{error}</p> : null}
     </label>
   );
 }

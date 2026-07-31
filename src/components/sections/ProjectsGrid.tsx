@@ -32,9 +32,9 @@ export function ProjectsGrid({
         </FadeIn>
 
         <StaggerContainer className="mt-12 grid gap-6 md:grid-cols-2">
-          {projects.map((project, index) => (
+          {projects.map((project) => (
             <StaggerItem key={project.slug}>
-              <ProjectCard project={project} priority={index < 2} />
+              <ProjectCard project={project} />
             </StaggerItem>
           ))}
         </StaggerContainer>

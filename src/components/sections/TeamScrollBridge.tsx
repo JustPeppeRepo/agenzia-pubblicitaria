@@ -2,13 +2,6 @@
 
 import Image from "next/image";
 import {
-  motion,
-  useMotionValue,
-  useMotionValueEvent,
-  useScroll,
-  type MotionValue,
-} from "framer-motion";
-import {
   createContext,
   useCallback,
   useContext,
@@ -30,7 +23,10 @@ type FrameRect = {
 };
 
 type TeamScrollContextValue = {
-  registerAnchor: (variant: AnchorVariant, element: HTMLDivElement | null) => void;
+  registerAnchor: (
+    variant: AnchorVariant,
+    element: HTMLDivElement | null,
+  ) => void;
 };
 
 const TeamScrollContext = createContext<TeamScrollContextValue | null>(null);
@@ -71,7 +67,11 @@ function getAnchorOpacity(progress: number, variant: AnchorVariant) {
   return 0;
 }
 
-function interpolateRect(start: FrameRect, end: FrameRect, progress: number): FrameRect {
+function interpolateRect(
+  start: FrameRect,
+  end: FrameRect,
+  progress: number,
+): FrameRect {
   return {
     top: start.top + (end.top - start.top) * progress,
     left: start.left + (end.left - start.left) * progress,
@@ -88,14 +88,9 @@ function computeProgress(
   const scrollY = window.scrollY;
   const heroY = hero.getBoundingClientRect().top + scrollY;
   const aboutY = about.getBoundingClientRect().top + scrollY;
-  // Land while the about slot is still lower in the viewport, so the fly
-  // layer settles before it can cover the About copy during scroll.
   const settleY = clamp(window.innerHeight * 0.58, 220, 560);
   const endScroll = aboutY - settleY;
 
-  // On mobile the hero image sits below the fold. Keep it still until the
-  // user has scrolled it near the top — otherwise it flies off before
-  // they ever see it in place.
   const startScroll = isCompact
     ? Math.max(0, heroY - window.innerHeight * 0.08)
     : 0;
@@ -110,35 +105,37 @@ function computeProgress(
 }
 
 type TeamScrollFlyLayerProps = {
-  anchorRefs: React.MutableRefObject<Record<AnchorVariant, HTMLDivElement | null>>;
+  anchorRefs: React.MutableRefObject<
+    Record<AnchorVariant, HTMLDivElement | null>
+  >;
   ready: boolean;
   simplifyMotion: boolean;
   isCompact: boolean;
 };
 
+/** Native scroll + rAF — no Framer Motion on the homepage critical path. */
 function TeamScrollFlyLayer({
   anchorRefs,
   ready,
   simplifyMotion,
   isCompact,
 }: TeamScrollFlyLayerProps) {
-  const { scrollY } = useScroll();
-  const top = useMotionValue(0);
-  const left = useMotionValue(0);
-  const width = useMotionValue(0);
-  const height = useMotionValue(0);
-  const opacity = useMotionValue(0);
-  const rotate = useMotionValue(0);
-  const splitBlend = useMotionValue(0);
+  const flyRef = useRef<HTMLDivElement>(null);
+  const togetherRef = useRef<HTMLDivElement>(null);
+  const splitRef = useRef<HTMLDivElement>(null);
+  const rafRef = useRef(0);
 
   const updateFrame = useCallback(() => {
+    const fly = flyRef.current;
+    const together = togetherRef.current;
+    const split = splitRef.current;
     const hero = anchorRefs.current.hero;
     const about = anchorRefs.current.about;
 
-    if (!ready || !hero || !about) {
+    if (!ready || !fly || !hero || !about) {
       if (hero) hero.style.opacity = "1";
       if (about) about.style.opacity = "1";
-      opacity.set(0);
+      if (fly) fly.style.opacity = "0";
       return;
     }
 
@@ -165,85 +162,71 @@ function TeamScrollFlyLayer({
     about.style.opacity = String(getAnchorOpacity(progress, "about"));
 
     const flyOpacity = getFlyOpacity(progress);
-    top.set(rect.top);
-    left.set(rect.left);
-    width.set(rect.width);
-    height.set(rect.height);
-    opacity.set(flyOpacity);
-    rotate.set(simplifyMotion ? 0 : (progress - 0.5) * -3);
-    splitBlend.set(simplifyMotion ? 0 : getSplitBlend(progress));
-  }, [
-    anchorRefs,
-    height,
-    isCompact,
-    left,
-    opacity,
-    ready,
-    rotate,
-    simplifyMotion,
-    splitBlend,
-    top,
-    width,
-  ]);
+    const rotate = simplifyMotion ? 0 : (progress - 0.5) * -3;
+    const blend = simplifyMotion ? 0 : getSplitBlend(progress);
 
-  useMotionValueEvent(scrollY, "change", updateFrame);
+    fly.style.opacity = String(flyOpacity);
+    fly.style.width = `${rect.width}px`;
+    fly.style.height = `${rect.height}px`;
+    fly.style.transform = `translate3d(${rect.left}px, ${rect.top}px, 0) rotate(${rotate}deg)`;
+
+    if (together) together.style.opacity = String(1 - blend);
+    if (split) split.style.opacity = String(blend);
+  }, [anchorRefs, isCompact, ready, simplifyMotion]);
 
   useEffect(() => {
-    updateFrame();
-    window.addEventListener("resize", updateFrame);
-    return () => window.removeEventListener("resize", updateFrame);
+    const schedule = () => {
+      cancelAnimationFrame(rafRef.current);
+      rafRef.current = requestAnimationFrame(updateFrame);
+    };
+
+    schedule();
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    return () => {
+      cancelAnimationFrame(rafRef.current);
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+    };
   }, [updateFrame]);
 
   if (!ready) return null;
 
   return (
-    <motion.div
+    <div
+      ref={flyRef}
       aria-hidden
-      className="pointer-events-none fixed z-40 overflow-hidden rounded-3xl border border-foreground/10 bg-foreground/[0.02] shadow-lg shadow-foreground/10"
-      style={{ top, left, width, height, opacity, rotate }}
+      className="pointer-events-none fixed top-0 left-0 z-40 overflow-hidden rounded-3xl border border-foreground/10 bg-foreground/[0.02] shadow-lg shadow-foreground/10 will-change-transform"
+      style={{ opacity: 0 }}
     >
-      <SplitBlendFrame splitBlend={splitBlend} />
-    </motion.div>
-  );
-}
-
-function SplitBlendFrame({ splitBlend }: { splitBlend: MotionValue<number> }) {
-  const togetherOpacity = useMotionValue(1);
-  const splitOpacity = useMotionValue(0);
-
-  useMotionValueEvent(splitBlend, "change", (value) => {
-    togetherOpacity.set(1 - value);
-    splitOpacity.set(value);
-  });
-
-  return (
-    <div className="relative h-full w-full">
-      <motion.div className="absolute inset-0" style={{ opacity: togetherOpacity }}>
-        <Image
-          src={aboutTeam.image}
-          alt=""
-          aria-hidden
-          width={400}
-          height={520}
-          className="h-full w-full object-cover"
-        />
-      </motion.div>
-      <motion.div className="absolute inset-0 flex" style={{ opacity: splitOpacity }} aria-hidden>
-        <Image
-          src={aboutMembers.engineer.image}
-          alt=""
-          width={320}
-          height={400}
-          className="h-full w-1/2 object-cover"
-        />
-        <Image
-          src={aboutMembers.advertiser.image}
-          alt=""
-          width={320}
-          height={400}
-          className="h-full w-1/2 object-cover"
-        />
-      </motion.div>
+      <div className="relative h-full w-full">
+        <div ref={togetherRef} className="absolute inset-0">
+          <Image
+            src={aboutTeam.image}
+            alt=""
+            aria-hidden
+            width={400}
+            height={520}
+            className="h-full w-full object-cover"
+          />
+        </div>
+        <div ref={splitRef} className="absolute inset-0 flex opacity-0" aria-hidden>
+          <Image
+            src={aboutMembers.engineer.image}
+            alt=""
+            width={320}
+            height={400}
+            className="h-full w-1/2 object-cover"
+          />
+          <Image
+            src={aboutMembers.advertiser.image}
+            alt=""
+            width={320}
+            height={400}
+            className="h-full w-1/2 object-cover"
+          />
+        </div>
+      </div>
     </div>
   );
 }
@@ -335,6 +318,7 @@ export function TeamImageAnchor({
         width={400}
         height={520}
         priority={priority}
+        sizes="(max-width: 768px) 220px, (max-width: 1024px) 150px, 320px"
         className={cn("h-auto w-full object-cover", imageClassName)}
       />
     </div>

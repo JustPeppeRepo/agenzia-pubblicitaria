@@ -38,7 +38,7 @@ export function AboutBrief() {
 
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-[auto_1fr] sm:items-center sm:gap-x-8 sm:gap-y-6 lg:grid-cols-[1fr_auto_1fr] lg:gap-12">
               <div className="mx-auto w-full max-w-[220px] sm:mx-0 sm:row-span-2 sm:w-[150px] sm:max-w-none lg:col-start-2 lg:row-span-1 lg:row-start-1 lg:w-auto lg:max-w-[320px]">
-                <TeamImageAnchor variant="about" priority />
+                <TeamImageAnchor variant="about" />
               </div>
 
               <div className="text-left sm:col-start-2 sm:row-start-1 lg:col-start-1 lg:row-start-1 lg:text-right">

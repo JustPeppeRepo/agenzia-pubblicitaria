@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -7,25 +6,12 @@ import { getAllProjectSlugs, getProjectBySlug } from "@/lib/content";
 import { CaseStudySection } from "@/components/project/CaseStudySection";
 import { ProjectHeroVideo } from "@/components/project/ProjectHeroVideo";
 import { FadeIn } from "@/components/motion/FadeIn";
-import { Button } from "@/components/ui/Button";
-
-const MetricsTable = dynamic(
-  () =>
-    import("@/components/project/MetricsTable").then((m) => m.MetricsTable),
-  { loading: () => <MetricsSkeleton /> },
-);
-
-const MetricsChart = dynamic(
-  () =>
-    import("@/components/project/MetricsChart").then((m) => m.MetricsChart),
-  { loading: () => <MetricsSkeleton /> },
-);
-
-function MetricsSkeleton() {
-  return (
-    <div className="h-48 animate-pulse rounded-2xl bg-foreground/5" />
-  );
-}
+import { JsonLd } from "@/components/seo/JsonLd";
+import {
+  absoluteUrl,
+  breadcrumbJsonLd,
+  creativeWorkJsonLd,
+} from "@/lib/seo";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -41,9 +27,31 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const project = getProjectBySlug(slug);
   if (!project) return { title: "Progetto non trovato" };
 
+  const url = `/projects/${project.slug}`;
+  const image = absoluteUrl(project.image);
+
   return {
     title: project.title,
     description: project.excerpt,
+    alternates: { canonical: url },
+    openGraph: {
+      type: "article",
+      title: project.title,
+      description: project.excerpt,
+      url,
+      images: [
+        {
+          url: image,
+          alt: project.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: project.title,
+      description: project.excerpt,
+      images: [image],
+    },
   };
 }
 
@@ -56,6 +64,15 @@ export default async function ProjectPage({ params }: PageProps) {
 
   return (
     <article>
+      <JsonLd
+        data={[
+          breadcrumbJsonLd([
+            { name: "Home", path: "/" },
+            { name: project.title, path: `/projects/${project.slug}` },
+          ]),
+          creativeWorkJsonLd(project),
+        ]}
+      />
       {/* Hero */}
       <div className="relative border-b border-foreground/10">
         <div className="relative mx-auto max-w-6xl px-6 py-16 md:py-24">
@@ -72,6 +89,19 @@ export default async function ProjectPage({ params }: PageProps) {
             <h1 className="mt-2 text-4xl font-semibold tracking-tight md:text-5xl">
               {project.title}
             </h1>
+            {project.liveUrl ? (
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-3 inline-flex items-center gap-1.5 text-sm text-accent transition-colors hover:text-accent/80"
+              >
+                {project.liveUrl.replace(/^https?:\/\//, "")}
+                <span aria-hidden className="text-xs">
+                  ↗
+                </span>
+              </a>
+            ) : null}
             <p className="mt-4 max-w-2xl text-lg text-foreground/65">
               {project.description}
             </p>
@@ -85,35 +115,30 @@ export default async function ProjectPage({ params }: PageProps) {
                 </li>
               ))}
             </ul>
-            {project.liveUrl ? (
-              <div className="mt-6">
-                <Button href={project.liveUrl} external variant="secondary">
-                  Visita il sito live
-                </Button>
-              </div>
-            ) : null}
           </FadeIn>
         </div>
 
-        <div className="relative mx-auto mb-8 aspect-[21/9] max-w-6xl overflow-hidden rounded-t-2xl px-6">
-          {project.detailVideo ? (
-            <ProjectHeroVideo
-              title={project.title}
-              image={project.image}
-              video={project.detailVideo}
-            />
-          ) : (
-            <div className="relative h-full w-full overflow-hidden rounded-t-2xl border border-white">
-              <Image
-                src={project.image}
-                alt={project.title}
-                fill
-                priority
-                sizes="(max-width: 1280px) 100vw, 1152px"
-                className="object-cover"
+        <div className="relative mx-auto mb-10 max-w-6xl px-6 pb-6 md:mb-14 md:pb-10">
+          <FadeIn delay={0.08}>
+            {project.detailVideo ? (
+              <ProjectHeroVideo
+                title={project.title}
+                image={project.image}
+                video={project.detailVideo}
               />
-            </div>
-          )}
+            ) : (
+              <div className="relative aspect-21/9 overflow-hidden rounded-t-2xl border border-white">
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  fill
+                  priority
+                  sizes="(max-width: 1280px) 100vw, 1152px"
+                  className="object-cover"
+                />
+              </div>
+            )}
+          </FadeIn>
         </div>
       </div>
 
@@ -147,13 +172,37 @@ export default async function ProjectPage({ params }: PageProps) {
         </FadeIn>
 
         <FadeIn className="space-y-6">
+          <div>
+            <h2 className="text-2xl font-semibold tracking-tight">
+              Performance &amp; audience
+            </h2>
+            <p className="mt-2 max-w-2xl text-foreground/65">
+              Snapshot post-lancio ispirato a Vercel Speed Insights e Analytics:
+              score reale, Core Web Vitals e acquisizione clienti.
+            </p>
+          </div>
+          <div className="rounded-2xl border border-dashed border-foreground/15 bg-foreground/[0.02] px-6 py-12 text-center">
+            <p className="text-base font-medium text-foreground/70">
+              Ancora non abbiamo dati sufficienti per visualizzarli
+            </p>
+            <p className="mt-2 text-sm text-foreground/45">
+              Torneremo qui non appena Analytics e Speed Insights avranno
+              un campione significativo.
+            </p>
+          </div>
+        </FadeIn>
+
+        <FadeIn className="space-y-6">
           <h2 className="text-2xl font-semibold tracking-tight">I Dati</h2>
-          <p className="text-foreground/65">
-            Metriche simulate post-lancio — dimostrano l&apos;impatto misurabile
-            delle scelte tecniche.
-          </p>
-          <MetricsTable metrics={project.metrics} />
-          <MetricsChart data={project.chartData} />
+          <div className="rounded-2xl border border-dashed border-foreground/15 bg-foreground/[0.02] px-6 py-12 text-center">
+            <p className="text-base font-medium text-foreground/70">
+              Ancora non abbiamo dati sufficienti per visualizzarli
+            </p>
+            <p className="mt-2 text-sm text-foreground/45">
+              Le metriche e i grafici compariranno quando avremo abbastanza
+              traffico post-lancio.
+            </p>
+          </div>
         </FadeIn>
       </div>
     </article>

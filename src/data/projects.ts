@@ -12,6 +12,7 @@ export const projects: Project[] = [
     category: "Experience",
     tags: ["Next.js", "Video", "Motion"],
     image: "/images/projects/cage-cover.jpg",
+    liveUrl: "https://cage.example.com",
     previewVideo: {
       desktop: "/videos/card/CAGE-desktop-card.mp4",
       mobile: "/videos/card/CAGE-desktop-card.mp4",
@@ -70,6 +71,62 @@ export const projects: Project[] = [
       { month: "Mag", visitors: 2000, conversions: 48, loadTime: 1.3 },
       { month: "Giu", visitors: 2300, conversions: 58, loadTime: 1.2 },
     ],
+    insights: {
+      performanceScore: 96,
+      vitals: [
+        {
+          id: "lcp",
+          label: "LCP",
+          value: "1.2s",
+          rating: "good",
+          description: "Largest Contentful Paint — soglia “buono” sotto 2.5s",
+        },
+        {
+          id: "inp",
+          label: "INP",
+          value: "98ms",
+          rating: "good",
+          description: "Interaction to Next Paint — reattività sotto 200ms",
+        },
+        {
+          id: "cls",
+          label: "CLS",
+          value: "0.03",
+          rating: "good",
+          description: "Cumulative Layout Shift — stabilità visiva sotto 0.1",
+        },
+      ],
+      stats: [
+        {
+          id: "clients",
+          label: "Clienti acquisiti",
+          value: "48",
+          delta: "+62%",
+          deltaLabel: "vs semestre prec.",
+        },
+        {
+          id: "visitors",
+          label: "Visitatori unici",
+          value: "12.4k",
+          delta: "+156%",
+          deltaLabel: "in 6 mesi",
+        },
+        {
+          id: "conversion",
+          label: "Tasso conversione",
+          value: "3.8%",
+          delta: "+1.9pt",
+          deltaLabel: "dopo il redesign",
+        },
+        {
+          id: "ttfb",
+          label: "TTFB (Edge)",
+          value: "42ms",
+          delta: "−68%",
+          deltaLabel: "con Vercel Edge",
+        },
+      ],
+    },
   },
   {
     id: "2",
@@ -82,6 +139,7 @@ export const projects: Project[] = [
     category: "Brand",
     tags: ["Next.js", "Video", "SEO"],
     image: "/images/projects/scavo-cover-v2.jpg",
+    liveUrl: "https://scavo.example.com",
     previewVideo: {
       desktop: "/videos/card/scavo-desktop-card.mp4",
       mobile: "/videos/card/scavo-desktop-card.mp4",
@@ -140,6 +198,62 @@ export const projects: Project[] = [
       { month: "Mag", visitors: 1800, conversions: 38, loadTime: 1.2 },
       { month: "Giu", visitors: 2100, conversions: 45, loadTime: 1.1 },
     ],
+    insights: {
+      performanceScore: 94,
+      vitals: [
+        {
+          id: "lcp",
+          label: "LCP",
+          value: "1.1s",
+          rating: "good",
+          description: "Largest Contentful Paint — soglia “buono” sotto 2.5s",
+        },
+        {
+          id: "inp",
+          label: "INP",
+          value: "112ms",
+          rating: "good",
+          description: "Interaction to Next Paint — reattività sotto 200ms",
+        },
+        {
+          id: "cls",
+          label: "CLS",
+          value: "0.04",
+          rating: "good",
+          description: "Cumulative Layout Shift — stabilità visiva sotto 0.1",
+        },
+      ],
+      stats: [
+        {
+          id: "clients",
+          label: "Clienti acquisiti",
+          value: "31",
+          delta: "+48%",
+          deltaLabel: "vs semestre prec.",
+        },
+        {
+          id: "visitors",
+          label: "Visitatori unici",
+          value: "8.9k",
+          delta: "+200%",
+          deltaLabel: "traffico organico",
+        },
+        {
+          id: "conversion",
+          label: "Tasso conversione",
+          value: "2.9%",
+          delta: "+1.4pt",
+          deltaLabel: "dopo il redesign",
+        },
+        {
+          id: "ttfb",
+          label: "TTFB (Edge)",
+          value: "38ms",
+          delta: "−71%",
+          deltaLabel: "con Vercel Edge",
+        },
+      ],
+    },
   },
 ];
 

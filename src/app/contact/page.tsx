@@ -6,7 +6,15 @@ import { SocialLinks } from "@/components/ui/SocialLinks";
 
 export const metadata: Metadata = {
   title: "Contatti",
-  description: "Contattami per discutere il tuo prossimo progetto web.",
+  description:
+    "Parliamo del tuo prossimo sito web o campagna pubblicitaria. Contatta Aiello Digital Studio a Palermo.",
+  alternates: { canonical: "/contact" },
+  openGraph: {
+    title: "Contatti | Aiello Digital Studio",
+    description:
+      "Richiedi un preventivo per siti web, SEO e pubblicità online.",
+    url: "/contact",
+  },
 };
 
 export default function ContactPage() {
@@ -17,7 +25,7 @@ export default function ContactPage() {
           <SectionHeading
             eyebrow="Contatti"
             title="Parliamo del tuo prossimo progetto"
-            description="Compila il modulo con validazione client-side, oppure contattami direttamente via email o LinkedIn."
+            description="Compila il modulo, oppure contattami direttamente via email o LinkedIn."
           />
           <SocialLinks className="mt-6" />
         </FadeIn>

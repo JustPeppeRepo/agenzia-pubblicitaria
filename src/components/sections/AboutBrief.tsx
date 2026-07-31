@@ -25,7 +25,7 @@ export function AboutBrief() {
         <div className="relative mx-auto max-w-6xl px-6 py-16 sm:py-20">
           <FadeIn>
             <div className="mx-auto mb-10 max-w-3xl text-center lg:mb-12">
-              <p className="mb-3 text-sm font-medium uppercase tracking-[0.2em] text-accent-2">
+              <p className="mb-3 text-sm font-medium uppercase tracking-[0.2em] text-[#b45309] dark:text-spark">
                 {aboutTeam.eyebrow}
               </p>
               <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl">
@@ -62,7 +62,7 @@ export function AboutBrief() {
           </FadeIn>
 
           <FadeIn delay={0.15} className="mt-16">
-            <p className="mb-6 text-sm font-medium uppercase tracking-[0.15em] text-accent-2">
+            <p className="mb-6 text-sm font-medium uppercase tracking-[0.15em] text-[#b45309] dark:text-spark">
               Stack principale
             </p>
             <StaggerContainer className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-6">

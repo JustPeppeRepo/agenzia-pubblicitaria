@@ -786,6 +786,8 @@ function SeoVisual({ animate }: VisualProps) {
   const play = animate && !done && !reduced;
   // done resta true dopo il play: in uscita dalla viewport tiene il #1 finché non remounta
   const showFinal = done || reduced;
+  const reactId = useId();
+  const cardClipId = `seo-card-${reactId.replace(/:/g, "")}`;
 
   useEffect(() => {
     if (animate) setDone(false);
@@ -797,6 +799,8 @@ function SeoVisual({ animate }: VisualProps) {
     ease: [0.45, 0, 0.15, 1] as const,
     times: [0, 0.14, 0.38, 0.62, 0.78, 1],
   };
+
+  const card = { x: 66, y: 0, w: 210, h: 56, rx: 10 } as const;
 
   return (
     <svg viewBox="0 0 320 200" className="h-auto w-full" aria-hidden>
@@ -886,18 +890,38 @@ function SeoVisual({ animate }: VisualProps) {
           if (animate) setDone(true);
         }}
       >
+        {/* Clip in local coords inside the animated group so accent tracks the card */}
+        <defs>
+          <clipPath id={cardClipId}>
+            <rect
+              x={card.x}
+              y={card.y}
+              width={card.w}
+              height={card.h}
+              rx={card.rx}
+            />
+          </clipPath>
+        </defs>
+        <g clipPath={`url(#${cardClipId})`}>
+          <rect
+            x={card.x}
+            y={card.y}
+            width="5"
+            height={card.h}
+            className="fill-spark"
+          />
+        </g>
         <rect
-          x="66"
-          y="0"
-          width="210"
-          height="56"
-          rx="10"
+          x={card.x}
+          y={card.y}
+          width={card.w}
+          height={card.h}
+          rx={card.rx}
           fill="none"
           stroke="currentColor"
           strokeWidth="1.5"
           className="text-[#0a0a0c]/55"
         />
-        <rect x="66" y="0" width="4" height="56" rx="2" className="fill-spark" />
         {/* Favicon */}
         <rect x="80" y="10" width="18" height="18" rx="4" className="fill-spark" />
         <path

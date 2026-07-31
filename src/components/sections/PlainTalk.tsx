@@ -90,7 +90,7 @@ export function PlainTalk() {
 
         <div className="relative py-16 sm:py-20">
           <FadeIn className="mx-auto max-w-3xl px-6 text-center">
-            <p className="text-sm font-medium uppercase tracking-[0.2em] text-accent-2">
+            <p className="text-sm font-medium uppercase tracking-[0.2em] text-[#b45309] dark:text-spark">
               {eyebrow}
             </p>
             <h3 className="mt-3 text-2xl font-semibold tracking-tight sm:text-4xl">

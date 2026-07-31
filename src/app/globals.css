@@ -239,7 +239,6 @@ body {
 
 /* Sticky nav — vivid brand spectrum (light + dark) */
 .bg-nav {
-  border-bottom-color: color-mix(in srgb, var(--accent) 35%, transparent);
   background-color: color-mix(in srgb, var(--background) 55%, transparent);
   background-image:
     radial-gradient(
@@ -267,7 +266,6 @@ body {
 
 html.dark .bg-nav,
 html[data-theme="dark"] .bg-nav {
-  border-bottom-color: color-mix(in srgb, var(--accent-2) 40%, transparent);
   background-color: color-mix(in srgb, var(--background) 45%, transparent);
   background-image:
     radial-gradient(

@@ -13,7 +13,7 @@ export function absoluteUrl(path = "/"): string {
 }
 
 /** Default share image (absolute). Prefer a photographic asset over SVG logos. */
-export const defaultOgImagePath = "/images/projects/cage-cover.jpg";
+export const defaultOgImagePath = "/images/projects/CAGEcopertina.png";
 
 export function organizationJsonLd() {
   return {

@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500" fill="none">
-  <rect width="800" height="500" fill="#E5EDE5"/>
-  <ellipse cx="400" cy="250" rx="200" ry="140" fill="#8FB88F"/>
-  <rect x="300" y="180" width="200" height="140" rx="12" fill="#6A9A6A"/>
-  <text x="400" y="460" text-anchor="middle" fill="#3D663D" font-family="system-ui,sans-serif" font-size="18">Verde Vita</text>
-</svg>

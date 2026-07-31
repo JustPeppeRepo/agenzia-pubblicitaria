@@ -90,7 +90,7 @@ function DeviceScreen({
         fill
         priority={imagePriority}
         sizes={sizes}
-        className="object-cover object-top"
+        className="object-contain"
       />
       {play ? (
         <video
@@ -101,7 +101,7 @@ function DeviceScreen({
           loop
           preload="none"
           poster={image}
-          className="absolute inset-0 h-full w-full object-cover object-top"
+          className="absolute inset-0 h-full w-full object-contain"
         >
           <source src={src} type="video/mp4" />
         </video>
@@ -126,7 +126,7 @@ export function ProjectHeroVideo({ title, image, video }: ProjectHeroVideoProps)
               <span className="h-1 w-14 rounded-full bg-foreground/20 md:h-1.5 md:w-16" />
             </div>
 
-            <div className="relative aspect-16/10 overflow-hidden rounded-md border border-white/10 bg-black md:rounded-lg">
+            <div className="relative aspect-video overflow-hidden rounded-md border border-white/10 bg-black md:rounded-lg">
               <DeviceScreen
                 title={`${title} — desktop`}
                 image={image}
@@ -160,7 +160,7 @@ export function ProjectHeroVideo({ title, image, video }: ProjectHeroVideoProps)
             {/* Dynamic Island */}
             <div className="pointer-events-none absolute left-1/2 top-2 z-20 h-3 w-12 -translate-x-1/2 rounded-full bg-black sm:top-2.5 sm:h-3.5 sm:w-14 md:top-3 md:h-4 md:w-16" />
 
-            <div className="relative aspect-9/19.5 overflow-hidden rounded-[1.05rem] bg-black sm:rounded-[1.25rem] md:rounded-[1.4rem]">
+            <div className="relative aspect-9/16 overflow-hidden rounded-[1.05rem] bg-black sm:rounded-[1.25rem] md:rounded-[1.4rem]">
               <DeviceScreen
                 title={`${title} — mobile`}
                 image={image}

@@ -11,15 +11,15 @@ export const projects: Project[] = [
       "Landing e vetrina digitale ottimizzate per performance, con preview video responsive e navigazione fluida.",
     category: "Experience",
     tags: ["Next.js", "Video", "Motion"],
-    image: "/images/projects/cage-cover.jpg",
+    image: "/images/projects/CAGEcopertina.png",
     liveUrl: "https://cage.example.com",
     previewVideo: {
-      desktop: "/videos/card/CAGE-desktop-card.mp4",
-      mobile: "/videos/card/CAGE-desktop-card.mp4",
+      desktop: "/videos/card/card_CAGE-desktop-f.mp4",
+      mobile: "/videos/card/card_CAGE-desktop-f.mp4",
     },
     detailVideo: {
-      desktop: "/videos/optimized/CAGE-desktop-fullscreen.mp4",
-      mobile: "/videos/optimized/CAGE-mobile-fullscreen.mp4",
+      desktop: "/videos/hq/hq_CAGE-desktop-f.mp4",
+      mobile: "/videos/hq/hq_CAGE-mobile-f.mp4",
     },
     featured: true,
     problem:
@@ -138,15 +138,15 @@ export const projects: Project[] = [
       "Esperienza digitale con focus su storytelling visivo, performance e anteprime video responsive.",
     category: "Brand",
     tags: ["Next.js", "Video", "SEO"],
-    image: "/images/projects/scavo-cover-v2.jpg",
+    image: "/images/projects/SCAVOcopertina.png",
     liveUrl: "https://scavo.example.com",
     previewVideo: {
-      desktop: "/videos/card/scavo-desktop-card.mp4",
-      mobile: "/videos/card/scavo-desktop-card.mp4",
+      desktop: "/videos/card/card_SCAVO-desktop-f.mp4",
+      mobile: "/videos/card/card_SCAVO-desktop-f.mp4",
     },
     detailVideo: {
-      desktop: "/videos/optimized/SCAVO-desktop-fullscreen.mp4",
-      mobile: "/videos/optimized/SCAVO-mobile-fullscreen.mp4",
+      desktop: "/videos/hq/hq_SCAVO-desktop-f.mp4",
+      mobile: "/videos/hq/hq_SCAVO-mobile-f.mp4",
     },
     featured: true,
     problem:

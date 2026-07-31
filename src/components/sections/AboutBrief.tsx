@@ -7,8 +7,8 @@ import { LayeredWaves } from "@/components/decor/LayeredWaves";
 
 export function AboutBrief() {
   return (
-    <section className="relative -mt-10 overflow-hidden sm:-mt-14">
-      {/* Hero → wash: niente ink, zona onde trasparente */}
+    <section className="relative -mt-14 overflow-x-hidden sm:-mt-16">
+      {/* Profilo ondulato verso l'Hero (stessa logica delle onde in basso) */}
       <LayeredWaves
         placement="top"
         from="background"

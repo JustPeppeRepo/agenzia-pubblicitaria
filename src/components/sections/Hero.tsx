@@ -5,7 +5,6 @@ import { siteConfig } from "@/data/site";
 import { Button } from "@/components/ui/Button";
 import { TeamImageAnchor } from "@/components/sections/TeamScrollBridge";
 import { useMotionSafe } from "@/hooks/use-motion-safe";
-import { SectionMesh } from "@/components/decor/SectionMesh";
 import { CornerBloom } from "@/components/decor/CornerBloom";
 
 export function Hero() {
@@ -14,11 +13,14 @@ export function Hero() {
 
   return (
     <section className="relative overflow-hidden">
-      <SectionMesh />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-hero-mesh"
+      />
       <CornerBloom tone="accent" position="top-right" />
       <CornerBloom
         tone="spark"
-        position="bottom-left"
+        position="top-left"
         className="h-64 w-64 opacity-70 sm:h-72 sm:w-72"
       />
 
@@ -75,12 +77,6 @@ export function Hero() {
           <TeamImageAnchor variant="hero" priority />
         </motion.div>
       </div>
-
-      {/* Sfumatura verso il wash Team — niente barra nera */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 bottom-0 z-1 h-40 bg-hero-to-warm sm:h-48 md:h-56"
-      />
     </section>
   );
 }

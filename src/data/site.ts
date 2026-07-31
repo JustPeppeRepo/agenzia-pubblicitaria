@@ -8,7 +8,7 @@ export const siteConfig: SiteConfig = {
   name: "Aiello Digital Studio",
   role: "Web Developer & Advertising Strategist",
   tagline: "Amplifica la tua visibilità online: siti web e pubblicità mirata.",
-  description:"Ci occupiamo della tua visibilità online con un unico obiettivo: far crescere i tuoi clienti e il tuo fatturatoCreiamo un sito web perfettamente adatto al tuo settore e gestiamo la tua pubblicità per farti raggiungere le persone giuste",
+  description:"Ci occupiamo della tua visibilità online con un unico obiettivo: far crescere i tuoi clienti e il tuo fatturato. Creiamo un sito web perfettamente adatto al tuo settore e gestiamo la tua pubblicità per farti raggiungere le persone giuste",
   email: "ciao@marcoddev.it",
   phone: "+39 333 123 4567",
   location: "Palermo, Italia",
@@ -105,7 +105,7 @@ export const comparisonPlainTalk = {
       id: "seo",
       visual: "seo",
       title: "SEO",
-      text: "È il modo in cui Google decide di mostrarti (o meno) quando qualcuno cerca i tuoi servizi. “SEO massimizzata” significa: struttuiamo il sito perché tu compaia nelle ricerche giuste, non solo perché “esisti online”.",
+      text: "È il modo in cui Google decide di mostrarti (o meno) quando qualcuno cerca i tuoi servizi. “SEO massimizzata” significa che struttuiamo il sito perché quando un cliente cerca i tuoi servizi, il tuo sito appare tra i primi risultati.",
     },
     {
       id: "responsive",
@@ -119,19 +119,19 @@ export const comparisonPlainTalk = {
       id: "speed",
       visual: "speed",
       term: "Velocità",
-      text: "Quanto tempo aspetta una persona prima di vedere la tua pagina. Se aspetta troppo, chiude e va dal concorrente. Un sito veloce tiene le persone lì e aumenta le richieste.",
+      text: "La velocità è essenziale sia per la SEO di cui parlavamo prima che per l'esperienza utente (UX). Se il possibile cliente aspetta troppo, chiude e va dal concorrente. Un sito veloce tiene le persone lì e aumenta le richieste.",
     },
     {
       id: "security",
       visual: "security",
       term: "Sicurezza",
-      text: "Quanto è difficile per qualcuno attaccare o compromettere il sito. Un sito poco protetto può essere bloccato, defacciato o usato per rubare dati — con danni a te e ai tuoi clienti.",
+      text: "Quanto è difficile per qualcuno attaccare o compromettere il sito. Un sito poco protetto può essere bloccato o compromesso, usato per rubare dati con danni a te e ai tuoi clienti.",
     },
     {
       id: "scale",
       visual: "scale",
       term: "Scalabilità",
-      text: "La capacità del sito di crescere con te. Più traffico, più contenuti, nuove funzioni: senza dover buttare tutto e rifare il progetto ogni volta che il business fa un passo avanti.",
+      text: "La capacità del sito di crescere con te. Se il numero di clienti aumenta o hai deciso di aggiungere nuove funzionalità non dobbiamo buttare tutto e rifare il progetto, grazie alla flessibilità del nostro approccio.",
     },
   ]
 } as const;

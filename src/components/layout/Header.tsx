@@ -33,11 +33,11 @@ export function Header() {
 
   return (
     <header className="bg-nav sticky top-0 z-50 backdrop-blur-md">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
+      <div className="relative mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
         <Link
           href="/"
           aria-label={siteConfig.name}
-          className="flex items-center gap-2.5 text-lg font-semibold tracking-tight"
+          className="relative z-10 flex min-w-0 items-center gap-1 text-lg font-semibold tracking-tight md:-translate-x-1"
           onClick={() => setOpen(false)}
         >
           <Image
@@ -48,10 +48,13 @@ export function Header() {
             className="h-[52px] w-[52px] shrink-0 object-contain"
             unoptimized
           />
-          <span className="hidden sm:inline">{siteConfig.name}</span>
+          <span className="hidden truncate sm:inline">{siteConfig.name}</span>
         </Link>
 
-        <nav className="hidden items-center gap-8 md:flex" aria-label="Principale">
+        <nav
+          className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-8 md:flex"
+          aria-label="Principale"
+        >
           {navLinks.map((link) => (
             <Link
               key={link.href}
@@ -63,7 +66,7 @@ export function Header() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-2 sm:gap-3">
+        <div className="relative z-10 flex items-center gap-2 sm:gap-3">
           <div className="hidden md:block">
             <ThemeToggle />
           </div>

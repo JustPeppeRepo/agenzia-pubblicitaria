@@ -4,13 +4,13 @@ export const projects: Project[] = [
   {
     id: "1",
     slug: "cage",
-    title: "CAGE",
+    title: "CAGE - escape room",
     excerpt:
-      "Sito immersivo con anteprima video desktop e mobile per un’esperienza di brand ad alto impatto.",
+      "Cage Escape Room è una piattaforma full-stack (Next.js + Prisma) che unisce vetrina immersiva e prenotazione online completa.",
     description:
-      "Landing e vetrina digitale ottimizzate per performance, con preview video responsive e navigazione fluida.",
+      "Cage Escape Room è una piattaforma full-stack (Next.js + Prisma) che unisce vetrina immersiva e prenotazione online completa. Offre lato admin un pannello di gestione per il controllo delle prenotazioni e degli utenti.",
     category: "Experience",
-    tags: ["Next.js", "Video", "Motion"],
+    tags: ["Prenotazioni", "Pagamento in app", "Horror"],
     image: "/images/projects/CAGEcopertina.png",
     liveUrl: "https://cage.example.com",
     previewVideo: {
@@ -23,16 +23,16 @@ export const projects: Project[] = [
     },
     featured: true,
     problem:
-      "Il brand aveva bisogno di un sito che mostrasse il prodotto in movimento, senza rallentare il caricamento su mobile e desktop.",
+      "Le escape room spesso dipendono da canali esterni o da processi manuali per slot, prezzi e pagamenti.",
     solution:
-      "Anteprime video leggere sulle card e clip fullscreen a qualità superiore nella pagina progetto, con sorgenti dedicate per viewport desktop e mobile.",
+      "Ho unito i seguenti punti in un unico posto, in modo da ottimizzare la velocità di prenotazione e la facilità di gestione dell'attivita.",
     architecture: [
-      "Video card leggeri (preload none, play on hover)",
-      "Video detail a qualità superiore sulla pagina slug",
-      "Sorgenti separate desktop / mobile",
-      "Static generation per ogni case study",
+      "Calendario con hold slot e prezzi dinamici",
+      "Pagamenti Stripe (acconto/saldo)",
+      "Pagina admin per gestione stanze, orari, prenotazioni e recensioni",
+      "UI e UX adattata perfettamente al tema dark/horror",
     ],
-    stack: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
+    stack: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "Prisma"],
     metrics: [
       {
         id: "lcp",
@@ -131,13 +131,13 @@ export const projects: Project[] = [
   {
     id: "2",
     slug: "scavo",
-    title: "SCAVO",
+    title: "SCAVO - portfolio fotografico",
     excerpt:
-      "Case study con preview video sulle card e visualizzazione fullscreen ad alta qualità nella pagina progetto.",
+      "Sito fotografico professionale (maternity, newborn, smash cake) con admin per gestire categorie e foto senza toccare il codice.",
     description:
-      "Esperienza digitale con focus su storytelling visivo, performance e anteprime video responsive.",
+      "sito fotografico professionale (maternity, newborn, smash cake) con admin per gestire categorie e foto senza toccare il codice. Ottimizzazione automatica tramite sharp delle foto per rendere il sito veloce e performante.",
     category: "Brand",
-    tags: ["Next.js", "Video", "SEO"],
+    tags: ["Vetrina", "Portfolio fotografico", "HD"],
     image: "/images/projects/SCAVOcopertina.png",
     liveUrl: "https://scavo.example.com",
     previewVideo: {
@@ -150,16 +150,16 @@ export const projects: Project[] = [
     },
     featured: true,
     problem:
-      "Serviva un portfolio case study che comunicasse qualità visiva senza compromettere velocità e usabilità su smartphone.",
+      "Nonostante siano di facile utilizzano i social media diminuiscono la qualità delle foto, per cui non si riesce a vedere la qualità delle foto e di conseguenza della fotografa.",
     solution:
-      "Pipeline video a due livelli: clip card ottimizzate per hover e versioni fullscreen a qualità superiore nella pagina slug, con varianti desktop e mobile.",
+      "La fotografa può aggiornare portfolio, testi e copertine in autonomia, senza dipendere da uno sviluppatore o da un CMS generico poco adatto alle immagini ad alta risoluzione.",
     architecture: [
-      "Card preview con MP4 leggeri e loop muted",
-      "Hero video fullscreen sulla pagina dettaglio",
-      "Switch automatico desktop / mobile via matchMedia",
-      "Immagine poster come fallback e LCP",
+      "Pipeline upload HD → versione web ottimizzata (sharp + R2), lightbox che carica HD solo on-demand",
+      "Categorie e contenuti dinamici dal DB, SEO curata (OG, JSON-LD, sitemap)",
+      "Admin protetto (Better Auth, rate limit, CSP), storage monitorato su R2",
+      "Stack moderno e performante: Next.js, Neon, Cloudflare R2",
     ],
-    stack: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
+    stack: ["Next.js", "TypeScript", "Tailwind CSS", "Prisma", "Cloudflare R2"],
     metrics: [
       {
         id: "lcp",

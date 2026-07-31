@@ -15,7 +15,7 @@ type ProjectsGridProps = {
 export function ProjectsGrid({
   projects,
   title = "Progetti selezionati",
-  description = "Passa il mouse sulle card per vedere l'anteprima video del sito in azione.",
+  description = "Non fidarti di noi ma dei nostri risultati. Guarda i nostri progetti",
   id = "projects",
 }: ProjectsGridProps) {
   return (
@@ -31,9 +31,9 @@ export function ProjectsGrid({
           <SectionHeading eyebrow="Portfolio" title={title} description={description} />
         </FadeIn>
 
-        <StaggerContainer className="mt-12 grid gap-6 md:grid-cols-2">
+        <StaggerContainer className="mt-12 grid items-stretch gap-6 md:grid-cols-2">
           {projects.map((project) => (
-            <StaggerItem key={project.slug}>
+            <StaggerItem key={project.slug} className="flex h-full min-h-0 flex-col">
               <ProjectCard project={project} />
             </StaggerItem>
           ))}

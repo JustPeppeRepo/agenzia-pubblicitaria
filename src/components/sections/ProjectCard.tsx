@@ -49,10 +49,10 @@ export function ProjectCard({ project, priority = false }: ProjectCardProps) {
       transition={{ duration: 0.3, ease: "easeOut" }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className="group overflow-hidden rounded-2xl border border-foreground/10 transition-colors hover:border-accent/35 hover:shadow-md hover:shadow-accent/10"
+      className="group flex h-full min-h-0 flex-col overflow-hidden rounded-2xl border border-foreground/10 transition-colors hover:border-accent/35 hover:shadow-md hover:shadow-accent/10"
     >
-      <Link href={`/projects/${project.slug}`} className="block">
-        <div className="relative aspect-video overflow-hidden bg-black">
+      <Link href={`/projects/${project.slug}`} className="flex h-full min-h-0 flex-1 flex-col">
+        <div className="relative aspect-video shrink-0 overflow-hidden bg-black">
           <Image
             src={project.image}
             alt={project.title}
@@ -85,20 +85,16 @@ export function ProjectCard({ project, priority = false }: ProjectCardProps) {
               <source src={previewSrc} type="video/mp4" />
             </video>
           ) : null}
-
-          <span className="absolute bottom-4 left-4 rounded-full bg-background/90 px-3 py-1 text-xs font-medium backdrop-blur-sm">
-            {project.category}
-          </span>
         </div>
 
-        <div className="p-6">
+        <div className="flex flex-1 flex-col p-6">
           <h3 className="text-xl font-semibold transition-colors group-hover:text-foreground/80">
             {project.title}
           </h3>
           <p className="mt-2 text-sm leading-6 text-foreground/65">
             {project.excerpt}
           </p>
-          <ul className="mt-4 flex flex-wrap gap-2">
+          <ul className="mt-auto flex flex-wrap gap-2 pt-4">
             {project.tags.map((tag) => (
               <li
                 key={tag}

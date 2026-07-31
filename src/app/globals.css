@@ -3,37 +3,144 @@
 /* Class + data-theme dark mode (data-theme survives React hydrating <html className>) */
 @custom-variant dark (&:where(.dark, .dark *, [data-theme="dark"], [data-theme="dark"] *));
 
+/* =============================================================================
+   PALETTE SWITCH — change `data-palette` on <html>, or use the floating switcher.
+   Values: brand-echo | electric-signal | mediterranean-heat | lime-punch
+   Accent / accent-2 / spark / backgrounds live here; meshes & washes derive from them.
+   ============================================================================= */
+
 html {
   color-scheme: light;
+  --wave-ink: #0a0a0c;
+}
+
+/* --- 1. Brand Echo (default) — blu / rosa / arancio --- */
+html:not([data-palette]),
+html[data-palette="brand-echo"] {
   --background: #fff8f5;
   --foreground: #141018;
   --accent: #2967d5;
   --accent-2: #f26d8e;
   --spark: #fc8d16;
-  --section: color-mix(in srgb, #2967d5 8%, #fff8f5);
-  --warm: color-mix(in srgb, #fc8d16 16%, #fff8f5);
-  --warm-wash: color-mix(
-    in srgb,
-    color-mix(in srgb, var(--background) 68%, var(--accent) 32%),
-    #1a1520 20%
-  );
-  --wave-ink: #0a0a0c;
   --accent-foreground: #ffffff;
+  --ink-background: #16141a;
+  --ink-foreground: #f7f2f4;
+  --ink-accent: #5b8def;
+  --ink-accent-2: #ff8aa8;
+  --ink-spark: #ffb04a;
+  --ink-accent-foreground: #ffffff;
 }
 
-html.dark,
-html[data-theme="dark"] {
+html.dark:not([data-palette]),
+html.dark[data-palette="brand-echo"],
+html[data-theme="dark"]:not([data-palette]),
+html[data-theme="dark"][data-palette="brand-echo"] {
   color-scheme: dark;
   --background: #0f0c12;
   --foreground: #f7f2f4;
   --accent: #5b8def;
   --accent-2: #ff8aa8;
   --spark: #ffb04a;
-  --section: color-mix(in srgb, #5b8def 10%, #0f0c12);
-  --warm: color-mix(in srgb, #ffb04a 18%, #0f0c12);
-  --warm-wash: color-mix(in srgb, #0a0a0c 55%, var(--accent) 45%);
-  --wave-ink: #0a0a0c;
   --accent-foreground: #ffffff;
+}
+
+/* --- 2. Electric Signal — blu elettrico / magenta / ciano --- */
+html[data-palette="electric-signal"] {
+  --background: #f4f7ff;
+  --foreground: #0a1224;
+  --accent: #0b5fff;
+  --accent-2: #ff2d6a;
+  --spark: #00e0c6;
+  --accent-foreground: #ffffff;
+  --ink-background: #0c1220;
+  --ink-foreground: #eaf0ff;
+  --ink-accent: #4d8cff;
+  --ink-accent-2: #ff5a8a;
+  --ink-spark: #2affe8;
+  --ink-accent-foreground: #ffffff;
+}
+
+html.dark[data-palette="electric-signal"],
+html[data-theme="dark"][data-palette="electric-signal"] {
+  color-scheme: dark;
+  --background: #070b14;
+  --foreground: #eaf0ff;
+  --accent: #4d8cff;
+  --accent-2: #ff5a8a;
+  --spark: #2affe8;
+  --accent-foreground: #ffffff;
+}
+
+/* --- 3. Mediterranean Heat — corallo / azzurro / giallo sole --- */
+html[data-palette="mediterranean-heat"] {
+  --background: #fffaf6;
+  --foreground: #1a1410;
+  --accent: #ff5a1f;
+  --accent-2: #0077b6;
+  --spark: #ffb703;
+  --accent-foreground: #ffffff;
+  --ink-background: #1a1612;
+  --ink-foreground: #fff6ee;
+  --ink-accent: #ff7a45;
+  --ink-accent-2: #3aa0d8;
+  --ink-spark: #ffc933;
+  --ink-accent-foreground: #ffffff;
+}
+
+html.dark[data-palette="mediterranean-heat"],
+html[data-theme="dark"][data-palette="mediterranean-heat"] {
+  color-scheme: dark;
+  --background: #12100e;
+  --foreground: #fff6ee;
+  --accent: #ff7a45;
+  --accent-2: #3aa0d8;
+  --spark: #ffc933;
+  --accent-foreground: #ffffff;
+}
+
+/* --- 4. Lime Punch — lime / viola / hot pink --- */
+html[data-palette="lime-punch"] {
+  --background: #f7fff2;
+  --foreground: #10140f;
+  --accent: #c8f542;
+  --accent-2: #6c2bff;
+  --spark: #ff3d8a;
+  --accent-foreground: #10140f;
+  --ink-background: #121810;
+  --ink-foreground: #f2ffe8;
+  --ink-accent: #c8f542;
+  --ink-accent-2: #9b6bff;
+  --ink-spark: #ff6ba8;
+  --ink-accent-foreground: #10140f;
+}
+
+html.dark[data-palette="lime-punch"],
+html[data-theme="dark"][data-palette="lime-punch"] {
+  color-scheme: dark;
+  --background: #0a1008;
+  --foreground: #f2ffe8;
+  --accent: #c8f542;
+  --accent-2: #9b6bff;
+  --spark: #ff6ba8;
+  --accent-foreground: #10140f;
+}
+
+/* Derived surfaces — update automatically when accents change */
+html {
+  --section: color-mix(in srgb, var(--accent) 8%, var(--background));
+  --warm: color-mix(in srgb, var(--spark) 16%, var(--background));
+  --warm-wash: color-mix(
+    in srgb,
+    color-mix(in srgb, var(--background) 68%, var(--accent) 32%),
+    #1a1520 20%
+  );
+}
+
+html.dark,
+html[data-theme="dark"] {
+  --section: color-mix(in srgb, var(--accent) 10%, var(--background));
+  --warm: color-mix(in srgb, var(--spark) 18%, var(--background));
+  --warm-wash: color-mix(in srgb, var(--wave-ink) 55%, var(--accent) 45%);
 }
 
 @theme inline {
@@ -196,18 +303,18 @@ html[data-theme="dark"] .bg-nav {
   );
 }
 
-/* Near-black band for contrast sections (forces light type locally) */
+/* Near-black band for contrast sections (forces palette dark accents locally) */
 .bg-ink {
   color-scheme: dark;
-  --background: #16141a;
-  --foreground: #f7f2f4;
-  --accent: #5b8def;
-  --accent-2: #ff8aa8;
-  --spark: #ffb04a;
-  --section: color-mix(in srgb, #5b8def 12%, #0a0a0c);
-  --warm: color-mix(in srgb, #ffb04a 14%, #0a0a0c);
-  --accent-foreground: #ffffff;
-  background-color: #0a0a0c;
+  --background: var(--ink-background);
+  --foreground: var(--ink-foreground);
+  --accent: var(--ink-accent);
+  --accent-2: var(--ink-accent-2);
+  --spark: var(--ink-spark);
+  --section: color-mix(in srgb, var(--ink-accent) 12%, var(--wave-ink));
+  --warm: color-mix(in srgb, var(--ink-spark) 14%, var(--wave-ink));
+  --accent-foreground: var(--ink-accent-foreground);
+  background-color: var(--wave-ink);
   color: var(--foreground);
 }
 

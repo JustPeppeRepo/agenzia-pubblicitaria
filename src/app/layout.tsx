@@ -5,12 +5,13 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
+import { PaletteSwitcher } from "@/components/layout/PaletteSwitcher";
 import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
 import { siteConfig } from "@/data/site";
 import "./globals.css";
 
-/** Runs before paint: set data-theme (survives hydration) + .dark class. */
-const themeInitScript = `(function(){try{var t=localStorage.getItem("theme");var d=t==="dark"||(t!=="light"&&window.matchMedia("(prefers-color-scheme: dark)").matches);var v=d?"dark":"light";var r=document.documentElement;r.dataset.theme=v;r.classList.toggle("dark",d);}catch(e){}})();`;
+/** Runs before paint: theme + palette (survives hydration). */
+const themeInitScript = `(function(){try{var r=document.documentElement;var t=localStorage.getItem("theme");var d=t==="dark"||(t!=="light"&&window.matchMedia("(prefers-color-scheme: dark)").matches);var v=d?"dark":"light";r.dataset.theme=v;r.classList.toggle("dark",d);var p=localStorage.getItem("palette");if(p==="brand-echo"||p==="electric-signal"||p==="mediterranean-heat"||p==="lime-punch"){r.dataset.palette=p;}}catch(e){}})();`;
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -56,6 +57,7 @@ export default function RootLayout({
         <main className="flex-1">{children}</main>
         <Footer />
         <WhatsAppButton />
+        <PaletteSwitcher />
         <Analytics />
         <SpeedInsights />
       </body>

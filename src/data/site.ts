@@ -11,8 +11,8 @@ export const siteConfig: SiteConfig = {
   tagline: "Amplifica la tua visibilità online: siti web e pubblicità mirata.",
   description:
     "Ci occupiamo della tua visibilità online con un unico obiettivo: far crescere i tuoi clienti e il tuo fatturato. Creiamo un sito web perfettamente adatto al tuo settore e gestiamo la tua pubblicità per farti raggiungere le persone giuste.",
-  email: "ciao@marcoddev.it",
-  phone: "+39 333 123 4567",
+  email: "aiello.digitalstudio@gmail.com",
+  phone: "+39 3206971826",
   location: "Palermo, Italia",
   social: [
     {
@@ -22,7 +22,7 @@ export const siteConfig: SiteConfig = {
     },
     {
       platform: "github",
-      href: "https://github.com",
+      href: "https://github.com/JustPeppeRepo",
       label: "GitHub",
     },
   ],

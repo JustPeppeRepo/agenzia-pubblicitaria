@@ -1,8 +1,9 @@
-import { siWhatsapp } from "simple-icons";
 import { siteConfig } from "@/data/site";
+import { getBrandIcon } from "@/lib/brand-icons";
 import { cn, formatWhatsAppLink } from "@/lib/utils";
 
 const WHATSAPP_MESSAGE = `Ciao! Vorrei maggiori informazioni su ${siteConfig.name}.`;
+const whatsappIcon = getBrandIcon("whatsapp");
 
 /** CSS float instead of Framer Motion — keeps the widget off the JS animation budget. */
 export function WhatsAppButton() {
@@ -30,7 +31,7 @@ export function WhatsAppButton() {
         fill="currentColor"
         aria-hidden
       >
-        <path d={siWhatsapp.path} />
+        <path d={whatsappIcon?.path ?? ""} />
       </svg>
     </a>
   );

@@ -29,7 +29,6 @@ export type Technology = {
   category: "frontend" | "backend" | "tooling" | "marketing";
   shortDescription: string;
   whyChosen: string;
-  proficiency: number;
   /** Official docs / product page */
   url?: string;
 };

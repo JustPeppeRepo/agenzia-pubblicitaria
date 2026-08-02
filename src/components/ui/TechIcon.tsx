@@ -1,38 +1,5 @@
-import {
-  siBootstrap,
-  siCursor,
-  siElementor,
-  siExpress,
-  siFramer,
-  siJquery,
-  siNextdotjs,
-  siPhp,
-  siPrisma,
-  siReact,
-  siTailwindcss,
-  siTypescript,
-  siVercel,
-  siWordpress,
-  type SimpleIcon,
-} from "simple-icons";
+import { getBrandIcon } from "@/lib/brand-icons";
 import { cn } from "@/lib/utils";
-
-const TECH_ICONS: Record<string, SimpleIcon> = {
-  nextjs: siNextdotjs,
-  typescript: siTypescript,
-  tailwind: siTailwindcss,
-  react: siReact,
-  express: siExpress,
-  prisma: siPrisma,
-  framer: siFramer,
-  vercel: siVercel,
-  wordpress: siWordpress,
-  cursor: siCursor,
-  jquery: siJquery,
-  php: siPhp,
-  elementor: siElementor,
-  bootstrap: siBootstrap,
-};
 
 /** Dark brand marks — use foreground on dark UI */
 const FOREGROUND_ICONS = new Set([
@@ -56,7 +23,7 @@ export function TechIcon({
   className,
   size = 28,
 }: TechIconProps) {
-  const icon = TECH_ICONS[id];
+  const icon = getBrandIcon(id);
 
   if (!icon) {
     if (!fallback) return null;

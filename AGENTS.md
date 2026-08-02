@@ -4,6 +4,12 @@
 This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
 <!-- END:nextjs-agent-rules -->
 
+## ZERO experimental flags (obbligatorio)
+
+- **Mai** aggiungere `experimental` / `unstable_*` in `next.config` o nel codice.
+- Per icone brand usare `getBrandIcon()` (`src/lib/brand-icons.ts`), non barrel `simple-icons` né `optimizePackageImports`.
+- Dettaglio e checklist: `ROADMAP.md` + `PROJECT_GUIDELINES.md`.
+
 ## Hydration mismatch — regole obbligatorie
 
 React segnala un hydration mismatch quando l'HTML del server non coincide con il primo render client. **Non "fixare" a caso**: prima capire la causa.

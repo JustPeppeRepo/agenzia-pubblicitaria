@@ -97,3 +97,53 @@ export function validateContactForm(data: {
   const result = validateContactPayload({ ...data, website: "" });
   return result.ok ? {} : result.errors;
 }
+
+/**
+ * Deliver sanitized contact data via FormSubmit (browser fetch).
+ * Must run client-side — FormSubmit rejects Node/server proxies.
+ */
+export async function deliverContactViaFormSubmit(options: {
+  toEmail: string;
+  siteName: string;
+  name: string;
+  email: string;
+  message: string;
+}): Promise<boolean> {
+  const subject = sanitizeHeaderValue(
+    `Nuovo contatto da ${options.name} — ${options.siteName}`,
+  ).slice(0, 120);
+
+  try {
+    const res = await fetch(
+      `https://formsubmit.co/ajax/${encodeURIComponent(options.toEmail)}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          name: options.name,
+          email: options.email,
+          message: options.message,
+          _subject: subject,
+          _replyto: options.email,
+          _template: "table",
+          _captcha: "false",
+        }),
+      },
+    );
+
+    const data = (await res.json().catch(() => null)) as {
+      success?: string | boolean;
+    } | null;
+
+    return (
+      res.ok &&
+      data != null &&
+      (data.success === true || data.success === "true")
+    );
+  } catch {
+    return false;
+  }
+}

@@ -1,6 +1,10 @@
-import { siCursor } from "simple-icons";
+import { getBrandIcon } from "@/lib/brand-icons";
+
+const cursorIcon = getBrandIcon("cursor");
 
 function CursorLogo() {
+  if (!cursorIcon) return null;
+
   return (
     <svg
       role="img"
@@ -9,9 +13,9 @@ function CursorLogo() {
       height={24}
       className="text-foreground"
       fill="currentColor"
-      aria-label={siCursor.title}
+      aria-label={cursorIcon.title}
     >
-      <path d={siCursor.path} />
+      <path d={cursorIcon.path} />
     </svg>
   );
 }

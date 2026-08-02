@@ -16,10 +16,15 @@ Portfolio web moderno, data-driven e **senza database**, progettato per impressi
 ### 🔴 DIVIETO ASSOLUTO DI FLAGS SPERIMENTALI
 È **severamente vietato** l'utilizzo in produzione di:
 - Librerie, API o configurazioni in stato alpha/beta/experimental
-- Flags sperimentali di framework (es. `experimental_*` instabili)
+- Flags sperimentali di framework (es. `experimental_*`, `unstable_*`, blocco `experimental` in `next.config`)
 - Pacchetti npm non LTS o non mantenuti attivamente
 
 Tutto il codice deve essere **solido, stabile e pronto per la produzione**.
+
+**Sostituti approvati** (vedi anche `ROADMAP.md`):
+- Icone brand / barrel pesanti → `getBrandIcon()` in `src/lib/brand-icons.ts` (niente `optimizePackageImports`)
+- Lazy load componenti pesanti → `next/dynamic` stabile
+- Se serve una flag experimental → non implementare; scegliere un path stabile
 
 ### Nessun Database
 Tutti i contenuti (progetti, tecnologie, metriche, testi) risiedono in:

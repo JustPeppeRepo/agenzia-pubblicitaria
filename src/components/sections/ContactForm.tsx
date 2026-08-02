@@ -1,9 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { siteConfig } from "@/data/site";
 import {
   CONTACT_HONEYPOT_FIELD,
   CONTACT_LIMITS,
+  deliverContactViaFormSubmit,
   toPlainText,
   validateContactForm,
 } from "@/lib/contact";
@@ -55,6 +57,7 @@ export function ContactForm() {
 
     setSubmitting(true);
     try {
+      // 1) Server: sanitize, validate, rate-limit
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -69,6 +72,7 @@ export function ContactForm() {
       const data = (await res.json().catch(() => ({}))) as {
         error?: string;
         errors?: Record<string, string>;
+        data?: { name: string; email: string; message: string };
       };
 
       if (res.status === 429) {
@@ -82,6 +86,21 @@ export function ContactForm() {
         if (data.errors) setErrors(data.errors);
         setFormError(data.error ?? "Invio non riuscito. Riprova più tardi.");
         return;
+      }
+
+      // Honeypot: API returns ok without payload — fake success, no delivery.
+      if (data.data) {
+        // 2) Browser: FormSubmit (server-side fetch is rejected)
+        const delivered = await deliverContactViaFormSubmit({
+          toEmail: siteConfig.email,
+          siteName: siteConfig.name,
+          ...data.data,
+        });
+
+        if (!delivered) {
+          setFormError("Invio non riuscito. Riprova più tardi.");
+          return;
+        }
       }
 
       setSubmitted(true);

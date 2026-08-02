@@ -34,28 +34,16 @@ export function TechStackGrid({
             key={tech.id}
             className="h-full rounded-2xl border border-foreground/10 p-6 transition-colors hover:border-foreground/20"
           >
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-foreground/5">
-                  <TechIcon id={tech.id} fallback={tech.icon} size={22} />
-                </span>
-                <div>
-                  <h3 className="font-semibold">{tech.name}</h3>
-                  <p className="text-xs text-foreground/50">
-                    {tech.shortDescription}
-                  </p>
-                </div>
-              </div>
-              <span className="text-sm font-semibold text-foreground/40">
-                {tech.proficiency}%
+            <div className="flex items-center gap-3">
+              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-foreground/5">
+                <TechIcon id={tech.id} fallback={tech.icon} size={22} />
               </span>
-            </div>
-
-            <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-foreground/5">
-              <div
-                className="h-full rounded-full bg-foreground/60 transition-all"
-                style={{ width: `${tech.proficiency}%` }}
-              />
+              <div>
+                <h3 className="font-semibold">{tech.name}</h3>
+                <p className="text-xs text-foreground/50">
+                  {tech.shortDescription}
+                </p>
+              </div>
             </div>
 
             <p className="mt-4 text-sm leading-6 text-foreground/65">

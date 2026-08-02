@@ -61,9 +61,9 @@ export function Hero() {
             transition={{ duration: 0.5, delay: 0.45 }}
             className="flex flex-wrap gap-4"
           >
-            <Button href="/#projects">Vedi i progetti</Button>
-            <Button href="/contact" variant="secondary">
-              Iniziamo un progetto
+            <Button href="/contact">Iniziamo un progetto</Button>
+            <Button href="/#projects" variant="secondary">
+              Vedi i progetti
             </Button>
           </motion.div>
         </div>

@@ -163,7 +163,7 @@ export function ProjectHeroVideo({ title, image, video }: ProjectHeroVideoProps)
             <div className="relative aspect-9/16 overflow-hidden rounded-[1.05rem] bg-black sm:rounded-[1.25rem] md:rounded-[1.4rem]">
               <DeviceScreen
                 title={`${title} — mobile`}
-                image={image}
+                image={video.mobilePoster ?? image}
                 src={video.mobile}
                 play={play}
                 sizes="(max-width: 768px) 30vw, 240px"

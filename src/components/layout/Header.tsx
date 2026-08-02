@@ -41,11 +41,21 @@ export function Header() {
           onClick={() => setOpen(false)}
         >
           <Image
-            src="/logo.svg"
+            src="/logo.png"
             alt=""
-            width={52}
-            height={52}
-            className="h-[52px] w-[52px] shrink-0 object-contain"
+            width={28}
+            height={28}
+            className="h-7 w-7 shrink-0 object-contain dark:hidden"
+            priority
+            unoptimized
+          />
+          <Image
+            src="/logo-dark.png"
+            alt=""
+            width={28}
+            height={28}
+            className="hidden h-7 w-7 shrink-0 object-contain dark:block"
+            priority
             unoptimized
           />
           <span className="hidden truncate sm:inline">{siteConfig.name}</span>

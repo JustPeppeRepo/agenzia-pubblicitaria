@@ -88,9 +88,9 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: [{ url: "/logo.svg", type: "image/svg+xml" }],
-    shortcut: "/logo.svg",
-    apple: [{ url: "/logo.svg", type: "image/svg+xml" }],
+    icon: [{ url: "/logo.png", type: "image/png" }],
+    shortcut: "/logo.png",
+    apple: [{ url: "/logo.png", type: "image/png" }],
   },
   formatDetection: {
     email: false,

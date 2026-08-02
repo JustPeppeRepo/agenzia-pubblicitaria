@@ -9,7 +9,7 @@ export const technologies: Technology[] = [
     category: "frontend",
     shortDescription: "React framework con SSR/SSG",
     whyChosen:
-      "Scelgo Next.js per la SEO nativa, il rendering ibrido (SSG + ISR) e l'Image Optimization integrata. Permette di servire pagine statiche velocissime mantenendo la flessibilità di route dinamiche.",
+      "Scelgo Next.js per la SEO nativa, il rendering ibrido (SSG + ISR) e l'Image Optimization integrata. Permette di servire pagine statiche velocissime mantenendo la flessibilità di route dinamiche.",
     url: "https://nextjs.org",
   },
   {
@@ -19,7 +19,7 @@ export const technologies: Technology[] = [
     category: "frontend",
     shortDescription: "Type-safety end-to-end",
     whyChosen:
-      "TypeScript riduce bug in produzione e rende i refactoring sicuri. Con tipi condivisi tra data layer e componenti, l'intero portfolio resta coerente e manutenibile.",
+      "TypeScript riduce bug in produzione e rende i refactoring sicuri. Con tipi condivisi tra data layer e componenti, l'intero portfolio resta coerente e manutenibile.",
     url: "https://www.typescriptlang.org",
   },
   {
@@ -29,7 +29,7 @@ export const technologies: Technology[] = [
     category: "frontend",
     shortDescription: "Utility-first CSS",
     whyChosen:
-      "Tailwind elimina CSS morto dal bundle finale e accelera lo sviluppo responsive. Con v4 e @theme inline, il design system resta centralizzato e performante.",
+      "Tailwind elimina CSS morto dal bundle finale e accelera lo sviluppo responsive. Con v4 e @theme inline, il design system resta centralizzato e performante.",
     url: "https://tailwindcss.com",
   },
   {
@@ -39,7 +39,7 @@ export const technologies: Technology[] = [
     category: "frontend",
     shortDescription: "UI library component-based",
     whyChosen:
-      "React resta lo standard de facto per UI complesse. Con Server Components di Next.js, separo logica server-side da interattività client-side in modo netto.",
+      "React resta lo standard de facto per UI complesse. Con Server Components di Next.js, separo logica server-side da interattività client-side in modo netto.",
     url: "https://react.dev",
   },
   {
@@ -49,7 +49,7 @@ export const technologies: Technology[] = [
     category: "backend",
     shortDescription: "API REST veloci e leggere",
     whyChosen:
-      "Express è il framework Node.js più collaudato per API REST e middleware custom. Lo uso quando serve un backend snello, integrazioni terze parti o logica server dedicata.",
+      "Express è il framework Node.js più collaudato per API REST e middleware custom. Lo uso quando serve un backend snello, integrazioni terze parti o logica server dedicata.",
     url: "https://expressjs.com",
   },
   {
@@ -59,7 +59,7 @@ export const technologies: Technology[] = [
     category: "backend",
     shortDescription: "ORM type-safe per database",
     whyChosen:
-      "Prisma offre migrazioni, query type-safe e un client generato automaticamente. Riduce errori sui dati e accelera lo sviluppo con PostgreSQL, MySQL o SQLite.",
+      "Prisma offre migrazioni, query type-safe e un client generato automaticamente. Riduce errori sui dati e accelera lo sviluppo con PostgreSQL, MySQL o SQLite.",
     url: "https://www.prisma.io",
   },
   {
@@ -69,7 +69,7 @@ export const technologies: Technology[] = [
     category: "frontend",
     shortDescription: "Animazioni dichiarative",
     whyChosen:
-      "Framer Motion offre API React-native per animazioni scroll e hover, con supporto built-in per prefers-reduced-motion. Tree-shakeable e stabile in produzione.",
+      "Framer Motion offre API React-native per animazioni scroll e hover, con supporto built-in per prefers-reduced-motion. Tree-shakeable e stabile in produzione.",
     url: "https://motion.dev",
   },
   {
@@ -79,7 +79,7 @@ export const technologies: Technology[] = [
     category: "tooling",
     shortDescription: "Deploy, preview e edge network",
     whyChosen:
-      "Vercel è la piattaforma nativa per Next.js: deploy automatici da Git, preview URL per ogni PR, CDN globale e integrazione con Analytics e Speed Insights già attive su questo sito.",
+      "Vercel è la piattaforma nativa per Next.js: deploy automatici da Git, preview URL per ogni PR, CDN globale e integrazione con Analytics e Speed Insights già attive su questo sito.",
     url: "https://vercel.com",
   },
 ];
@@ -98,25 +98,47 @@ export const featuredTechnologies = featuredIds.map(
   (id) => technologies.find((tech) => tech.id === id)!,
 );
 
-/* About page — strumenti marketing (Andrea) */
+/* About page — strumenti marketing (Vito) */
 export const marketingTechnologies: Technology[] = [
   {
-    id: "seo",
-    name: "SEO",
-    icon: "🔍",
+    id: "gsc",
+    name: "Google Search Console",
+    icon: "GSC",
     category: "marketing",
-    shortDescription: "Visibilità organica su Google",
+    shortDescription: "Ranking, impression e CTR",
     whyChosen:
-      "Ottimizziamo struttura, contenuti e performance del sito perché Google capisca subito chi sei e cosa offri. Risultato: traffico qualificato senza costi per click.",
+      "Monitoro come Google vede il sito: query, click organici e variazioni di ranking. È la base per capire cosa sta funzionando in SEO prima di toccare il budget ads.",
+    url: "https://search.google.com/search-console",
+  },
+  {
+    id: "ga4",
+    name: "Google Analytics 4",
+    icon: "GA4",
+    category: "marketing",
+    shortDescription: "Traffico, eventi e conversioni",
+    whyChosen:
+      "Traccio utenti, bounce rate, pagine top e conversioni. Ogni decisione su ads e SEO parte da qui — senza dati reali non si scala.",
+    url: "https://analytics.google.com",
+  },
+  {
+    id: "screaming-frog",
+    name: "Screaming Frog",
+    icon: "SF",
+    category: "marketing",
+    shortDescription: "Crawl e audit SEO tecnico",
+    whyChosen:
+      "Eseguo crawl completi del sito per trovare errori tecnici, redirect e pagine deboli. L'audit iniziale guida fix con lo sviluppo e la priorità dei contenuti.",
+    url: "https://www.screamingfrog.co.uk/seo-spider/",
   },
   {
     id: "google-ads",
     name: "Google Ads",
     icon: "G",
     category: "marketing",
-    shortDescription: "Campagne search e display",
+    shortDescription: "Campagne Search e budget",
     whyChosen:
-      "Intercettiamo chi sta già cercando i tuoi servizi con annunci mirati. Budget controllato, keyword strategiche e landing page allineate al messaggio dell'annuncio.",
+      "Intercetto chi sta già cercando i tuoi servizi. Keyword, copy e negative keywords si aggiornano ogni settimana in base a CTR e ROAS.",
+    url: "https://ads.google.com",
   },
   {
     id: "meta-ads",
@@ -125,33 +147,37 @@ export const marketingTechnologies: Technology[] = [
     category: "marketing",
     shortDescription: "Facebook e Instagram Ads",
     whyChosen:
-      "Raggiungiamo il pubblico giusto sui social con creatività testate e audience segmentate. Ideale per brand awareness, lead generation e retargeting.",
+      "Campagne su Meta con test A/B sulle creatività. Ideale per awareness, lead e retargeting — il budget sale solo dove il ROAS regge.",
+    url: "https://www.facebook.com/business/ads",
   },
   {
-    id: "analytics",
-    name: "Google Analytics",
-    icon: "📈",
+    id: "hotjar",
+    name: "Hotjar",
+    icon: "HJ",
     category: "marketing",
-    shortDescription: "Misurazione e conversioni",
+    shortDescription: "Heatmap e session recording",
     whyChosen:
-      "Tracciamo ogni passaggio del visitatore — da dove arriva a cosa fa sul sito — per capire cosa funziona e dove migliorare. Dati reali, decisioni informate.",
+      "Vedo dove gli utenti cliccano e dove abbandonano. Heatmap e registrazioni spiegano i numeri di GA4 e guidano il CRO sulla landing.",
+    url: "https://www.hotjar.com",
   },
   {
-    id: "content",
-    name: "Content Strategy",
-    icon: "✎",
+    id: "hubspot",
+    name: "HubSpot CRO",
+    icon: "HS",
     category: "marketing",
-    shortDescription: "Copy e contenuti che convertono",
+    shortDescription: "Conversion Rate Optimization",
     whyChosen:
-      "Ogni testo — dalla headline alla CTA — guida l'utente verso l'azione. Tono di voce coerente, messaggi chiari e struttura pensata per persuadere senza forzare.",
+      "Framework CRO per landing e funnel: ipotesi, test e iterazioni. Serve a trasformare il traffico (organico o a pagamento) in contatti misurabili.",
+    url: "https://www.hubspot.com",
   },
   {
-    id: "brand",
-    name: "Brand Identity",
-    icon: "◆",
+    id: "ahrefs",
+    name: "Ahrefs",
+    icon: "Ah",
     category: "marketing",
-    shortDescription: "Posizionamento e identità visiva",
+    shortDescription: "Keyword research avanzata",
     whyChosen:
-      "Definiamo come il brand si presenta online: palette, tono, gerarchia visiva. Un'identità riconoscibile aumenta fiducia e memorabilità in ogni touchpoint digitale.",
+      "Quando il progetto scala, approfondisco keyword e gap competitivi. Lo uso in fase di crescita, non dal giorno zero — solo se i dati giustificano l'investimento.",
+    url: "https://ahrefs.com",
   },
 ];

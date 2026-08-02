@@ -28,9 +28,15 @@ export function TechIcon({
   if (!icon) {
     if (!fallback) return null;
 
+    const isGlyph = [...fallback].length === 1;
+
     return (
       <span
-        className={cn("text-2xl leading-none", className)}
+        className={cn(
+          "leading-none text-foreground/70",
+          isGlyph ? "text-2xl" : "text-[10px] font-bold tracking-tight",
+          className,
+        )}
         aria-hidden
       >
         {fallback}

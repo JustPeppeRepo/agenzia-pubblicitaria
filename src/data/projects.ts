@@ -20,6 +20,7 @@ export const projects: Project[] = [
     detailVideo: {
       desktop: "/videos/hq/hq_CAGE-desktop-f.mp4",
       mobile: "/videos/hq/hq_CAGE-mobile-f.mp4",
+      mobilePoster: "/images/projects/CAGEmobile-poster.jpg",
     },
     featured: true,
     problem:
@@ -147,6 +148,7 @@ export const projects: Project[] = [
     detailVideo: {
       desktop: "/videos/hq/hq_SCAVO-desktop-f.mp4",
       mobile: "/videos/hq/hq_SCAVO-mobile-f.mp4",
+      mobilePoster: "/images/projects/SCAVOmobile-poster.jpg",
     },
     featured: true,
     problem:

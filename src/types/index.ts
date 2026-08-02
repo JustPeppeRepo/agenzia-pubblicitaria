@@ -79,6 +79,8 @@ export type ProjectChartPoint = {
 export type ProjectVideoSet = {
   desktop: string;
   mobile: string;
+  /** First-frame poster for the mobile video (avoids cover-image flash) */
+  mobilePoster?: string;
 };
 
 export type ProjectVitalRating = "good" | "needs-improvement" | "poor";

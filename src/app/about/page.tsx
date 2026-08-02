@@ -58,8 +58,8 @@ export default function AboutPage() {
               <MarketingApproach />
               <TechStackGrid
                 eyebrow="Strumenti e competenze"
-                title="Perché usiamo questi canali"
-                description="Ogni strumento copre una fase del percorso — dalla visibilità organica alla misurazione delle conversioni."
+                title="Il toolkit dietro SEO, Ads e CRO"
+                description="Stack operativo reale: tracking, audit tecnico, campagne Google/Meta e ottimizzazione delle conversioni — con tool avanzati solo quando il ROI lo giustifica."
                 technologies={marketingTechnologies}
               />
             </div>

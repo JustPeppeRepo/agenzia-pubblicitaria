@@ -136,7 +136,7 @@ export const projects: Project[] = [
     excerpt:
       "Sito fotografico professionale (maternity, newborn, smash cake) con admin per gestire categorie e foto senza toccare il codice.",
     description:
-      "sito fotografico professionale (maternity, newborn, smash cake) con admin per gestire categorie e foto senza toccare il codice. Ottimizzazione automatica tramite sharp delle foto per rendere il sito veloce e performante.",
+      "Sito fotografico professionale (maternity, newborn, smash cake) con admin per gestire categorie e foto senza toccare il codice. Ottimizzazione automatica tramite sharp delle foto per rendere il sito veloce e performante.",
     category: "Brand",
     tags: ["Vetrina", "Portfolio fotografico", "HD"],
     image: "/images/projects/SCAVOcopertina.png",
@@ -152,7 +152,7 @@ export const projects: Project[] = [
     },
     featured: true,
     problem:
-      "Nonostante siano di facile utilizzano i social media diminuiscono la qualità delle foto, per cui non si riesce a vedere la qualità delle foto e di conseguenza della fotografa.",
+      "Nonostante siano di facile utilizzo, i social media diminuiscono la qualità delle foto, per cui non si riesce a vedere la qualità delle foto e di conseguenza della fotografa.",
     solution:
       "La fotografa può aggiornare portfolio, testi e copertine in autonomia, senza dipendere da uno sviluppatore o da un CMS generico poco adatto alle immagini ad alta risoluzione.",
     architecture: [

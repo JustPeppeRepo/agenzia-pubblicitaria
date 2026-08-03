@@ -84,7 +84,7 @@ const aboutTeamSolo = {
     description:
       "Seguo anche la presenza online del progetto: SEO, contenuti e strategia di comunicazione perché il tuo brand emerga su Google e sui canali giusti. Non basta esistere online: serve essere visibili, credibili e convincenti.",
   },
-  image: "/images/team-engineer.svg",
+  image: "/images/giuseppe-portrait.webp",
   imageAlt: "Giuseppe — Web Developer",
 } as const;
 
@@ -195,7 +195,7 @@ export const aboutMembers = {
     anchorId: "tecnologie",
     name: "Giuseppe",
     role: "Full Stack Developer",
-    image: "/images/team-engineer.svg",
+    image: "/images/giuseppe-portrait.webp",
     imageAlt: "Giuseppe — Web Developer",
     bio: "Sono uno **Software Developer** con una solida preparazione logicostrutturata. La formazione con la **Luiss** mi ha fornito basi rigorose nella **programmazione C++** e nell'ottimizzazione della memoria, sviluppando un'impostazione orientata all'efficienza algoritmica e alle alte prestazioni. A questo percorso ho affiancato il **Full Stack Open dell'Università di Helsinki**, completando il mio profilo con le tecnologie per lo **sviluppo web Full Stack, API REST** e i **design pattern più moderni**.",
     expandLabel: "Mostra come funziona il codice",

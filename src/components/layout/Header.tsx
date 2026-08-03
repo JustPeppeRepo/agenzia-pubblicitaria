@@ -45,16 +45,7 @@ export function Header() {
             alt=""
             width={28}
             height={28}
-            className="h-7 w-7 shrink-0 object-contain dark:hidden"
-            priority
-            unoptimized
-          />
-          <Image
-            src="/logo-dark.png"
-            alt=""
-            width={28}
-            height={28}
-            className="hidden h-7 w-7 shrink-0 object-contain dark:block"
+            className="h-7 w-7 shrink-0 object-contain dark:brightness-0 dark:invert"
             priority
             unoptimized
           />

@@ -51,9 +51,9 @@ export function AboutMemberSection({
             <Image
               src={member.image}
               alt={member.imageAlt}
-              width={320}
-              height={400}
-              className="h-auto w-full object-cover"
+              width={492}
+              height={818}
+              className="h-auto w-full object-contain object-bottom"
             />
           </div>
         </div>

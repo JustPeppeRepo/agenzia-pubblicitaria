@@ -185,6 +185,143 @@ html {
   animation: whatsapp-float 2.8s ease-in-out infinite;
 }
 
+@keyframes hero-float-a {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes hero-float-b {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes hero-float-c {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+.hero-float-a {
+  animation: hero-float-a 5.5s ease-in-out infinite;
+}
+
+.hero-float-b {
+  animation: hero-float-b 6.2s ease-in-out infinite 0.4s;
+}
+
+.hero-float-c {
+  animation: hero-float-c 4.8s ease-in-out infinite 0.8s;
+}
+
+@keyframes hero-dash-flow {
+  to {
+    stroke-dashoffset: -36;
+  }
+}
+
+@keyframes hero-dash-flow-rev {
+  to {
+    stroke-dashoffset: 36;
+  }
+}
+
+.hero-dash-flow {
+  animation: hero-dash-flow 1.8s linear infinite;
+}
+
+.hero-dash-flow-rev {
+  animation: hero-dash-flow-rev 2s linear infinite;
+}
+
+@keyframes hero-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scale(1.25);
+  }
+}
+
+.hero-pulse {
+  animation: hero-pulse 1.8s ease-in-out infinite;
+}
+
+/* Opacity-only pulse — cheaper than box-shadow on mobile GPUs */
+@keyframes hero-lead-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.65;
+  }
+}
+
+.hero-lead-pulse {
+  animation: hero-lead-pulse 2.2s ease-in-out infinite;
+}
+
+@keyframes hero-cta-glow {
+  0%,
+  100% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.08);
+  }
+}
+
+.hero-cta-glow {
+  animation: hero-cta-glow 2.8s ease-in-out infinite;
+}
+
+@keyframes hero-bar-rise {
+  from {
+    transform: scaleY(0.15);
+    opacity: 0.35;
+  }
+  to {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+.hero-bar-rise {
+  transform-origin: bottom;
+  animation: hero-bar-rise 0.7s ease-out both;
+}
+
+/* Soften infinite motion on small screens */
+@media (max-width: 767px) {
+  .hero-float-a,
+  .hero-float-b,
+  .hero-dash-flow,
+  .hero-dash-flow-rev {
+    animation: none !important;
+  }
+
+  .hero-float-c {
+    animation: hero-float-c 6.5s ease-in-out infinite !important;
+  }
+}
+
 body {
   background: var(--background);
   color: var(--foreground);

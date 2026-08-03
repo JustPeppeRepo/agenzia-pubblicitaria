@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { getFeaturedProjects } from "@/lib/content";
-import { TeamScrollBridge } from "@/components/sections/TeamScrollBridge";
 import { Hero } from "@/components/sections/Hero";
 import { AboutBrief } from "@/components/sections/AboutBrief";
 import { ValueProposition } from "@/components/sections/ValueProposition";
@@ -21,10 +20,8 @@ export default function HomePage() {
 
   return (
     <>
-      <TeamScrollBridge>
-        <Hero />
-        <AboutBrief />
-      </TeamScrollBridge>
+      <Hero />
+      <AboutBrief />
       <ValueProposition />
       <ProjectsGrid projects={featuredProjects} />
       <ContactCTA />

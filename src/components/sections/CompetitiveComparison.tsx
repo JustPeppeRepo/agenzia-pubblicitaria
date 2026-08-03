@@ -159,7 +159,7 @@ function StackShowdown() {
           transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
         >
           <VsBadge className="left-0 top-1/2" />
-          <span className="absolute right-4 top-4 rounded-md bg-emerald-600 px-2 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-white shadow-md shadow-emerald-600/45 dark:bg-emerald-500 dark:shadow-emerald-500/40">
+          <span className="absolute right-4 top-4 rounded-md bg-emerald-600 px-2 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-white dark:bg-emerald-500">
             La migliore
           </span>
           <div className="flex items-center gap-3 pr-16">

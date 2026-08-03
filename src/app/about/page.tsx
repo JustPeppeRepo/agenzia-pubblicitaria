@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { aboutMembers, aboutPage } from "@/data/site";
+import { aboutMembers, aboutPage, DOUBLE } from "@/data/site";
 import { marketingTechnologies, technologies } from "@/data/technologies";
 import { AboutMemberSection } from "@/components/sections/AboutMemberSection";
 import { CursorAiHighlight } from "@/components/sections/CursorAiHighlight";
@@ -10,14 +10,14 @@ import { FadeIn } from "@/components/motion/FadeIn";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 
 export const metadata: Metadata = {
-  title: "Chi siamo",
-  description:
-    "Il team di Aiello Digital Studio: sviluppo web e strategia pubblicitaria per far crescere la tua presenza digitale a Palermo e oltre.",
+  title: DOUBLE ? "Chi siamo" : "Chi sono",
+  description: aboutPage.metaDescription,
   alternates: { canonical: "/about" },
   openGraph: {
-    title: "Chi siamo | Aiello Digital Studio",
-    description:
-      "Sviluppo web e strategia pubblicitaria: il team dietro siti veloci, SEO e campagne mirate.",
+    title: DOUBLE
+      ? "Chi siamo | Aiello Digital Studio"
+      : "Chi sono | Aiello Digital Studio",
+    description: aboutPage.ogDescription,
     url: "/about",
   },
 };
@@ -26,14 +26,10 @@ export default function AboutPage() {
   return (
     <div className="mx-auto max-w-6xl px-6 py-16">
       <FadeIn>
-        <SectionHeading
-          eyebrow={aboutPage.eyebrow}
-          title={aboutPage.title}
-          description={aboutPage.description}
-        />
+        <SectionHeading eyebrow={aboutPage.eyebrow} />
       </FadeIn>
 
-      <div className="mt-20 space-y-20">
+      <div className="mt-6 space-y-20">
         <FadeIn delay={0.1}>
           <AboutMemberSection
             member={aboutMembers.engineer}
@@ -52,19 +48,21 @@ export default function AboutPage() {
           </AboutMemberSection>
         </FadeIn>
 
-        <FadeIn delay={0.15}>
-          <AboutMemberSection member={aboutMembers.advertiser}>
-            <div className="space-y-20">
-              <MarketingApproach />
-              <TechStackGrid
-                eyebrow="Strumenti e competenze"
-                title="Il toolkit dietro SEO, Ads e CRO"
-                description="Stack operativo reale: tracking, audit tecnico, campagne Google/Meta e ottimizzazione delle conversioni — con tool avanzati solo quando il ROI lo giustifica."
-                technologies={marketingTechnologies}
-              />
-            </div>
-          </AboutMemberSection>
-        </FadeIn>
+        {DOUBLE ? (
+          <FadeIn delay={0.15}>
+            <AboutMemberSection member={aboutMembers.advertiser}>
+              <div className="space-y-20">
+                <MarketingApproach />
+                <TechStackGrid
+                  eyebrow="Strumenti e competenze"
+                  title="Il toolkit dietro SEO, Ads e CRO"
+                  description="Stack operativo reale: tracking, audit tecnico, campagne Google/Meta e ottimizzazione delle conversioni — con tool avanzati solo quando il ROI lo giustifica."
+                  technologies={marketingTechnologies}
+                />
+              </div>
+            </AboutMemberSection>
+          </FadeIn>
+        ) : null}
       </div>
     </div>
   );

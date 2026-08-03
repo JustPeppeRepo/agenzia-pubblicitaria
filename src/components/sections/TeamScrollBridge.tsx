@@ -10,7 +10,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { aboutMembers, aboutTeam } from "@/data/site";
+import { aboutMembers, aboutTeam, DOUBLE } from "@/data/site";
 import { cn } from "@/lib/utils";
 
 type AnchorVariant = "hero" | "about";
@@ -163,7 +163,8 @@ function TeamScrollFlyLayer({
 
     const flyOpacity = getFlyOpacity(progress);
     const rotate = simplifyMotion ? 0 : (progress - 0.5) * -3;
-    const blend = simplifyMotion ? 0 : getSplitBlend(progress);
+    const blend =
+      simplifyMotion || !DOUBLE ? 0 : getSplitBlend(progress);
 
     fly.style.opacity = String(flyOpacity);
     fly.style.width = `${rect.width}px`;
@@ -210,22 +211,28 @@ function TeamScrollFlyLayer({
             className="h-full w-full object-cover"
           />
         </div>
-        <div ref={splitRef} className="absolute inset-0 flex opacity-0" aria-hidden>
-          <Image
-            src={aboutMembers.engineer.image}
-            alt=""
-            width={320}
-            height={400}
-            className="h-full w-1/2 object-cover"
-          />
-          <Image
-            src={aboutMembers.advertiser.image}
-            alt=""
-            width={320}
-            height={400}
-            className="h-full w-1/2 object-cover"
-          />
-        </div>
+        {DOUBLE ? (
+          <div
+            ref={splitRef}
+            className="absolute inset-0 flex opacity-0"
+            aria-hidden
+          >
+            <Image
+              src={aboutMembers.engineer.image}
+              alt=""
+              width={320}
+              height={400}
+              className="h-full w-1/2 object-cover"
+            />
+            <Image
+              src={aboutMembers.advertiser.image}
+              alt=""
+              width={320}
+              height={400}
+              className="h-full w-1/2 object-cover"
+            />
+          </div>
+        ) : null}
       </div>
     </div>
   );

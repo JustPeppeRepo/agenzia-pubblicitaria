@@ -44,7 +44,13 @@ export const navLinks: NavLink[] = [
 /* 5. ContactCTA → siteConfig                                                 */
 /* -------------------------------------------------------------------------- */
 
-export const aboutTeam = {
+/**
+ * `true`  → presentazione a due (Giuseppe + Vito)
+ * `false` → solo Giuseppe (home About + pagina /about)
+ */
+export const DOUBLE = false;
+
+const aboutTeamDouble = {
   eyebrow: "Chi siamo",
   title: "Il nostro Team",
   description:
@@ -61,7 +67,28 @@ export const aboutTeam = {
   },
   image: "/images/team-placeholder.svg",
   imageAlt: "Il team — due persone appoggiate schiena a schiena",
-};
+} as const;
+
+const aboutTeamSolo = {
+  eyebrow: "Chi sono",
+  title: "Giuseppe — Web Developer",
+  description:
+    "Unisco la precisione del codice alla forza della comunicazione digitale.",
+  left: {
+    title: "Sviluppo web su misura",
+    description:
+      "Progetto siti e applicazioni web su misura: veloci, affidabili e pronti a crescere con te. Ogni riga di codice serve a offrire un'esperienza fluida a chi visita il tuo sito.",
+  },
+  right: {
+    title: "Visibilità e crescita",
+    description:
+      "Seguo anche la presenza online del progetto: SEO, contenuti e strategia di comunicazione perché il tuo brand emerga su Google e sui canali giusti. Non basta esistere online: serve essere visibili, credibili e convincenti.",
+  },
+  image: "/images/team-engineer.svg",
+  imageAlt: "Giuseppe — Web Developer",
+} as const;
+
+export const aboutTeam = DOUBLE ? aboutTeamDouble : aboutTeamSolo;
 
 /** CompetitiveComparison — WordPress vs Next.js */
 export const stackDuel: StackDuel = {
@@ -146,11 +173,21 @@ export type PlainTalkVisualId =
 /* About page                                                                 */
 /* -------------------------------------------------------------------------- */
 
-export const aboutPage = {
-  eyebrow: "About",
-  title: aboutTeam.title,
-  description: aboutTeam.description,
-};
+export const aboutPage = DOUBLE
+  ? {
+      eyebrow: "About",
+      metaDescription:
+        "Il team di Aiello Digital Studio: sviluppo web e strategia pubblicitaria per far crescere la tua presenza digitale a Palermo e oltre.",
+      ogDescription:
+        "Sviluppo web e strategia pubblicitaria: il team dietro siti veloci, SEO e campagne mirate.",
+    }
+  : {
+      eyebrow: "About",
+      metaDescription:
+        "Giuseppe di Aiello Digital Studio: sviluppo web, SEO e strategia digitale per far crescere la tua presenza online a Palermo e oltre.",
+      ogDescription:
+        "Sviluppo web e strategia digitale: il professionista dietro siti veloci, SEO e progetti su misura.",
+    };
 
 export const aboutMembers = {
   engineer: {

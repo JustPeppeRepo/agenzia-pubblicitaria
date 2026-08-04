@@ -11,7 +11,7 @@ export const projects: Project[] = [
       "Cage Escape Room è una piattaforma full-stack (Next.js + Prisma) che unisce vetrina immersiva e prenotazione online completa. Offre lato admin un pannello di gestione per il controllo delle prenotazioni e degli utenti.",
     category: "Experience",
     tags: ["Prenotazioni", "Pagamento in app", "Horror"],
-    image: "/images/projects/CAGEcopertina.png",
+    image: "/images/projects/CAGEcopertina.webp",
     liveUrl: "https://cage.example.com",
     previewVideo: {
       desktop: "/videos/card/card_CAGE-desktop-f.mp4",
@@ -139,7 +139,7 @@ export const projects: Project[] = [
       "Sito fotografico professionale (maternity, newborn, smash cake) con admin per gestire categorie e foto senza toccare il codice. Ottimizzazione automatica tramite sharp delle foto per rendere il sito veloce e performante.",
     category: "Brand",
     tags: ["Vetrina", "Portfolio fotografico", "HD"],
-    image: "/images/projects/SCAVOcopertina.png",
+    image: "/images/projects/SCAVOcopertina.webp",
     liveUrl: "https://scavo.example.com",
     previewVideo: {
       desktop: "/videos/card/card_SCAVO-desktop-f.mp4",

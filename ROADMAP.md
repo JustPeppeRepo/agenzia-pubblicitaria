@@ -29,9 +29,10 @@ Se una ottimizzazione richiede una flag experimental → **non implementarla**. 
 - [x] Rimosso `experimental.optimizePackageImports` da `next.config.ts`
 - [x] Icone brand via `getBrandIcon()` (niente `simple-icons` barrel / flags)
 - [x] Linee guida in `PROJECT_GUIDELINES.md` + questa roadmap
+- [x] Performance home (`/`): Hero LCP SSR-visibile (niente `opacity: 0` su H1/CTA); `HeroVisual` via `next/dynamic` solo md+; `ValueProposition` (CompetitiveComparison + PlainTalk) code-split con placeholder anti-CLS; copertine progetti WebP
 
 ## Prossimi passi
 
-- [ ] Performance: verificare Lighthouse senza ricorrere a config experimental
+- [ ] Verificare Lighthouse / Speed Insights post-deploy (target FCP/LCP Good su `/`, RES vicino a 100)
 - [ ] Contenuti / case study
 - [ ] Deploy produzione con sole API stabili

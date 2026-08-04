@@ -1,5 +1,26 @@
-import { CompetitiveComparison } from "@/components/sections/CompetitiveComparison";
-import { PlainTalk } from "@/components/sections/PlainTalk";
+import dynamic from "next/dynamic";
+
+const CompetitiveComparison = dynamic(
+  () =>
+    import("@/components/sections/CompetitiveComparison").then(
+      (m) => m.CompetitiveComparison,
+    ),
+  {
+    loading: () => (
+      <div className="min-h-[28rem] w-full" aria-hidden />
+    ),
+  },
+);
+
+const PlainTalk = dynamic(
+  () =>
+    import("@/components/sections/PlainTalk").then((m) => m.PlainTalk),
+  {
+    loading: () => (
+      <div className="min-h-[72rem] w-full sm:min-h-[80rem]" aria-hidden />
+    ),
+  },
+);
 
 export function ValueProposition() {
   return (

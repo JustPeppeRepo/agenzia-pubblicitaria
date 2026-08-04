@@ -135,7 +135,7 @@ Generazione statica via `generateStaticParams` da `src/data/projects.ts`.
 - [ ] `loading="lazy"` su immagini below-the-fold
 - [ ] Dynamic import per chart e table su pagina progetto
 - [ ] Metadata SEO su ogni pagina (`generateMetadata`)
-- [ ] Nessun bundle JS inutile in homepage
+- [x] Nessun bundle JS inutile in homepage (Hero SSR + `next/dynamic` sotto-fold)
 
 ---
 

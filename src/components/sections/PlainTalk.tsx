@@ -3,9 +3,9 @@
 import { motion } from "framer-motion";
 import { comparisonPlainTalk, type PlainTalkVisualId } from "@/data/site";
 import { LayeredWaves } from "@/components/decor/LayeredWaves";
+import { EASE_OUT, ENTRANCE_TRANSITION } from "@/components/motion/easing";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { PlainTalkVisual } from "@/components/sections/PlainTalkVisual";
-import { useMotionSafe } from "@/hooks/use-motion-safe";
 import { cn } from "@/lib/utils";
 
 type RowProps = {
@@ -16,8 +16,6 @@ type RowProps = {
 };
 
 function PlainTalkRow({ index, title, text, visual }: RowProps) {
-  const { mounted, prefersReducedMotion } = useMotionSafe();
-  const shouldAnimate = mounted && !prefersReducedMotion;
   const textFirst = index % 2 === 1;
 
   return (
@@ -26,14 +24,10 @@ function PlainTalkRow({ index, title, text, visual }: RowProps) {
         "mx-auto grid max-w-6xl items-center gap-8 px-6 md:grid-cols-2 md:gap-12 lg:gap-16",
         textFirst && "md:[&>*:first-child]:order-2",
       )}
-      initial={false}
-      whileInView={
-        shouldAnimate
-          ? { opacity: [0.35, 1], y: [28, 0] }
-          : undefined
-      }
+      initial={{ opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.35 }}
-      transition={{ duration: 0.55, ease: [0.25, 0.1, 0.25, 1] }}
+      transition={{ ...ENTRANCE_TRANSITION, ease: EASE_OUT }}
     >
       <div className={cn(textFirst ? "md:text-right" : "md:text-left")}>
         <h4 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">

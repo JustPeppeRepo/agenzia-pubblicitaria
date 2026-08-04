@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import type { ReactNode } from "react";
-import { useMotionSafe } from "@/hooks/use-motion-safe";
+import { EASE_OUT, ENTRANCE_TRANSITION } from "@/components/motion/easing";
 
 type FadeInProps = {
   children: ReactNode;
@@ -12,25 +12,24 @@ type FadeInProps = {
 };
 
 const directionOffset = {
-  up: { y: 32, x: 0 },
-  down: { y: -32, x: 0 },
-  left: { x: 32, y: 0 },
-  right: { x: -32, y: 0 },
+  up: { y: 24, x: 0 },
+  down: { y: -24, x: 0 },
+  left: { x: 24, y: 0 },
+  right: { x: -24, y: 0 },
   none: { x: 0, y: 0 },
 };
 
+/**
+ * Scroll entrance wrapper. Keep `initial` stable (never gate on `mounted`)
+ * so hydration → mount never snaps visible → hidden → animate.
+ */
 export function FadeIn({
   children,
   className,
   delay = 0,
   direction = "up",
 }: FadeInProps) {
-  const { prefersReducedMotion } = useMotionSafe();
   const offset = directionOffset[direction];
-
-  if (prefersReducedMotion) {
-    return <div className={className}>{children}</div>;
-  }
 
   return (
     <motion.div
@@ -38,7 +37,7 @@ export function FadeIn({
       initial={{ opacity: 0, ...offset }}
       whileInView={{ opacity: 1, x: 0, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.55, delay, ease: [0.25, 0.1, 0.25, 1] }}
+      transition={{ ...ENTRANCE_TRANSITION, delay }}
     >
       {children}
     </motion.div>
@@ -56,12 +55,6 @@ export function StaggerContainer({
   className,
   stagger = 0.1,
 }: StaggerContainerProps) {
-  const { prefersReducedMotion } = useMotionSafe();
-
-  if (prefersReducedMotion) {
-    return <div className={className}>{children}</div>;
-  }
-
   return (
     <motion.div
       className={className}
@@ -85,21 +78,15 @@ export function StaggerItem({
   children: ReactNode;
   className?: string;
 }) {
-  const { prefersReducedMotion } = useMotionSafe();
-
-  if (prefersReducedMotion) {
-    return <div className={className}>{children}</div>;
-  }
-
   return (
     <motion.div
       className={className}
       variants={{
-        hidden: { opacity: 0, y: 24 },
+        hidden: { opacity: 0, y: 20 },
         visible: {
           opacity: 1,
           y: 0,
-          transition: { duration: 0.5, ease: [0.25, 0.1, 0.25, 1] },
+          transition: { ...ENTRANCE_TRANSITION, duration: 0.5, ease: EASE_OUT },
         },
       }}
     >

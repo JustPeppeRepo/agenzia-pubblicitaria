@@ -104,9 +104,9 @@ export function HeroVisual({ className }: { className?: string }) {
       {/* Top: traffic */}
       <div className="relative z-10 flex shrink-0 items-start justify-between gap-2">
         <motion.div
-          initial={shouldAnimate ? { opacity: 0, y: -10 } : false}
+          initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.08 }}
+          transition={{ type: "tween", duration: 0.4, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
           className={cn(
             "max-w-[48%] rounded-2xl border border-accent/30 bg-background/85 p-2 shadow-md backdrop-blur-sm sm:p-2.5",
           )}
@@ -138,9 +138,9 @@ export function HeroVisual({ className }: { className?: string }) {
         </motion.div>
 
         <motion.div
-          initial={shouldAnimate ? { opacity: 0, y: -10 } : false}
+          initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.14 }}
+          transition={{ type: "tween", duration: 0.4, delay: 0.14, ease: [0.22, 1, 0.36, 1] }}
           className={cn(
             "max-w-[48%] rounded-2xl border border-accent-2/30 bg-background/85 p-2 shadow-md backdrop-blur-sm sm:p-2.5",
           )}
@@ -169,9 +169,9 @@ export function HeroVisual({ className }: { className?: string }) {
       <div className="relative z-10 flex min-h-0 flex-1 items-center justify-center px-0.5">
         <motion.div
           className="w-full max-w-[92%]"
-          initial={shouldAnimate ? { opacity: 0, y: 14, scale: 0.98 } : false}
+          initial={{ opacity: 0, y: 14, scale: 0.98 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 0.55, delay: 0.18, ease: [0.25, 0.1, 0.25, 1] }}
+          transition={{ type: "tween", duration: 0.55, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
         >
           <div
             className={cn(
@@ -267,9 +267,9 @@ export function HeroVisual({ className }: { className?: string }) {
       <div className="relative z-10 flex shrink-0 items-stretch gap-2">
         <motion.div
           className="w-[38%] shrink-0"
-          initial={shouldAnimate ? { opacity: 0, y: 10 } : false}
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.45, delay: 0.28 }}
+          transition={{ type: "tween", duration: 0.45, delay: 0.28, ease: [0.22, 1, 0.36, 1] }}
         >
           <div className="h-full rounded-2xl border border-foreground/12 bg-background/85 p-2 shadow-md backdrop-blur-sm sm:p-2.5">
             <p className="mb-1 text-[8px] font-semibold uppercase tracking-[0.14em] text-foreground/45">
@@ -287,9 +287,9 @@ export function HeroVisual({ className }: { className?: string }) {
 
         <motion.div
           className="min-w-0 flex-1"
-          initial={shouldAnimate ? { opacity: 0, y: 10 } : false}
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.45, delay: 0.34 }}
+          transition={{ type: "tween", duration: 0.45, delay: 0.34, ease: [0.22, 1, 0.36, 1] }}
         >
           <div className="h-full rounded-2xl border border-spark/30 bg-background/85 p-2 shadow-md backdrop-blur-sm sm:p-2.5">
             <div className="mb-1 flex items-center justify-between gap-1">

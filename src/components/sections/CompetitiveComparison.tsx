@@ -151,10 +151,10 @@ function StackShowdown() {
 
         <motion.div
           className="relative order-4 flex flex-col rounded-2xl border-2 border-emerald-500/60 border-b-emerald-500/80 bg-emerald-500/[0.18] p-5 shadow-md shadow-emerald-500/20 ring-1 ring-inset ring-emerald-500/45 sm:rounded-l-none sm:border-l-0 sm:p-6 sm:shadow-none dark:border dark:border-emerald-500/30 dark:border-b-emerald-500/50 dark:bg-emerald-500/[0.09] dark:shadow-foreground/5 dark:ring-emerald-500/25"
-          initial={shouldAnimate ? { opacity: 0, y: 18 } : false}
+          initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ type: "tween", duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         >
           <VsBadge className="left-0 top-1/2" />
           <span className="absolute right-4 top-4 rounded-md bg-emerald-600 px-2 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-white dark:bg-emerald-500">

@@ -1,3 +1,11 @@
+/**
+ * @file Root layout
+ * @description Shell globale: metadata SEO, theme boot, chrome UI, analytics.
+ *
+ * Components: Header, Footer, WhatsAppButton, MotionProvider, JsonLd, Script
+ * Data/API: siteConfig, organizationJsonLd(), websiteJsonLd(), getSiteUrl()
+ * External: @vercel/analytics, @vercel/speed-insights
+ */
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import Script from "next/script";
@@ -98,6 +106,13 @@ export const metadata: Metadata = {
     telephone: false,
     address: false,
   },
+  ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+    ? {
+        verification: {
+          google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+        },
+      }
+    : {}),
 };
 
 export default function RootLayout({

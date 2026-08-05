@@ -9,15 +9,9 @@ export function formatEmailLink(email: string): string {
   return `mailto:${email}`;
 }
 
-export function formatPhoneLink(phone: string): string {
-  return `tel:${phone.replace(/\s/g, "")}`;
-}
-
 export function formatWhatsAppLink(phone: string, message?: string): string {
   const digits = phone.replace(/\D/g, "");
   const base = `https://wa.me/${digits}`;
   if (!message) return base;
   return `${base}?text=${encodeURIComponent(message)}`;
 }
-
-export { validateContactForm } from "@/lib/contact";

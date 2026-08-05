@@ -122,11 +122,18 @@ export function ContactForm() {
 
   if (submitted) {
     return (
-      <div className="flex flex-col items-center py-8 text-center">
-        <span className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-emerald-500/10 text-3xl">
+      <div
+        className="flex flex-col items-center py-8 text-center"
+        role="status"
+        aria-live="polite"
+      >
+        <span
+          className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-emerald-500/10 text-3xl"
+          aria-hidden
+        >
           ✓
         </span>
-        <h3 className="text-xl font-semibold">Messaggio inviato!</h3>
+        <p className="text-xl font-semibold">Messaggio inviato!</p>
         <p className="mt-2 max-w-sm text-sm text-foreground/65">
           Grazie {safeFirstName}! Ti risponderò entro 24 ore a {safeEmail}.
         </p>
@@ -194,8 +201,11 @@ export function ContactForm() {
       <label className="flex cursor-pointer items-start gap-3 text-sm leading-5 text-foreground/70">
         <input
           type="checkbox"
+          id="privacy"
           name="privacy"
           checked={privacyAccepted}
+          aria-invalid={errors.privacy ? true : undefined}
+          aria-describedby={errors.privacy ? "privacy-error" : undefined}
           onChange={(e) => {
             setPrivacyAccepted(e.target.checked);
             if (errors.privacy) {
@@ -221,7 +231,7 @@ export function ContactForm() {
         </span>
       </label>
       {errors.privacy ? (
-        <p className="text-xs text-red-500" role="alert">
+        <p id="privacy-error" className="text-xs text-red-500" role="alert">
           {errors.privacy}
         </p>
       ) : null}
@@ -229,6 +239,7 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={submitting}
+        aria-busy={submitting}
         className="w-full rounded-full bg-accent px-6 py-3 text-sm font-medium text-accent-foreground shadow-sm shadow-accent/25 transition-colors hover:bg-accent/90 disabled:cursor-not-allowed disabled:opacity-60"
       >
         {submitting ? "Invio in corso…" : "Invia messaggio"}
@@ -276,25 +287,33 @@ function Field({
   autoComplete,
   disabled,
 }: FieldProps) {
+  const errorId = `${name}-error`;
   const inputClasses =
     "mt-1 w-full rounded-xl border bg-background px-4 py-3 text-sm outline-none transition-colors focus:border-foreground/40 disabled:opacity-60 " +
     (error ? "border-red-400" : "border-foreground/15");
+  const describedBy = error ? errorId : undefined;
 
   return (
-    <label className="block">
-      <span className="text-sm font-medium">{label}</span>
+    <div className="block">
+      <label htmlFor={name} className="text-sm font-medium">
+        {label}
+      </label>
       {as === "textarea" ? (
         <textarea
+          id={name}
           name={name}
           rows={5}
           value={value}
           onChange={onChange}
           maxLength={maxLength}
           disabled={disabled}
+          aria-invalid={error ? true : undefined}
+          aria-describedby={describedBy}
           className={`${inputClasses} resize-none`}
         />
       ) : (
         <input
+          id={name}
           type={type}
           name={name}
           value={value}
@@ -302,10 +321,16 @@ function Field({
           maxLength={maxLength}
           autoComplete={autoComplete}
           disabled={disabled}
+          aria-invalid={error ? true : undefined}
+          aria-describedby={describedBy}
           className={inputClasses}
         />
       )}
-      {error ? <p className="mt-1 text-xs text-red-500">{error}</p> : null}
-    </label>
+      {error ? (
+        <p id={errorId} className="mt-1 text-xs text-red-500" role="alert">
+          {error}
+        </p>
+      ) : null}
+    </div>
   );
 }

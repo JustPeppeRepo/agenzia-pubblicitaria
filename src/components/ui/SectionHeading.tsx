@@ -7,6 +7,8 @@ type SectionHeadingProps = {
   align?: "left" | "center";
   className?: string;
   dark?: boolean;
+  /** Page-level title uses h1; section titles default to h2. */
+  as?: "h1" | "h2";
 };
 
 export function SectionHeading({
@@ -16,6 +18,7 @@ export function SectionHeading({
   align = "left",
   className,
   dark = false,
+  as: TitleTag = "h2",
 }: SectionHeadingProps) {
   return (
     <div
@@ -37,14 +40,14 @@ export function SectionHeading({
         </p>
       ) : null}
       {title ? (
-        <h2
+        <TitleTag
           className={cn(
             "text-3xl font-semibold tracking-tight sm:text-4xl",
             dark ? "text-accent-foreground" : "text-foreground",
           )}
         >
           {title}
-        </h2>
+        </TitleTag>
       ) : null}
       {description ? (
         <p

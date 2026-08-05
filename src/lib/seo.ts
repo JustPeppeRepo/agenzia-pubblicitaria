@@ -1,4 +1,4 @@
-import { siteConfig } from "@/data/site";
+import { aboutMembers, siteConfig } from "@/data/site";
 
 export function getSiteUrl(): string {
   return (
@@ -47,6 +47,38 @@ export function websiteJsonLd() {
     description: siteConfig.description,
     inLanguage: "it-IT",
     publisher: {
+      "@type": "Organization",
+      name: siteConfig.name,
+      url: getSiteUrl(),
+    },
+  };
+}
+
+/** Person identity for the developer/creative behind the studio (homepage + about). */
+export function personJsonLd() {
+  const { firstName, lastName } = siteConfig.privacyController;
+  const fullName = `${firstName} ${lastName}`.trim();
+  const engineer = aboutMembers.engineer;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: fullName,
+    givenName: firstName,
+    familyName: lastName,
+    jobTitle: engineer.role,
+    description: siteConfig.description,
+    url: getSiteUrl(),
+    email: siteConfig.email,
+    telephone: siteConfig.phone,
+    image: absoluteUrl(engineer.image),
+    sameAs: siteConfig.social.map((s) => s.href),
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Palermo",
+      addressCountry: "IT",
+    },
+    worksFor: {
       "@type": "Organization",
       name: siteConfig.name,
       url: getSiteUrl(),

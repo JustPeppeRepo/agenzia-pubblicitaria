@@ -1,3 +1,11 @@
+/**
+ * @file Privacy `/privacy`
+ * @description Informativa GDPR sul trattamento dati del form contatti.
+ *
+ * Components: FadeIn, Link (next/link)
+ * Data/API: siteConfig.privacyController
+ * Hooks: (nessuno — Server Component)
+ */
 import type { Metadata } from "next";
 import Link from "next/link";
 import { siteConfig } from "@/data/site";
@@ -13,6 +21,12 @@ export const metadata: Metadata = {
     description:
       "Come trattiamo i dati personali raccolti tramite il form di contatto.",
     url: "/privacy",
+  },
+  twitter: {
+    card: "summary",
+    title: `Privacy Policy | ${siteConfig.name}`,
+    description:
+      "Come trattiamo i dati personali raccolti tramite il form di contatto.",
   },
   robots: { index: true, follow: true },
 };

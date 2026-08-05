@@ -1,3 +1,11 @@
+/**
+ * @file Contact `/contact`
+ * @description Form di contatto e canali diretti (email / social).
+ *
+ * Components: SectionHeading, ContactForm, SocialLinks, FadeIn
+ * Data/API: ContactForm → POST /api/contact (+ FormSubmit lato client)
+ * Hooks: (nessuno in page — ContactForm è client component)
+ */
 import type { Metadata } from "next";
 import { ContactForm } from "@/components/sections/ContactForm";
 import { FadeIn } from "@/components/motion/FadeIn";
@@ -15,6 +23,12 @@ export const metadata: Metadata = {
       "Richiedi un preventivo per siti web, SEO e pubblicità online.",
     url: "/contact",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Contatti | Aiello Digital Studio",
+    description:
+      "Richiedi un preventivo per siti web, SEO e pubblicità online.",
+  },
 };
 
 export default function ContactPage() {
@@ -23,6 +37,7 @@ export default function ContactPage() {
       <div className="grid gap-12 lg:grid-cols-2">
         <FadeIn>
           <SectionHeading
+            as="h1"
             eyebrow="Contatti"
             title="Parliamo del tuo prossimo progetto"
             description="Compila il modulo, oppure contattami direttamente via email."

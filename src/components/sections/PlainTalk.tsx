@@ -30,9 +30,9 @@ function PlainTalkRow({ index, title, text, visual }: RowProps) {
       transition={{ ...ENTRANCE_TRANSITION, ease: EASE_OUT }}
     >
       <div className={cn(textFirst ? "md:text-right" : "md:text-left")}>
-        <h4 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+        <h3 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
           {title}
-        </h4>
+        </h3>
         <p
           className={cn(
             "mt-4 max-w-xl text-base leading-7 text-foreground/65 sm:text-lg sm:leading-8",
@@ -87,9 +87,9 @@ export function PlainTalk() {
             <p className="text-sm font-medium uppercase tracking-[0.2em] text-[#b45309] dark:text-spark">
               {eyebrow}
             </p>
-            <h3 className="mt-3 text-2xl font-semibold tracking-tight sm:text-4xl">
+            <h2 className="mt-3 text-2xl font-semibold tracking-tight sm:text-4xl">
               {title}
-            </h3>
+            </h2>
             <p className="mt-4 text-base leading-7 text-foreground/65 sm:text-lg">
               {intro}
             </p>

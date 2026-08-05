@@ -69,54 +69,11 @@ export type StackDuel = {
   ours: StackDuelSide;
 };
 
-export type ProjectMetric = {
-  id: string;
-  label: string;
-  before: string;
-  after: string;
-  improvement: string;
-};
-
-export type ProjectChartPoint = {
-  month: string;
-  visitors: number;
-  conversions: number;
-  loadTime: number;
-};
-
-/** Desktop + mobile sources for project preview / detail videos */
 export type ProjectVideoSet = {
   desktop: string;
   mobile: string;
   /** First-frame poster for the mobile video (avoids cover-image flash) */
   mobilePoster?: string;
-};
-
-export type ProjectVitalRating = "good" | "needs-improvement" | "poor";
-
-export type ProjectVital = {
-  id: string;
-  label: string;
-  value: string;
-  rating: ProjectVitalRating;
-  description: string;
-};
-
-export type ProjectInsightStat = {
-  id: string;
-  label: string;
-  value: string;
-  delta?: string;
-  deltaLabel?: string;
-  /** false = delta is negative/bad (red); default treats delta as positive */
-  deltaPositive?: boolean;
-};
-
-/** Vercel-style performance & audience snapshot for case studies */
-export type ProjectInsights = {
-  performanceScore: number;
-  vitals: ProjectVital[];
-  stats: ProjectInsightStat[];
 };
 
 export type Project = {
@@ -139,7 +96,4 @@ export type Project = {
   solution: string;
   architecture: string[];
   stack: string[];
-  metrics: ProjectMetric[];
-  chartData: ProjectChartPoint[];
-  insights?: ProjectInsights;
 };

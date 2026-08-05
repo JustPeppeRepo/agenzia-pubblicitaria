@@ -1,3 +1,12 @@
+/**
+ * @file Project detail `/projects/[slug]`
+ * @description Case study SSG: hero (immagine/video), problema, soluzione, stack.
+ *
+ * Components: CaseStudySection, ProjectHeroVideo, FadeIn, JsonLd, Image, Link
+ * Data/API: getProjectBySlug(), getAllProjectSlugs(), generateStaticParams(),
+ *   generateMetadata(), breadcrumbJsonLd(), creativeWorkJsonLd()
+ * Hooks: (nessuno in page — ProjectHeroVideo è client)
+ */
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";

@@ -4,7 +4,7 @@
 @custom-variant dark (&:where(.dark, .dark *, [data-theme="dark"], [data-theme="dark"] *));
 
 /* =============================================================================
-   PALETTE SWITCH — change `data-palette` on <html>, or use the floating switcher.
+   PALETTE SWITCH — change `data-palette` on <html> (persisted via localStorage key `palette`).
    Values: brand-echo | electric-signal | mediterranean-heat | lime-punch
    Accent / accent-2 / spark / backgrounds live here; meshes & washes derive from them.
    ============================================================================= */

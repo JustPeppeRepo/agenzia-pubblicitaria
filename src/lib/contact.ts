@@ -1,3 +1,5 @@
+import { z } from "zod";
+
 export const CONTACT_LIMITS = {
   nameMin: 2,
   nameMax: 80,
@@ -8,8 +10,6 @@ export const CONTACT_LIMITS = {
 
 /** Honeypot field name — must stay empty for humans. */
 export const CONTACT_HONEYPOT_FIELD = "website";
-
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 /** Strip CR/LF and other controls that enable email header injection. */
 export function sanitizeHeaderValue(value: string): string {
@@ -25,6 +25,56 @@ export function toPlainText(value: string): string {
     .trim();
 }
 
+function sanitizeMessage(value: string): string {
+  return value
+    .replace(/<[^>]*>/g, "")
+    .replace(/[<>&"'`]/g, "")
+    .replace(/\r\n/g, "\n")
+    .replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/g, "")
+    .trim()
+    .slice(0, CONTACT_LIMITS.messageMax);
+}
+
+const contactFieldsSchema = z.object({
+  name: z
+    .string()
+    .transform(sanitizeHeaderValue)
+    .pipe(
+      z
+        .string()
+        .min(CONTACT_LIMITS.nameMin, "Il nome deve contenere almeno 2 caratteri.")
+        .max(
+          CONTACT_LIMITS.nameMax,
+          `Il nome non può superare ${CONTACT_LIMITS.nameMax} caratteri.`,
+        ),
+    ),
+  email: z
+    .string()
+    .transform((v) => sanitizeHeaderValue(v).toLowerCase())
+    .pipe(
+      z
+        .string()
+        .email("Inserisci un indirizzo email valido.")
+        .max(CONTACT_LIMITS.emailMax, "Inserisci un indirizzo email valido."),
+    ),
+  message: z
+    .string()
+    .max(
+      CONTACT_LIMITS.messageMax,
+      `Il messaggio non può superare ${CONTACT_LIMITS.messageMax} caratteri.`,
+    )
+    .transform(sanitizeMessage)
+    .pipe(
+      z
+        .string()
+        .min(
+          CONTACT_LIMITS.messageMin,
+          "Il messaggio deve contenere almeno 10 caratteri.",
+        ),
+    ),
+});
+
+/** Full payload including honeypot (server-side). */
 export type ContactPayload = {
   name: string;
   email: string;
@@ -37,55 +87,38 @@ export type ContactValidationResult =
   | { ok: true; data: { name: string; email: string; message: string } }
   | { ok: false; errors: Record<string, string>; honeypot?: boolean };
 
+function zodIssuesToErrors(
+  issues: z.ZodIssue[],
+): Record<string, string> {
+  const errors: Record<string, string> = {};
+  for (const issue of issues) {
+    const key = String(issue.path[0] ?? "form");
+    if (!errors[key]) errors[key] = issue.message;
+  }
+  return errors;
+}
+
 export function validateContactPayload(
   input: ContactPayload,
 ): ContactValidationResult {
-  if (typeof input.website === "string" && input.website.trim().length > 0) {
+  const website =
+    typeof input.website === "string" ? input.website : "";
+
+  if (website.trim().length > 0) {
     return { ok: false, errors: {}, honeypot: true };
   }
 
-  const errors: Record<string, string> = {};
+  const parsed = contactFieldsSchema.safeParse({
+    name: typeof input.name === "string" ? input.name : "",
+    email: typeof input.email === "string" ? input.email : "",
+    message: typeof input.message === "string" ? input.message : "",
+  });
 
-  const name = sanitizeHeaderValue(
-    typeof input.name === "string" ? input.name : "",
-  );
-  const email = sanitizeHeaderValue(
-    typeof input.email === "string" ? input.email : "",
-  ).toLowerCase();
-  const rawMessage = typeof input.message === "string" ? input.message : "";
-  // Preserve newlines in the email body; strip markup / injection chars only.
-  const message = rawMessage
-    .replace(/<[^>]*>/g, "")
-    .replace(/[<>&"'`]/g, "")
-    .replace(/\r\n/g, "\n")
-    .replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/g, "")
-    .trim()
-    .slice(0, CONTACT_LIMITS.messageMax);
-
-  if (name.length < CONTACT_LIMITS.nameMin) {
-    errors.name = "Il nome deve contenere almeno 2 caratteri.";
-  } else if (name.length > CONTACT_LIMITS.nameMax) {
-    errors.name = `Il nome non può superare ${CONTACT_LIMITS.nameMax} caratteri.`;
+  if (!parsed.success) {
+    return { ok: false, errors: zodIssuesToErrors(parsed.error.issues) };
   }
 
-  if (!EMAIL_REGEX.test(email) || email.length > CONTACT_LIMITS.emailMax) {
-    errors.email = "Inserisci un indirizzo email valido.";
-  }
-
-  if (message.length < CONTACT_LIMITS.messageMin) {
-    errors.message = "Il messaggio deve contenere almeno 10 caratteri.";
-  } else if (rawMessage.trim().length > CONTACT_LIMITS.messageMax) {
-    errors.message = `Il messaggio non può superare ${CONTACT_LIMITS.messageMax} caratteri.`;
-  }
-
-  if (Object.keys(errors).length > 0) {
-    return { ok: false, errors };
-  }
-
-  return {
-    ok: true,
-    data: { name, email, message },
-  };
+  return { ok: true, data: parsed.data };
 }
 
 /** Client-side mirror of server rules (honeypot excluded). */

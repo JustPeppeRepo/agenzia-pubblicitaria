@@ -16,7 +16,7 @@ export function Footer() {
           </p>
         </div>
 
-        <div>
+        <nav aria-label="Footer">
           <p className="text-sm font-medium uppercase tracking-[0.15em] text-foreground/50">
             Navigazione
           </p>
@@ -32,7 +32,7 @@ export function Footer() {
               </li>
             ))}
           </ul>
-        </div>
+        </nav>
 
         <div>
           <p className="text-sm font-medium uppercase tracking-[0.15em] text-foreground/50">

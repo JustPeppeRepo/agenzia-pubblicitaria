@@ -9,6 +9,13 @@ export type SocialLink = {
   label: string;
 };
 
+export type PrivacyController = {
+  /** Titolare del trattamento — modifica con i dati reali */
+  firstName: string;
+  lastName: string;
+  email: string;
+};
+
 export type SiteConfig = {
   name: string;
   /** Canonical site origin, no trailing slash (used by sitemap / metadata). */
@@ -20,6 +27,8 @@ export type SiteConfig = {
   phone: string;
   location: string;
   social: SocialLink[];
+  /** GDPR — titolare del trattamento (pagina /privacy) */
+  privacyController: PrivacyController;
 };
 
 export type Technology = {

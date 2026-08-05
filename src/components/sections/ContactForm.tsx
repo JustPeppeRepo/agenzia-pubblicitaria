@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { siteConfig } from "@/data/site";
 import {
   CONTACT_HONEYPOT_FIELD,
@@ -27,6 +28,7 @@ const initialForm: FormData = {
 export function ContactForm() {
   const [form, setForm] = useState<FormData>(initialForm);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [privacyAccepted, setPrivacyAccepted] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
@@ -50,6 +52,10 @@ export function ContactForm() {
     setFormError(null);
 
     const validationErrors = validateContactForm(form);
+    if (!privacyAccepted) {
+      validationErrors.privacy =
+        "Per inviare il messaggio, conferma di aver preso visione della Privacy Policy.";
+    }
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
@@ -185,6 +191,41 @@ export function ContactForm() {
         </p>
       ) : null}
 
+      <label className="flex cursor-pointer items-start gap-3 text-sm leading-5 text-foreground/70">
+        <input
+          type="checkbox"
+          name="privacy"
+          checked={privacyAccepted}
+          onChange={(e) => {
+            setPrivacyAccepted(e.target.checked);
+            if (errors.privacy) {
+              setErrors((prev) => {
+                const next = { ...prev };
+                delete next.privacy;
+                return next;
+              });
+            }
+          }}
+          disabled={submitting}
+          className="mt-0.5 size-4 shrink-0 rounded border-foreground/25 accent-accent"
+        />
+        <span>
+          Ho preso visione della{" "}
+          <Link
+            href="/privacy"
+            className="font-medium text-foreground underline underline-offset-2 transition-colors hover:text-accent"
+          >
+            Privacy Policy
+          </Link>
+          .
+        </span>
+      </label>
+      {errors.privacy ? (
+        <p className="text-xs text-red-500" role="alert">
+          {errors.privacy}
+        </p>
+      ) : null}
+
       <button
         type="submit"
         disabled={submitting}
@@ -192,6 +233,18 @@ export function ContactForm() {
       >
         {submitting ? "Invio in corso…" : "Invia messaggio"}
       </button>
+
+      <p className="text-center text-xs leading-5 text-foreground/55">
+        Inviando questo messaggio accetti il trattamento dei dati per ricevere
+        risposta. Leggi la{" "}
+        <Link
+          href="/privacy"
+          className="underline underline-offset-2 transition-colors hover:text-foreground"
+        >
+          Privacy Policy
+        </Link>
+        .
+      </p>
     </form>
   );
 }

@@ -16,16 +16,17 @@ export const siteConfig: SiteConfig = {
   location: "Palermo, Italia",
   social: [
     {
-      platform: "linkedin",
-      href: "https://linkedin.com",
-      label: "LinkedIn",
-    },
-    {
       platform: "github",
       href: "https://github.com/JustPeppeRepo",
       label: "GitHub",
     },
   ],
+  /** GDPR — sostituisci i placeholder con i dati reali del titolare */
+  privacyController: {
+    firstName: "Giuseppe",
+    lastName: "Aiello",
+    email: "aiello.digitalstudio@gmail.com",
+  },
 };
 
 export const navLinks: NavLink[] = [

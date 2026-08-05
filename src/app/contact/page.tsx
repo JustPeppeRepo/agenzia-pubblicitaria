@@ -25,7 +25,7 @@ export default function ContactPage() {
           <SectionHeading
             eyebrow="Contatti"
             title="Parliamo del tuo prossimo progetto"
-            description="Compila il modulo, oppure contattami direttamente via email o LinkedIn."
+            description="Compila il modulo, oppure contattami direttamente via email."
           />
           <SocialLinks className="mt-6" />
         </FadeIn>

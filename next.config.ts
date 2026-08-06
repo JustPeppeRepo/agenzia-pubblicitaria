@@ -1,9 +1,12 @@
 import type { NextConfig } from "next";
 
+const isDev = process.env.NODE_ENV === "development";
+
 /**
  * CSP tuned for App Router + next/font (self-hosted) + Vercel Analytics/Speed
  * Insights + client FormSubmit delivery. Inline theme boot script requires
  * 'unsafe-inline' in script-src (hashing breaks on minification changes).
+ * 'unsafe-eval' is only for React/Next.js debugging in development — never in production.
  */
 const ContentSecurityPolicy = [
   "default-src 'self'",
@@ -11,14 +14,26 @@ const ContentSecurityPolicy = [
   "object-src 'none'",
   "frame-ancestors 'none'",
   "form-action 'self'",
-  "script-src 'self' 'unsafe-inline' https://va.vercel-scripts.com https://vitals.vercel-insights.com",
+  [
+    "script-src 'self' 'unsafe-inline'",
+    isDev ? "'unsafe-eval'" : null,
+    "https://va.vercel-scripts.com https://vitals.vercel-insights.com",
+  ]
+    .filter(Boolean)
+    .join(" "),
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob: https:",
   "font-src 'self' data:",
-  "connect-src 'self' https://formsubmit.co https://va.vercel-scripts.com https://vitals.vercel-insights.com https://*.vercel-insights.com",
+  [
+    "connect-src 'self'",
+    isDev ? "ws: wss:" : null,
+    "https://formsubmit.co https://va.vercel-scripts.com https://vitals.vercel-insights.com https://*.vercel-insights.com",
+  ]
+    .filter(Boolean)
+    .join(" "),
   "media-src 'self' blob:",
   "worker-src 'self' blob:",
-  "upgrade-insecure-requests",
+  ...(isDev ? [] : ["upgrade-insecure-requests"]),
 ].join("; ");
 
 const securityHeaders = [

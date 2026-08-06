@@ -12,7 +12,7 @@ export const projects: Project[] = [
     category: "Experience",
     tags: ["Prenotazioni", "Pagamento in app", "Horror"],
     image: "/images/projects/CAGEcopertina.webp",
-    liveUrl: "https://cage.example.com",
+    liveUrl: "https://cageroom.it",
     previewVideo: {
       desktop: "/videos/card/card_CAGE-desktop-f.mp4",
       mobile: "/videos/card/card_CAGE-desktop-f.mp4",
@@ -46,7 +46,7 @@ export const projects: Project[] = [
     category: "Brand",
     tags: ["Vetrina", "Portfolio fotografico", "HD"],
     image: "/images/projects/SCAVOcopertina.webp",
-    liveUrl: "https://scavo.example.com",
+    liveUrl: "https://scavo-portfolio-olive.vercel.app",
     previewVideo: {
       desktop: "/videos/card/card_SCAVO-desktop-f.mp4",
       mobile: "/videos/card/card_SCAVO-desktop-f.mp4",

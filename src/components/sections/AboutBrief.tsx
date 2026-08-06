@@ -71,8 +71,11 @@ export function AboutBrief() {
           </FadeIn>
 
           <FadeIn delay={0.15} className="mt-16">
-            <p className="mb-6 text-sm font-medium uppercase tracking-[0.15em] text-[#b45309] dark:text-spark">
+            <p className="mb-2 text-sm font-medium uppercase tracking-[0.15em] text-[#b45309] dark:text-spark">
               Stack principale
+            </p>
+            <p className="mb-6 max-w-2xl text-sm leading-6 text-foreground/65 sm:text-base">
+              Gli strumenti con cui costruisco siti veloci, sicuri e pronti a crescere con il tuo progetto.
             </p>
             <StaggerContainer className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-6">
               {featuredTechnologies.map((tech) => (

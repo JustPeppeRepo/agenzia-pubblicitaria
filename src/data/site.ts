@@ -135,7 +135,7 @@ export const comparisonPlainTalk = {
       id: "seo",
       visual: "seo",
       title: "SEO",
-      text: "È il modo in cui Google decide di mostrarti (o meno) quando qualcuno cerca i tuoi servizi. “SEO massimizzata” significa che struttuiamo il sito perché quando un cliente cerca i tuoi servizi, il tuo sito appare tra i primi risultati.",
+      text: "È il modo in cui Google decide di mostrare il tuo sito (o meno) quando qualcuno cerca i tuoi servizi. **SEO massimizzata** significa che strutturiamo il progetto web in modo che quando un cliente cerca i tuoi servizi, questo appare tra i primi risultati.",
     },
     {
       id: "responsive",
@@ -149,19 +149,19 @@ export const comparisonPlainTalk = {
       id: "speed",
       visual: "speed",
       term: "Velocità",
-      text: "La velocità è essenziale sia per la SEO di cui parlavamo prima che per l'esperienza utente (UX). Se il possibile cliente aspetta troppo, chiude e va dal concorrente. Un sito veloce tiene le persone lì e aumenta le richieste.",
+      text: "La velocità è essenziale sia per la SEO che per l'esperienza utente (UX). Se il possibile cliente aspetta troppo, chiude e va dal concorrente. Un sito veloce tiene le persone lì e aumenta le richieste.",
     },
     {
       id: "security",
       visual: "security",
       term: "Sicurezza",
-      text: "Quanto è difficile per qualcuno attaccare o compromettere il sito. Un sito poco protetto può essere bloccato o compromesso, usato per rubare dati con danni a te e ai tuoi clienti.",
+      text: "Un sito poco protetto può essere bloccato o compromesso, usato per rubare dati con danni a te e ai tuoi clienti.",
     },
     {
       id: "scale",
       visual: "scale",
       term: "Scalabilità",
-      text: "La capacità del sito di crescere con te. Se il numero di clienti aumenta o hai deciso di aggiungere nuove funzionalità non dobbiamo buttare tutto e rifare il progetto, grazie alla flessibilità del nostro approccio.",
+      text: " Se il numero di clienti aumenta o hai deciso di aggiungere nuove funzionalità non dobbiamo buttare tutto e rifare il progetto, grazie alla flessibilità e lungimiranza del nostro approccio.",
     },
   ]
 } as const;

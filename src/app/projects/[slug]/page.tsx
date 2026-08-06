@@ -1,6 +1,6 @@
 /**
  * @file Project detail `/projects/[slug]`
- * @description Case study SSG: hero (immagine/video), problema, soluzione, stack.
+ * @description Case study SSG: hero (mockup + video on click), problema, soluzione, stack.
  *
  * Components: CaseStudySection, ProjectHeroVideo, FadeIn, JsonLd, Image, Link
  * Data/API: getProjectBySlug(), getAllProjectSlugs(), generateStaticParams(),

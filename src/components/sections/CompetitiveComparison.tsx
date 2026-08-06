@@ -133,7 +133,7 @@ function StackShowdown() {
             <div className="mt-auto pt-6">
               <div className="flex flex-wrap items-center gap-2 border-t border-rose-500/40 pt-3 dark:border-rose-500/20">
                 <span className="text-[11px] font-medium uppercase tracking-[0.14em] text-rose-800 dark:text-rose-300/60">
-                  Tipico
+                  Stack tipico
                 </span>
                 {competitor.stackIds.map((id) => (
                   <span
@@ -188,7 +188,7 @@ function StackShowdown() {
             <div className="mt-auto pt-6">
               <div className="flex flex-wrap items-center gap-2 border-t border-emerald-500/45 pt-3 dark:border-emerald-500/20">
                 <span className="text-[11px] font-medium uppercase tracking-[0.14em] text-emerald-900 dark:text-emerald-300/70">
-                  Con
+                  Il mio stack
                 </span>
                 {ours.stackIds.map((id) => (
                   <span

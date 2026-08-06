@@ -142,6 +142,12 @@ export function Header() {
           </motion.div>
         ) : null}
       </AnimatePresence>
+
+      {/* Soft fade into the hero — no hard bottom edge */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-full h-10 bg-gradient-to-b from-background/25 to-transparent"
+      />
     </header>
   );
 }

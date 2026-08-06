@@ -308,17 +308,116 @@ html {
   animation: hero-bar-rise 0.7s ease-out both;
 }
 
-/* Soften infinite motion on small screens */
+@keyframes hero-orbit-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.hero-orbit-spin {
+  animation: hero-orbit-spin 48s linear infinite;
+}
+
+@keyframes hero-i-orbit-rev {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+.hero-i-orbit-rev {
+  animation: hero-i-orbit-rev 96s linear infinite;
+}
+
+/* H — perspective product mockup + live-preview ripples */
+.hero-h-stage {
+  perspective: 1400px;
+  perspective-origin: 55% 45%;
+}
+
+.hero-h-tilt {
+  transform: rotateY(-14deg) rotateX(6deg) rotateZ(-1.5deg);
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+@keyframes hero-h-orbit-travel {
+  from {
+    offset-distance: 0%;
+  }
+  to {
+    offset-distance: 100%;
+  }
+}
+
+.hero-h-orbit-travel {
+  offset-anchor: center;
+  animation-name: hero-h-orbit-travel;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes hero-h-orbit-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes hero-h-orbit-spin-rev {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+.hero-h-orbit-spin {
+  animation: hero-h-orbit-spin 14s linear infinite;
+}
+
+.hero-h-orbit-spin-rev {
+  animation: hero-h-orbit-spin-rev 14s linear infinite;
+}
+
+@keyframes hero-h-ripple {
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(2.25);
+    opacity: 0;
+  }
+}
+
+.hero-h-ripple {
+  box-shadow: 0 0 0 1.5px color-mix(in srgb, var(--accent) 60%, transparent);
+  animation: hero-h-ripple 2.4s ease-out infinite;
+}
+
+.hero-h-ripple-delay {
+  animation-delay: 1.2s;
+}
+
+/* Soften infinite motion on small screens — keep H orbit logos moving (slower) */
 @media (max-width: 767px) {
   .hero-float-a,
   .hero-float-b,
   .hero-dash-flow,
-  .hero-dash-flow-rev {
+  .hero-dash-flow-rev,
+  .hero-orbit-spin,
+  .hero-i-orbit-rev,
+  .hero-h-ripple,
+  .hero-h-ripple-delay,
+  .hero-h-orbit-travel,
+  .hero-h-orbit-spin,
+  .hero-h-orbit-spin-rev {
     animation: none !important;
   }
 
   .hero-float-c {
     animation: hero-float-c 6.5s ease-in-out infinite !important;
+  }
+
+  .hero-h-tilt {
+    transform: none;
   }
 }
 
@@ -348,23 +447,35 @@ body {
     );
 }
 
-/* Hero mesh — blooms only on upper sides; bottom stays clear for ink fade */
+/* Hero mesh — bright blooms only in the upper band; lower edge matches base bg */
 .bg-hero-mesh {
   background-image:
     radial-gradient(
-      ellipse 70% 55% at 92% 8%,
-      color-mix(in srgb, var(--accent) 18%, transparent),
-      transparent 58%
+      ellipse 78% 56% at 94% 0%,
+      color-mix(in oklab, var(--accent) 22%, transparent) 0%,
+      color-mix(in oklab, var(--accent) 10%, transparent) 32%,
+      color-mix(in oklab, var(--accent) 3%, transparent) 55%,
+      transparent 78%
     ),
     radial-gradient(
-      ellipse 60% 50% at 6% 12%,
-      color-mix(in srgb, var(--accent-2) 16%, transparent),
-      transparent 55%
+      ellipse 68% 52% at 4% 0%,
+      color-mix(in oklab, var(--accent-2) 18%, transparent) 0%,
+      color-mix(in oklab, var(--accent-2) 8%, transparent) 34%,
+      color-mix(in oklab, var(--accent-2) 2%, transparent) 58%,
+      transparent 78%
     ),
     radial-gradient(
-      ellipse 45% 35% at 48% 0%,
-      color-mix(in srgb, var(--spark) 12%, transparent),
-      transparent 50%
+      ellipse 56% 38% at 50% -4%,
+      color-mix(in oklab, var(--spark) 14%, transparent) 0%,
+      color-mix(in oklab, var(--spark) 5%, transparent) 40%,
+      transparent 72%
+    ),
+    linear-gradient(
+      to bottom,
+      transparent 0%,
+      transparent 55%,
+      color-mix(in srgb, var(--background) 55%, transparent) 78%,
+      var(--background) 100%
     );
 }
 
@@ -388,57 +499,57 @@ body {
   );
 }
 
-/* Sticky nav — vivid brand spectrum (light + dark) */
+/* Sticky nav — barely-there brand spectrum (light + dark) */
 .bg-nav {
-  background-color: color-mix(in srgb, var(--background) 55%, transparent);
+  background-color: color-mix(in srgb, var(--background) 62%, transparent);
   background-image:
     radial-gradient(
-      ellipse 55% 140% at 8% 50%,
-      color-mix(in srgb, var(--accent) 42%, transparent),
-      transparent 70%
+      ellipse 60% 160% at 8% 50%,
+      color-mix(in srgb, var(--accent) 12%, transparent),
+      transparent 78%
     ),
     radial-gradient(
-      ellipse 50% 130% at 52% 20%,
-      color-mix(in srgb, var(--accent-2) 38%, transparent),
-      transparent 68%
+      ellipse 55% 150% at 52% 20%,
+      color-mix(in srgb, var(--accent-2) 10%, transparent),
+      transparent 76%
     ),
     radial-gradient(
-      ellipse 55% 140% at 94% 60%,
-      color-mix(in srgb, var(--spark) 40%, transparent),
-      transparent 70%
+      ellipse 60% 160% at 94% 60%,
+      color-mix(in srgb, var(--spark) 11%, transparent),
+      transparent 78%
     ),
     linear-gradient(
       105deg,
-      color-mix(in srgb, var(--accent) 22%, transparent) 0%,
-      color-mix(in srgb, var(--accent-2) 18%, transparent) 45%,
-      color-mix(in srgb, var(--spark) 20%, transparent) 100%
+      color-mix(in srgb, var(--accent) 6%, transparent) 0%,
+      color-mix(in srgb, var(--accent-2) 5%, transparent) 45%,
+      color-mix(in srgb, var(--spark) 5%, transparent) 100%
     );
 }
 
 html.dark .bg-nav,
 html[data-theme="dark"] .bg-nav {
-  background-color: color-mix(in srgb, var(--background) 45%, transparent);
+  background-color: color-mix(in srgb, var(--background) 52%, transparent);
   background-image:
     radial-gradient(
-      ellipse 55% 140% at 6% 40%,
-      color-mix(in srgb, var(--accent) 55%, transparent),
-      transparent 72%
+      ellipse 60% 160% at 6% 40%,
+      color-mix(in srgb, var(--accent) 16%, transparent),
+      transparent 80%
     ),
     radial-gradient(
-      ellipse 48% 130% at 48% 80%,
-      color-mix(in srgb, var(--accent-2) 48%, transparent),
-      transparent 70%
+      ellipse 52% 150% at 48% 80%,
+      color-mix(in srgb, var(--accent-2) 14%, transparent),
+      transparent 78%
     ),
     radial-gradient(
-      ellipse 55% 140% at 96% 35%,
-      color-mix(in srgb, var(--spark) 50%, transparent),
-      transparent 72%
+      ellipse 60% 160% at 96% 35%,
+      color-mix(in srgb, var(--spark) 15%, transparent),
+      transparent 80%
     ),
     linear-gradient(
       105deg,
-      color-mix(in srgb, var(--accent) 28%, transparent) 0%,
-      color-mix(in srgb, var(--accent-2) 24%, transparent) 50%,
-      color-mix(in srgb, var(--spark) 26%, transparent) 100%
+      color-mix(in srgb, var(--accent) 8%, transparent) 0%,
+      color-mix(in srgb, var(--accent-2) 7%, transparent) 50%,
+      color-mix(in srgb, var(--spark) 7%, transparent) 100%
     );
 }
 

@@ -58,7 +58,7 @@ export const projects: Project[] = [
     },
     featured: true,
     problem:
-      "Nonostante siano di facile utilizzo, i social media diminuiscono la qualità delle foto, per cui non si riesce a vedere la qualità delle foto e di conseguenza della fotografa.",
+      "Nonostante siano di facile utilizzo, i social media diminuiscono la qualità delle foto, per cui non si riescono a cogliere gli elementi e i dettagli che rendono un'immagine unica e memorabile.",
     solution:
       "La fotografa può aggiornare portfolio, testi e copertine in autonomia, senza dipendere da uno sviluppatore o da un CMS generico poco adatto alle immagini ad alta risoluzione.",
     architecture: [

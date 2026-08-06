@@ -13,7 +13,7 @@ export function ContactCTA() {
             <SectionHeading
               eyebrow="Contatti"
               title="Pronto a costruire qualcosa di eccezionale?"
-              description="Raccontami il tuo progetto. Rispondo entro 24 ore lavorative."
+              description="Raccontami il tuo progetto. Rispondo entro 24 ore."
               dark
             />
             <div className="mt-8 flex flex-wrap gap-4">

@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
@@ -19,6 +17,9 @@ const variants = {
   ghost: "text-foreground/70 hover:text-accent hover:bg-accent/5",
 };
 
+/**
+ * Server-safe CTA link. No client hooks — safe to use from RSC (hero, CTA).
+ */
 export function Button({
   href,
   children,

@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import { stackDuel } from "@/data/site";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { useMotionSafe } from "@/hooks/use-motion-safe";
@@ -47,18 +48,38 @@ function CompetitorLegend() {
 }
 
 function OursLegend({ shouldAnimate }: { shouldAnimate: boolean }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const [inView, setInView] = useState(true);
+
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+    const io = new IntersectionObserver(
+      ([entry]) => setInView(!!entry?.isIntersecting),
+      { threshold: 0.2, rootMargin: "40px 0px" },
+    );
+    io.observe(node);
+    return () => io.disconnect();
+  }, []);
+
+  const pulse = shouldAnimate && inView;
+
   return (
-    <span className="relative inline-flex overflow-visible py-1">
+    <span ref={ref} className="relative inline-flex overflow-visible py-1">
       <motion.span
         aria-hidden
         className="absolute -inset-x-3 -inset-y-2.5 rounded-full bg-emerald-500/50 blur-xl dark:bg-emerald-500/25"
-        animate={shouldAnimate ? { opacity: [0.45, 0.85] } : undefined}
-        transition={{
-          duration: 2.2,
-          repeat: Infinity,
-          repeatType: "mirror",
-          ease: "easeInOut",
-        }}
+        animate={pulse ? { opacity: [0.45, 0.85] } : { opacity: 0.65 }}
+        transition={
+          pulse
+            ? {
+                duration: 2.2,
+                repeat: Infinity,
+                repeatType: "mirror",
+                ease: "easeInOut",
+              }
+            : { duration: 0 }
+        }
       />
       <span className="relative inline-flex items-center gap-2.5 rounded-xl border border-emerald-500/65 bg-emerald-500/28 px-4 py-2.5 text-base font-semibold uppercase tracking-[0.14em] text-emerald-900 dark:border-emerald-500/40 dark:bg-emerald-500/14 dark:text-emerald-300">
         <span className="flex size-7 items-center justify-center rounded-md bg-emerald-500/40 text-emerald-800 dark:bg-emerald-500/25 dark:text-emerald-400">

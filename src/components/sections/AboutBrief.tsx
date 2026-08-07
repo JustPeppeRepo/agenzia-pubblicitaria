@@ -24,7 +24,7 @@ export function AboutBrief() {
         />
 
         <div className="relative mx-auto max-w-6xl px-6 py-16 sm:py-20">
-          <FadeIn>
+          <FadeIn nearFold>
             <div className="mx-auto mb-10 max-w-3xl text-center lg:mb-12">
               <p className="mb-3 text-sm font-medium uppercase tracking-[0.2em] text-[#b45309] dark:text-spark">
                 {aboutTeam.eyebrow}

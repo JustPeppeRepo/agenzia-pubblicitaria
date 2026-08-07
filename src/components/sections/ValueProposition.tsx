@@ -1,4 +1,7 @@
+"use client";
+
 import dynamic from "next/dynamic";
+import { DeferredMount } from "@/components/motion/DeferredMount";
 
 const CompetitiveComparison = dynamic(
   () =>
@@ -6,9 +9,8 @@ const CompetitiveComparison = dynamic(
       (m) => m.CompetitiveComparison,
     ),
   {
-    loading: () => (
-      <div className="min-h-[28rem] w-full" aria-hidden />
-    ),
+    ssr: false,
+    loading: () => <div className="min-h-[28rem] w-full" aria-hidden />,
   },
 );
 
@@ -16,6 +18,7 @@ const PlainTalk = dynamic(
   () =>
     import("@/components/sections/PlainTalk").then((m) => m.PlainTalk),
   {
+    ssr: false,
     loading: () => (
       <div className="min-h-[72rem] w-full sm:min-h-[80rem]" aria-hidden />
     ),
@@ -30,10 +33,19 @@ export function ValueProposition() {
         className="pointer-events-none absolute inset-0 bg-dot-grid opacity-30"
       />
 
-      <div className="relative z-20 mx-auto max-w-6xl px-6 pt-12 pb-6">
+      <DeferredMount
+        className="relative z-20 mx-auto min-h-[28rem] max-w-6xl px-6 pt-12 pb-6"
+        rootMargin="280px 0px"
+      >
         <CompetitiveComparison />
-      </div>
-      <PlainTalk />
+      </DeferredMount>
+
+      <DeferredMount
+        className="min-h-[72rem] w-full sm:min-h-[80rem]"
+        rootMargin="320px 0px"
+      >
+        <PlainTalk />
+      </DeferredMount>
     </section>
   );
 }

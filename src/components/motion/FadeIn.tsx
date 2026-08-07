@@ -9,6 +9,12 @@ type FadeInProps = {
   className?: string;
   delay?: number;
   direction?: "up" | "down" | "left" | "right" | "none";
+  /**
+   * Near-fold content (e.g. AboutBrief under hero): keep opacity visible for
+   * LCP/paint while still sliding in — avoids opacity:0 on content already
+   * intersecting the viewport.
+   */
+  nearFold?: boolean;
 };
 
 const directionOffset = {
@@ -28,15 +34,25 @@ export function FadeIn({
   className,
   delay = 0,
   direction = "up",
+  nearFold = false,
 }: FadeInProps) {
   const offset = directionOffset[direction];
+  const y = nearFold ? Math.round((offset.y ?? 0) * 0.5) : offset.y;
+  const x = nearFold ? Math.round((offset.x ?? 0) * 0.5) : offset.x;
 
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, ...offset }}
+      initial={
+        nearFold
+          ? { opacity: 1, x, y }
+          : { opacity: 0, ...offset }
+      }
       whileInView={{ opacity: 1, x: 0, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
+      viewport={{
+        once: true,
+        margin: nearFold ? "0px" : "-80px",
+      }}
       transition={{ ...ENTRANCE_TRANSITION, delay }}
     >
       {children}

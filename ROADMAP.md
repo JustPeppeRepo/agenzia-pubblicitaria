@@ -29,7 +29,8 @@ Se una ottimizzazione richiede una flag experimental → **non implementarla**. 
 - [x] Rimosso `experimental.optimizePackageImports` da `next.config.ts`
 - [x] Icone brand via `getBrandIcon()` (niente `simple-icons` barrel / flags)
 - [x] Linee guida in `PROJECT_GUIDELINES.md` + questa roadmap
-- [x] Performance home (`/`): Hero LCP SSR-visibile (niente `opacity: 0` su H1/CTA); `HeroVisual` via `next/dynamic` solo md+; `ValueProposition` (CompetitiveComparison + PlainTalk) code-split con placeholder anti-CLS; copertine progetti WebP
+- [x] Performance home (`/`): Hero LCP SSR-visibile (niente `opacity: 0` su H1/CTA); mockup desktop via load md-only; `ValueProposition` deferred (IO + `ssr: false`) con placeholder anti-CLS; PlainTalkVisual split per id; FadeIn `nearFold` su AboutBrief; Header Framer solo menu mobile; bloom hero senza `filter:blur` live
+- [x] Build verificata (`next build` — `/` Static)
 
 ## Prossimi passi
 

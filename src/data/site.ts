@@ -70,20 +70,23 @@ const aboutTeamDouble = {
   imageAlt: "Il team — due persone appoggiate schiena a schiena",
 } as const;
 
+/** Same copy as About page first paragraph (solo / non-DOUBLE). Supports `**bold**`. */
+const engineerBio =
+  "Sono uno **Software Developer** con una solida preparazione logicostrutturata. La formazione con la **Luiss** mi ha fornito basi rigorose nella **programmazione C++** e nell'ottimizzazione della memoria, sviluppando un'impostazione orientata all'efficienza algoritmica e alle alte prestazioni.";
+
 const aboutTeamSolo = {
   eyebrow: "Chi sono",
-  title: "Giuseppe — Web Developer",
+  title: "GIUSEPPE — Web Developer",
   description:
-    "Unisco la precisione del codice alla forza della comunicazione digitale.",
+    "Unisco la precisione del codice e della logica algoritmica alla dinamicità del web",
   left: {
-    title: "Sviluppo web su misura",
-    description:
-      "Progetto siti e applicazioni web su misura: veloci, affidabili e pronti a crescere con te. Ogni riga di codice serve a offrire un'esperienza fluida a chi visita il tuo sito.",
+    title: "La mia formazione informatica",
+    description: engineerBio,
   },
   right: {
-    title: "Visibilità e crescita",
+    title: "La mia formazione Full Stack",
     description:
-      "Seguo anche la presenza online del progetto: SEO, contenuti e strategia di comunicazione perché il tuo brand emerga su Google e sui canali giusti. Non basta esistere online: serve essere visibili, credibili e convincenti.",
+      "A questo percorso ho affiancato il **Full Stack Open dell'Università di Helsinki**, completando il mio profilo con le tecnologie per lo **sviluppo web Full Stack, API REST** e i **design pattern più moderni**.",
   },
   image: "/images/giuseppe-portrait.webp",
   imageAlt: "Giuseppe — Web Developer",
@@ -198,7 +201,7 @@ export const aboutMembers = {
     role: "Full Stack Developer",
     image: "/images/giuseppe-portrait.webp",
     imageAlt: "Giuseppe — Web Developer",
-    bio: "Sono uno **Software Developer** con una solida preparazione logicostrutturata. La formazione con la **Luiss** mi ha fornito basi rigorose nella **programmazione C++** e nell'ottimizzazione della memoria, sviluppando un'impostazione orientata all'efficienza algoritmica e alle alte prestazioni. A questo percorso ho affiancato il **Full Stack Open dell'Università di Helsinki**, completando il mio profilo con le tecnologie per lo **sviluppo web Full Stack, API REST** e i **design pattern più moderni**.",
+    bio: engineerBio,
     expandLabel: "Mostra come funziona il codice",
     collapseLabel: "Nascondi dettagli tecnici",
   },

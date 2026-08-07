@@ -2,6 +2,7 @@ import Image from "next/image";
 import { aboutTeam } from "@/data/site";
 import { featuredTechnologies } from "@/data/technologies";
 import { FadeIn, StaggerContainer, StaggerItem } from "@/components/motion/FadeIn";
+import { BioText } from "@/components/ui/BioText";
 import { TechIcon } from "@/components/ui/TechIcon";
 import { LayeredWaves } from "@/components/decor/LayeredWaves";
 
@@ -55,7 +56,7 @@ export function AboutBrief() {
                   {aboutTeam.left.title}
                 </h3>
                 <p className="mt-2 text-sm leading-6 text-foreground/65 sm:mt-3 sm:text-base sm:leading-7">
-                  {aboutTeam.left.description}
+                  <BioText text={aboutTeam.left.description} />
                 </p>
               </div>
 
@@ -64,7 +65,7 @@ export function AboutBrief() {
                   {aboutTeam.right.title}
                 </h3>
                 <p className="mt-2 text-sm leading-6 text-foreground/65 sm:mt-3 sm:text-base sm:leading-7">
-                  {aboutTeam.right.description}
+                  <BioText text={aboutTeam.right.description} />
                 </p>
               </div>
             </div>

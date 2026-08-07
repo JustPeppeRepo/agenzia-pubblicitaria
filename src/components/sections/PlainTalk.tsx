@@ -6,6 +6,7 @@ import { LayeredWaves } from "@/components/decor/LayeredWaves";
 import { EASE_OUT, ENTRANCE_TRANSITION } from "@/components/motion/easing";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { PlainTalkVisual } from "@/components/sections/PlainTalkVisual";
+import { BioText } from "@/components/ui/BioText";
 import { cn } from "@/lib/utils";
 
 type RowProps = {
@@ -39,7 +40,7 @@ function PlainTalkRow({ index, title, text, visual }: RowProps) {
             textFirst && "md:ml-auto",
           )}
         >
-          {text}
+          <BioText text={text} />
         </p>
       </div>
 

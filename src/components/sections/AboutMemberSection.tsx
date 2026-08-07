@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useId, useState, type ReactNode } from "react";
 import type { AboutMember } from "@/types";
+import { BioText } from "@/components/ui/BioText";
 import { cn } from "@/lib/utils";
 
 type AboutMemberSectionProps = {
@@ -10,24 +11,6 @@ type AboutMemberSectionProps = {
   children: ReactNode;
   className?: string;
 };
-
-/** Renders `**bold**` segments from bio copy in site.ts */
-function BioText({ text }: { text: string }) {
-  const parts = text.split(/(\*\*[^*]+\*\*)/g);
-  return (
-    <>
-      {parts.map((part, i) =>
-        part.startsWith("**") && part.endsWith("**") ? (
-          <strong key={i} className="font-semibold text-foreground/85">
-            {part.slice(2, -2)}
-          </strong>
-        ) : (
-          part
-        ),
-      )}
-    </>
-  );
-}
 
 export function AboutMemberSection({
   member,

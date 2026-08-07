@@ -33,7 +33,8 @@ const ORBIT_TRACKS = [
   {
     id: "nextjs",
     size: 14,
-    tilt: 22,
+    /** More oblique so the tall ring clears the lower wave on wide viewports */
+    tilt: 72,
     width: "w-[136%]",
     aspect: "aspect-[0.82/1]",
     offset: "-translate-x-[3%] translate-y-[1%]",

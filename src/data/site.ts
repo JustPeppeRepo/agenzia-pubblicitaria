@@ -6,7 +6,7 @@ import type { NavLink, SiteConfig, StackDuel } from "@/types";
 
 export const siteConfig: SiteConfig = {
   name: "Aiello Digital Studio",
-  url: "https://aiellodigitalstudio.com",
+  url: "https://www.aiellodigitalstudio.com",
   role: "Web Developer & Advertising Strategist",
   tagline: "Siti web e pubblicità mirata.",
   description:

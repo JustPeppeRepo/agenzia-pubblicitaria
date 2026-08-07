@@ -499,57 +499,57 @@ body {
   );
 }
 
-/* Sticky nav — barely-there brand spectrum (light + dark); base more opaque */
+/* Sticky nav — vivid brand spectrum (light + dark) */
 .bg-nav {
-  background-color: color-mix(in srgb, var(--background) 88%, transparent);
+  background-color: color-mix(in srgb, var(--background) 55%, transparent);
   background-image:
     radial-gradient(
-      ellipse 60% 160% at 8% 50%,
-      color-mix(in srgb, var(--accent) 12%, transparent),
-      transparent 78%
+      ellipse 55% 140% at 8% 50%,
+      color-mix(in srgb, var(--accent) 42%, transparent),
+      transparent 70%
     ),
     radial-gradient(
-      ellipse 55% 150% at 52% 20%,
-      color-mix(in srgb, var(--accent-2) 10%, transparent),
-      transparent 76%
+      ellipse 50% 130% at 52% 20%,
+      color-mix(in srgb, var(--accent-2) 38%, transparent),
+      transparent 68%
     ),
     radial-gradient(
-      ellipse 60% 160% at 94% 60%,
-      color-mix(in srgb, var(--spark) 11%, transparent),
-      transparent 78%
+      ellipse 55% 140% at 94% 60%,
+      color-mix(in srgb, var(--spark) 40%, transparent),
+      transparent 70%
     ),
     linear-gradient(
       105deg,
-      color-mix(in srgb, var(--accent) 6%, transparent) 0%,
-      color-mix(in srgb, var(--accent-2) 5%, transparent) 45%,
-      color-mix(in srgb, var(--spark) 5%, transparent) 100%
+      color-mix(in srgb, var(--accent) 22%, transparent) 0%,
+      color-mix(in srgb, var(--accent-2) 18%, transparent) 45%,
+      color-mix(in srgb, var(--spark) 20%, transparent) 100%
     );
 }
 
 html.dark .bg-nav,
 html[data-theme="dark"] .bg-nav {
-  background-color: color-mix(in srgb, var(--background) 82%, transparent);
+  background-color: color-mix(in srgb, var(--background) 45%, transparent);
   background-image:
     radial-gradient(
-      ellipse 60% 160% at 6% 40%,
-      color-mix(in srgb, var(--accent) 16%, transparent),
-      transparent 80%
+      ellipse 55% 140% at 6% 40%,
+      color-mix(in srgb, var(--accent) 55%, transparent),
+      transparent 72%
     ),
     radial-gradient(
-      ellipse 52% 150% at 48% 80%,
-      color-mix(in srgb, var(--accent-2) 14%, transparent),
-      transparent 78%
+      ellipse 48% 130% at 48% 80%,
+      color-mix(in srgb, var(--accent-2) 48%, transparent),
+      transparent 70%
     ),
     radial-gradient(
-      ellipse 60% 160% at 96% 35%,
-      color-mix(in srgb, var(--spark) 15%, transparent),
-      transparent 80%
+      ellipse 55% 140% at 96% 35%,
+      color-mix(in srgb, var(--spark) 50%, transparent),
+      transparent 72%
     ),
     linear-gradient(
       105deg,
-      color-mix(in srgb, var(--accent) 8%, transparent) 0%,
-      color-mix(in srgb, var(--accent-2) 7%, transparent) 50%,
-      color-mix(in srgb, var(--spark) 7%, transparent) 100%
+      color-mix(in srgb, var(--accent) 28%, transparent) 0%,
+      color-mix(in srgb, var(--accent-2) 24%, transparent) 50%,
+      color-mix(in srgb, var(--spark) 26%, transparent) 100%
     );
 }
 

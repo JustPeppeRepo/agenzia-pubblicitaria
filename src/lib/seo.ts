@@ -13,7 +13,8 @@ export function absoluteUrl(path = "/"): string {
 }
 
 /** Default share image (absolute). Prefer a photographic asset over SVG logos. */
-export const defaultOgImagePath = "/images/projects/CAGEcopertina.webp";
+export const defaultOgImagePath = "/images/og-hero.png";
+export const defaultOgImageSize = { width: 1024, height: 491 } as const;
 
 /** Stable brand mark for Schema.org `logo` (square PNG). */
 const brandLogoPath = "/icon-192.png";

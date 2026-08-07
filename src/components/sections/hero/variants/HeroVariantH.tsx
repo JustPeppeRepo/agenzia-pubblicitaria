@@ -364,10 +364,10 @@ export function HeroVariantH() {
   const live = useHeroLive();
 
   return (
-    <div className="relative mx-auto grid w-full max-w-6xl flex-1 content-center items-center gap-10 px-6 py-10 pb-14 md:grid-cols-2 md:gap-12 md:px-8 md:py-12 md:pb-16 lg:gap-16 lg:px-10">
+    <div className="relative mx-auto grid w-full max-w-6xl flex-1 content-center items-center gap-10 px-6 py-6 md:grid-cols-2 md:gap-12 md:px-8 md:py-8 lg:gap-16 lg:px-10">
       <div className="relative z-10 flex flex-col items-center text-center md:items-start md:text-left">
         <p className="mb-3.5 text-[11px] font-medium uppercase tracking-[0.28em] text-accent-2 sm:text-xs">
-          — Web development / Digital products
+          Web development / Digital products
         </p>
         <h1 className="max-w-[12ch] text-[2.75rem] font-semibold uppercase leading-[1.05] tracking-tight text-foreground sm:text-6xl md:max-w-[11ch] md:text-[3.35rem] md:normal-case lg:text-[3.75rem]">
           Siti web e pubblicità mirata.

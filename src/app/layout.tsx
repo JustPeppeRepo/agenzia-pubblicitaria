@@ -20,6 +20,7 @@ import { siteConfig } from "@/data/site";
 import {
   absoluteUrl,
   defaultOgImagePath,
+  defaultOgImageSize,
   getSiteUrl,
   organizationJsonLd,
   websiteJsonLd,
@@ -73,9 +74,9 @@ export const metadata: Metadata = {
     images: [
       {
         url: ogImage,
-        width: 1920,
-        height: 1080,
-        alt: `${siteConfig.name} — portfolio`,
+        width: defaultOgImageSize.width,
+        height: defaultOgImageSize.height,
+        alt: `${siteConfig.name} — siti web e pubblicità mirata`,
       },
     ],
   },
@@ -98,11 +99,11 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/favicon.ico", sizes: "any" },
       { url: "/favicon-48.png", type: "image/png", sizes: "48x48" },
       { url: "/icon-192.png", type: "image/png", sizes: "192x192" },
+      { url: "/favicon.ico", sizes: "any" },
     ],
-    shortcut: "/favicon.ico",
+    shortcut: "/favicon-48.png",
     apple: [{ url: "/apple-icon.png", type: "image/png", sizes: "180x180" }],
   },
   formatDetection: {

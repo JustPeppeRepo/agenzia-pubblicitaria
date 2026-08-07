@@ -20,6 +20,8 @@ import {
   absoluteUrl,
   breadcrumbJsonLd,
   creativeWorkJsonLd,
+  defaultOgImagePath,
+  defaultOgImageSize,
 } from "@/lib/seo";
 
 type PageProps = {
@@ -37,7 +39,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!project) return { title: "Progetto non trovato" };
 
   const url = `/projects/${project.slug}`;
-  const image = absoluteUrl(project.image);
+  const ogImage = absoluteUrl(defaultOgImagePath);
 
   return {
     title: project.title,
@@ -50,8 +52,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       url,
       images: [
         {
-          url: image,
-          alt: project.title,
+          url: ogImage,
+          width: defaultOgImageSize.width,
+          height: defaultOgImageSize.height,
+          alt: `${project.title} | Aiello Digital Studio`,
         },
       ],
     },
@@ -59,7 +63,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       card: "summary_large_image",
       title: project.title,
       description: project.excerpt,
-      images: [image],
+      images: [ogImage],
     },
   };
 }

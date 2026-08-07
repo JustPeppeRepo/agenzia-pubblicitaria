@@ -15,7 +15,12 @@ import { ProjectsGrid } from "@/components/sections/ProjectsGrid";
 import { ContactCTA } from "@/components/sections/ContactCTA";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { siteConfig } from "@/data/site";
-import { absoluteUrl, defaultOgImagePath, personJsonLd } from "@/lib/seo";
+import {
+  absoluteUrl,
+  defaultOgImagePath,
+  defaultOgImageSize,
+  personJsonLd,
+} from "@/lib/seo";
 
 const homeTitle = `${siteConfig.name} | Siti web e pubblicità a Palermo`;
 const ogImage = absoluteUrl(defaultOgImagePath);
@@ -46,9 +51,9 @@ export const metadata: Metadata = {
     images: [
       {
         url: ogImage,
-        width: 1920,
-        height: 1080,
-        alt: `${siteConfig.name} — portfolio`,
+        width: defaultOgImageSize.width,
+        height: defaultOgImageSize.height,
+        alt: `${siteConfig.name} — siti web e pubblicità mirata`,
       },
     ],
   },

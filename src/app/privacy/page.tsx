@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     url: "/privacy",
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: `Privacy Policy | ${siteConfig.name}`,
     description:
       "Come trattiamo i dati personali raccolti tramite il form di contatto.",
